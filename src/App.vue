@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
     <router-view></router-view>
   </div>
 </template>
@@ -11,13 +10,26 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~bulma/sass/utilities/initial-variables";
+
+$turquoise-deep: hsl(205, 36%, 43%); //override some variables here
+
+$primary: $turquoise-deep;
+
+@import '~bulma';
+
+body, html {
+  height: 100%;
+  overflow: hidden;
+}
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+.text-center {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.text-right {
+  text-align: right;
 }
 </style>
