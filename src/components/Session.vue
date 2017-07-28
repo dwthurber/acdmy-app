@@ -2,10 +2,7 @@
   <div>
     <Navbar></Navbar>
     <div class="columns videobar is-gapless is-multiline">
-      <Video></Video>
-      <Video></Video>
-      <Video></Video>
-      <Video></Video>
+      <Video v-for="user in users" :user="user" :key="user.id"></Video>
     </div>
   </div>
 </template>
@@ -19,7 +16,12 @@ export default {
   name: 'session',
   data () {
     return {
-      msg: ''
+      users: [
+        { id: 0, name: 'Derek', hand: false },
+        { id: 1, name: 'Alyssa', hand: true },
+        { id: 2, name: 'Ryan', hand: false },
+        { id: 3, name: 'Emily', hand: false }
+      ]
     }
   }
 }
