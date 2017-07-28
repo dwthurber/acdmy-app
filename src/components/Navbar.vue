@@ -18,16 +18,26 @@
       </a>
     </div>
     <div class="navbar-end is-marginless">
-      <a class="navbar-item is-close">
-        <b-icon class="is-grey" icon="notifications" size="is-small"></b-icon>
-      </a>
-      <a class="navbar-item is-close">
-        <b-icon class="is-grey" icon="help" size="is-small"></b-icon>
-      </a>
-      <a class="navbar-item is-close">
+      <b-dropdown class="is-marginless" position="is-bottom-left">
+        <a class="navbar-item is-close" slot="trigger" title="notifications">
+          <b-icon class="is-grey" icon="notifications" size="is-small"></b-icon>
+        </a>
+
+          <b-dropdown-option subheader class="has-text-centered" v-if="!notifications">All up to date!</b-dropdown-option>
+      </b-dropdown>
+      <b-dropdown class="is-marginless" position="is-bottom-left">
+        <a class="navbar-item is-close" slot="trigger" title="help">
+          <b-icon class="is-grey" icon="help" size="is-small"></b-icon>
+        </a>
+
+          <b-dropdown-option><b-icon icon="book"></b-icon> Read the Guides</b-dropdown-option>
+          <hr class="dropdown-divider">
+          <b-dropdown-option><b-icon icon="question_answer"></b-icon> Chat with Support</b-dropdown-option>
+      </b-dropdown>
+      <a class="navbar-item is-close" title="toggle mute">
         <b-icon class="is-primary is-circle" icon="mic"></b-icon>
       </a>
-      <a class="navbar-item" href="#">
+      <a class="navbar-item" href="#" title="user profile">
         <img class="is-24x24" src="../assets/logo.png" alt="Acdmy: Synchronous Online Learning Platform">
       </a>
     </div>
@@ -39,7 +49,7 @@ export default {
   name: 'navbar',
   data () {
     return {
-      logo: ''
+      notifications: false
     }
   }
 }
@@ -49,6 +59,9 @@ export default {
 .navbar {
   border-bottom: 1px solid #cfcfcf;
 }
+/*a.navbar-item:hover {
+  background-color: #fff;
+}*/
 .navbar-brand,
 .navbar-end {
   width: 33%;

@@ -2,7 +2,7 @@
   <div>
     <Navbar></Navbar>
     <div class="columns videobar is-gapless is-multiline">
-      <Video v-for="user in users" :user="user" :key="user.id"></Video>
+      <Video v-for="(user, index) in users" :user="user" :key="user.id"></Video>
     </div>
   </div>
 </template>
