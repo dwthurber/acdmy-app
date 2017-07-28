@@ -1,19 +1,21 @@
 <template>
   <div>
-    <div class="notification is-primary">
-      <button class="delete"></button>
-      Primar lorem ipsum dolor sit amet, consectetur
-      adipiscing elit lorem ipsum dolor. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Sit amet,
-      consectetur adipiscing elit
+    <Navbar></Navbar>
+    <div class="columns videobar is-gapless is-multiline">
+      <Video></Video>
+      <Video></Video>
+      <Video></Video>
+      <Video></Video>
     </div>
   </div>
 </template>
 
 <script>
-import Topbar from './Topbar'
+import Navbar from './Navbar'
+import Video from './Video'
 
 export default {
-  components: { Topbar },
+  components: { Navbar, Video },
   name: 'session',
   data () {
     return {
@@ -24,5 +26,8 @@ export default {
 </script>
 
 <style scoped>
+.videobar {
+  border-bottom: 1px solid #cfcfcf;
+}
 
 </style>

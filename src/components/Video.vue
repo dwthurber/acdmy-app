@@ -1,10 +1,12 @@
 <template>
-  
+  <div class="column is-1">
+    <div class="box"></div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'topbar',
+  name: 'video',
   data () {
     return {
       msg: ''
@@ -14,14 +16,7 @@ export default {
 </script>
 
 <style scoped>
-.topbar {
-  padding: 8px;
-}
-img {
-  height: 24px;
-  width: auto;
-}
-.brandlogo {
-  float: left;
+.box {
+  height: auto;
 }
 </style>
