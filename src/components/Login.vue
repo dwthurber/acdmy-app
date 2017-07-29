@@ -5,38 +5,27 @@
         <div class="columns is-vcentered">
           <div class="column is-4 is-offset-4">
             <h1 class="title">
-              Register for an Account
+              Sign In
             </h1>
             <div class="box">
-              <label class="label">Name</label>
-              <p class="control">
-                <input class="input" type="text" placeholder="John Smith">
-              </p>
               <label class="label">Username</label>
               <p class="control">
                 <input class="input" type="text" placeholder="jsmith">
               </p>
-              <label class="label">Email</label>
-              <p class="control">
-                <input class="input" type="text" placeholder="jsmith@example.org">
-              </p>
-              <hr>
               <label class="label">Password</label>
               <p class="control">
                 <input class="input" type="password" placeholder="●●●●●●●">
               </p>
-              <label class="label">Confirm Password</label>
-              <p class="control">
-                <input class="input" type="password" placeholder="●●●●●●●">
-              </p>
               <hr>
               <p class="control">
-                <button class="button is-primary">Register</button>
-                <button class="button is-default">Cancel</button>
+                <button class="button is-primary">Sign In</button>
               </p>
             </div>
+            <div class="box">
+              <a class="button is-danger is-social">Sign in with Google</a>
+            </div>
             <p class="has-text-centered">
-              <a href="login.html">Login</a>
+              <a href="#/register">Sign Up</a>
               |
               <a href="#">Need help?</a>
             </p>
@@ -63,5 +52,8 @@ export default {
 .label {
   margin-top: 8px;
 }
-
+.is-social {
+  width: 100%;
+  margin: 4px 0;
+}
 </style>

@@ -36,7 +36,7 @@
               </p>
             </div>
             <p class="has-text-centered">
-              <a href="/login">Login</a>
+              <a href="#/login">Login</a>
               |
               <a href="#">Need help?</a>
             </p>
