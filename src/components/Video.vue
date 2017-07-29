@@ -2,14 +2,14 @@
   <div class="column is-1">
     <div class="box is-paddingless" :id="'video' + user.id">
       <b-icon title="feature user" class="is-success is-hand" icon="pan_tool" v-if="user.hand"></b-icon>
-      <span class="tag is-primary is-medium">{{user.name}}</span>
+      <span class="tag is-primary">{{user.name}}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'video',
+  name: 'videoContainer',
   props: ['user'],
   data () {
     return {

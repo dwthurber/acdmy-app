@@ -3,17 +3,17 @@
     <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
     <Navbar></Navbar>
     <div class="columns videobar is-gapless is-multiline">
-      <Video v-for="(user, index) in users" :user="user" :key="user.id"></Video>
+      <VideoContainer v-for="(user, index) in users" :user="user" :key="user.id"></VideoContainer>
     </div>
   </div>
 </template>
 
 <script>
 import Navbar from './Navbar'
-import Video from './Video'
+import VideoContainer from './Video'
 
 export default {
-  components: { Navbar, Video },
+  components: { Navbar, VideoContainer },
   name: 'session',
   data () {
     return {

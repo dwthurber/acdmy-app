@@ -5,24 +5,11 @@
 </template>
 
 <script>
-import Firebase from 'firebase'
-
-let config = {
-  apiKey: 'AIzaSyAz3N-tQBr6W4jiGUv_FNOa3rjBkClxu9Y',
-  authDomain: 'acdmy-b01f5.firebaseapp.com',
-  databaseURL: 'https://acdmy-b01f5.firebaseio.com'
-}
-
-let app = Firebase.initializeApp(config)
-let db = app.database()
-
-let booksRef = db.ref('books')
+import store from './store/index'
 
 export default {
   name: 'app',
-  firebase: {
-    books: booksRef
-  }
+  store
 }
 </script>
 

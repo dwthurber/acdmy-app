@@ -30,7 +30,7 @@
             <p class="has-text-centered">
               <a href="#/register">Sign Up</a>
               |
-              <a href="#">Need help?</a>
+              <a href="#">Forgot password?</a>
             </p>
           </div>
         </div>
