@@ -11,10 +11,14 @@
 <script>
 import Navbar from './Navbar'
 import VideoContainer from './Video'
+import { mapState } from 'vuex'
 
 export default {
   components: { Navbar, VideoContainer },
   name: 'session',
+  computed: {
+    ...mapState(['user'])
+  },
   data () {
     return {
       users: [

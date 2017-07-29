@@ -1,15 +1,39 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view v-if="user !== null"></router-view>
   </div>
 </template>
 
 <script>
 import store from './store/index'
+import Firebase from 'firebase'
+import { mapState } from 'vuex'
+import './firebase'
 
 export default {
   name: 'app',
-  store
+  store,
+  computed: {
+    ...mapState(['user'])
+  },
+  beforeCreate () {
+    Firebase.auth().onAuthStateChanged((user) => {
+      // initially user = null, after auth it will be either <fb_user> or false
+      this.$store.commit('setUser', user || false)
+      if (user && this.$route.path === '/login') {
+        this.$router.replace('/')
+      } else if (user && this.$route.path === '/register') {
+        this.$router.replace('/')
+      } else if (!user && this.$route.path !== '/login') {
+        this.$router.replace('/login')
+      }
+    })
+  },
+  data: {
+    return () {
+      this.isLoading = true
+    }
+  }
 }
 </script>
 

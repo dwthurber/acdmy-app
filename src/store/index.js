@@ -2,11 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 const mutations = {
-  AUTH_CHANGED (state, authData) {
-    state.authData = authData
-  },
-  REDIRECT_LOGIN (state) {
-    state.route.path = '/login'
+  setUser (state, value) {
+    state.user = value
   }
 }
 
@@ -14,8 +11,7 @@ Vue.use(Vuex)
 Vue.config.debug = true
 
 const state = {
-  route: {},
-  authData: {},
+  user: null,
   count: 0
 }
 
