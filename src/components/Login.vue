@@ -8,21 +8,24 @@
               Sign In
             </h1>
             <div class="box">
-              <label class="label">Username</label>
-              <p class="control">
-                <input class="input" type="text" placeholder="jsmith">
-              </p>
-              <label class="label">Password</label>
-              <p class="control">
-                <input class="input" type="password" placeholder="●●●●●●●">
-              </p>
+              <b-field label="Email (username)">
+                  <b-input type="email" icon="email"
+                      placeholder="jsmith@example.org">
+                  </b-input>
+              </b-field>
+              <b-field label="Password">
+                  <b-input type="password" icon="lock"
+                      placeholder="Str0ngP@ssword"
+                      password-reveal>
+                  </b-input>
+              </b-field>
               <hr>
               <p class="control">
                 <button class="button is-primary">Sign In</button>
               </p>
             </div>
             <div class="box">
-              <a class="button is-danger is-social">Sign in with Google</a>
+              <a class="button is-google is-social">Sign in with Google</a>
             </div>
             <p class="has-text-centered">
               <a href="#/register">Sign Up</a>
@@ -49,9 +52,6 @@ export default {
 </script>
 
 <style scoped>
-.label {
-  margin-top: 8px;
-}
 .is-social {
   width: 100%;
   margin: 4px 0;

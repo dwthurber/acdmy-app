@@ -32,6 +32,8 @@ export default {
 $turquoise-deep: hsl(205, 36%, 43%);
 $grey: #cfcfcf;
 $grey-invert: findColorInvert($grey);
+$google: #dd4b39;
+$google-invert: findColorInvert($google);
 
 $primary: $turquoise-deep;
 $primary-invert: findColorInvert($primary);
@@ -48,6 +50,7 @@ $colors: (
     "warning": ($warning, $warning-invert),
     "danger": ($danger, $danger-invert),
     "grey": ($grey, $grey-invert),
+    "google": ($google, $google-invert),
 );
 
 // Links

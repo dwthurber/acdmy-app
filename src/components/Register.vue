@@ -8,27 +8,22 @@
               Register for an Account
             </h1>
             <div class="box">
-              <label class="label">Name</label>
-              <p class="control">
-                <input class="input" type="text" placeholder="John Smith">
-              </p>
-              <label class="label">Username</label>
-              <p class="control">
-                <input class="input" type="text" placeholder="jsmith">
-              </p>
-              <label class="label">Email</label>
-              <p class="control">
-                <input class="input" type="text" placeholder="jsmith@example.org">
-              </p>
+              <a class="button is-google is-social">Sign up with Google</a>
               <hr>
-              <label class="label">Password</label>
-              <p class="control">
-                <input class="input" type="password" placeholder="●●●●●●●">
-              </p>
-              <label class="label">Confirm Password</label>
-              <p class="control">
-                <input class="input" type="password" placeholder="●●●●●●●">
-              </p>
+              <b-field label="Name">
+                  <b-input icon="person" placeholder="Jane Smith"></b-input>
+              </b-field>
+              <b-field label="Email (username)">
+                  <b-input type="email" icon="email"
+                      placeholder="jsmith@example.org">
+                  </b-input>
+              </b-field>
+              <b-field label="Password">
+                  <b-input type="password" icon="lock"
+                      placeholder="Str0ngP@ssword"
+                      password-reveal>
+                  </b-input>
+              </b-field>
               <hr>
               <p class="control">
                 <button class="button is-primary">Register</button>
@@ -60,8 +55,8 @@ export default {
 </script>
 
 <style scoped>
-.label {
-  margin-top: 8px;
+.is-social {
+  width: 100%;
+  margin: 4px 0;
 }
-
 </style>
