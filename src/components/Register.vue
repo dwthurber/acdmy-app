@@ -1,5 +1,5 @@
 <template>
-  <section class="hero is-fullheight is-primary is-bold">
+  <section class="hero is-fullheight is-primary is-dark">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-vcentered">
@@ -58,5 +58,10 @@ export default {
 .is-social {
   width: 100%;
   margin: 4px 0;
+}
+.is-dark {
+  background-color: #F62459;
+  background-image: linear-gradient(rgba(70, 116, 149, 0.6),rgba(70, 160, 119, 0.6)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url('../assets/bg.jpg');
+  background-position: center;
 }
 </style>

@@ -37,19 +37,90 @@
       <a class="navbar-item is-close" title="toggle mute">
         <b-icon class="is-primary is-circle" icon="mic"></b-icon>
       </a>
-      <a class="navbar-item" href="#" title="user profile">
-        <img class="is-24x24" src="../assets/logo.png" alt="Acdmy: Synchronous Online Learning Platform">
-      </a>
+      <b-dropdown class="is-marginless" position="is-bottom-left">
+        <a class="navbar-item" href="#" slot="trigger" title="user profile">
+          <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
+          <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
+        </a>
+
+        <b-dropdown-option subheader class="is-user-dropdown">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <h4 class="title"><strong v-if="user.displayName">{{user.displayName}}</strong><strong v-else>First Last</strong></h4>
+                  <p class="subtitle is-6"><small>{{user.email}}</small><br>
+                    <small class="has-text-success" v-if="emailsent">email sent</small>
+                    <small class="has-text-danger" v-if="!user.emailVerified && !emailsent"><a class="has-text-danger" href="#" @click.prevent="verifyEmail">Please verify email</a></small>
+                  </p>
+                  <p><small><a href="#">Account Settings</a></small> | <small><a href="#" @click.self.prevent="logout">Logout</a></small></p>
+                </p>
+              </div>
+            </div>
+            <figure class="media-right">
+              <p class="image is-64x64">
+                <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
+                <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
+              </p>
+            </figure>
+          </article>
+        </b-dropdown-option>
+        <hr class="dropdown-divider">
+        <b-dropdown-option subheader>
+          <b-field label="Video Source">
+            <b-select placeholder="select" icon="videocam" expanded>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+            </b-select>
+          </b-field>
+          <b-field label="Audio Input Source">
+            <b-select placeholder="select" icon="mic" expanded>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+            </b-select>
+          </b-field>
+          <b-field label="Audio Output Source">
+            <b-select placeholder="select" icon="volume_up" expanded>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+            </b-select>
+          </b-field>
+        </b-dropdown-option>
+      </b-dropdown>
     </div>
   </nav>
 </template>
 
 <script>
+import Firebase from 'firebase'
+import '../firebase'
+import { mapState } from 'vuex'
+
 export default {
   name: 'navbar',
+  computed: {
+    ...mapState(['user'])
+  },
   data () {
     return {
-      notifications: false
+      notifications: false,
+      emailsent: false
+    }
+  },
+  methods: {
+    logout: function () {
+      Firebase.auth().signOut().then(function () {}, function (error) {
+        console.error('Sign Out Error', error)
+      })
+    },
+    verifyEmail: function () {
+      this.user.sendEmailVerification()
+        .then((response) => {
+          console.log('Email Sent')
+          this.emailsent = true
+        }).catch((error) => {
+          console.error('Email Error', error)
+        })
     }
   }
 }
@@ -77,5 +148,11 @@ export default {
 }
 .navbar-center {
   margin: 0 auto;
+}
+.is-user-dropdown {
+  width: 350px;
+}
+.is-circle-image {
+  border-radius: 50%;
 }
 </style>
