@@ -45,6 +45,8 @@ $grey: #cfcfcf;
 $grey-invert: findColorInvert($grey);
 $google: #dd4b39;
 $google-invert: findColorInvert($google);
+$facebook: #3b5998;
+$facebook-invert: findColorInvert($facebook);
 
 $primary: $turquoise-deep;
 $primary-invert: findColorInvert($primary);
@@ -62,6 +64,7 @@ $colors: (
     "danger": ($danger, $danger-invert),
     "grey": ($grey, $grey-invert),
     "google": ($google, $google-invert),
+    "facebook": ($facebook, $facebook-invert),
 );
 
 // Links

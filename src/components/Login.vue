@@ -1,14 +1,21 @@
 <template>
   <section class="hero is-fullheight is-primary is-dark">
-    <b-loading :active.sync="authenticating" :canCancel="false"></b-loading>
     <div class="hero-body">
       <div class="container">
         <div class="columns is-vcentered">
           <div class="column is-4 is-offset-4">
             <h1 class="title">
-              Sign In
+              Acdmy.io
             </h1>
             <div class="box">
+              <div class="columns">
+                <div class="column">
+                  <a class="button is-google is-social" @click.self.prevent="googleLogin">Google</a>
+                </div>
+                <div class="column">
+                  <a class="button is-facebook is-social" @click.self.prevent="facebookLogin">Facebook</a>
+                </div>
+              </div>
               <b-message type="is-danger" v-if="loginFailed">
                   Uh oh. That didn't work. <a href="#">Reset Password?</a>
               </b-message>
@@ -26,12 +33,9 @@
                 </b-field>
                 <hr>
                 <p class="control">
-                  <button class="button is-primary" @click.self.prevent="login">Sign In</button>
+                  <button class="button is-primary" :class="{'is-loading': authenticating}" @click.self.prevent="login">Login</button>
                 </p>
               </form>
-            </div>
-            <div class="box">
-              <a class="button is-google is-social">Sign in with Google</a>
             </div>
             <p class="has-text-centered">
               <a href="#/register">Sign Up</a>
@@ -50,6 +54,9 @@
 import Firebase from 'firebase'
 import '../firebase'
 
+const google = new Firebase.auth.GoogleAuthProvider()
+const facebook = new Firebase.auth.FacebookAuthProvider()
+
 export default {
   name: 'login',
   data () {
@@ -63,7 +70,8 @@ export default {
   methods: {
     login: function () {
       this.authenticating = true
-      Firebase.auth().signInWithEmailAndPassword(this.email, this.password).catch(function (error, authData) {
+      Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .catch((error, authData) => {
         if (error) {
           console.log('Login Failed!', error)
           this.loginFailed = true
@@ -71,7 +79,23 @@ export default {
           console.log('Authenticated successfully with payload:', authData)
         }
         this.authenticating = false
-      }.bind(this))
+      })
+    },
+    googleLogin: function () {
+      Firebase.auth().signInWithPopup(google)
+      .then((result) => {
+        console.log('Authenticated successfully with payload:', result)
+      }).catch((error) => {
+        console.log('Login Failed!', error)
+      })
+    },
+    facebookLogin: function () {
+      Firebase.auth().signInWithPopup(facebook)
+      .then((result) => {
+        console.log('Authenticated successfully with payload:', result)
+      }).catch((error) => {
+        console.log('Login Failed!', error)
+      })
     }
   }
 }

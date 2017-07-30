@@ -70,20 +70,21 @@
         </b-dropdown-option>
         <hr class="dropdown-divider">
         <b-dropdown-option subheader>
-          <b-field label="Video Source">
-            <b-select placeholder="select" icon="videocam" expanded>
+          <p class="title is-6">Connection Settings</p>
+          <b-field>
+            <b-select placeholder="Video Source" icon="videocam" expanded>
               <option value="1">Option 1</option>
               <option value="2">Option 2</option>
             </b-select>
           </b-field>
-          <b-field label="Audio Input Source">
-            <b-select placeholder="select" icon="mic" expanded>
+          <b-field>
+            <b-select placeholder="Audio Input Source" icon="mic" expanded>
               <option value="1">Option 1</option>
               <option value="2">Option 2</option>
             </b-select>
           </b-field>
-          <b-field label="Audio Output Source">
-            <b-select placeholder="select" icon="volume_up" expanded>
+          <b-field>
+            <b-select placeholder="Audio Output Source" icon="volume_up" expanded>
               <option value="1">Option 1</option>
               <option value="2">Option 2</option>
             </b-select>
@@ -161,7 +162,7 @@ export default {
   margin: 0 auto;
 }
 .is-user-dropdown {
-  width: 350px;
+  width: 400px;
 }
 .is-circle-image {
   border-radius: 50%;

@@ -6,11 +6,11 @@
       </header>
       <section class="modal-card-body">
         <b-field label="Name">
-            <b-input icon="person" placeholder="Jane Smith" v-model="displayName"></b-input>
+            <b-input icon="person" placeholder="Jane Smith" v-model="user.displayName"></b-input>
         </b-field>
         <b-field label="Email (username)">
             <b-input type="email" icon="email"
-                placeholder="jsmith@example.org" v-model="email">
+                placeholder="jsmith@example.org" v-model="user.email">
             </b-input>
         </b-field>
       </section>
@@ -32,9 +32,7 @@ export default {
   },
   data () {
     return {
-      emailsent: false,
-      displayName: this.user.displayName,
-      email: this.user.email
+      emailsent: false
     }
   }
 }
