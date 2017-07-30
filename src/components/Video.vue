@@ -24,6 +24,9 @@ export default {
   height: 100px;
   position: relative;
 }
+.box:hover {
+  cursor:move;
+}
 .is-hand {
   position: absolute;
   right: 4px;

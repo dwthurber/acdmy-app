@@ -30,7 +30,7 @@
           <b-icon class="is-grey" icon="help" size="is-small"></b-icon>
         </a>
 
-          <b-dropdown-option><b-icon icon="book"></b-icon> Read the Guides</b-dropdown-option>
+          <b-dropdown-option><b-icon icon="book"></b-icon> Search Guides</b-dropdown-option>
           <hr class="dropdown-divider">
           <b-dropdown-option><b-icon icon="question_answer"></b-icon> Chat with Support</b-dropdown-option>
       </b-dropdown>
@@ -53,7 +53,10 @@
                     <small class="has-text-success" v-if="emailsent">email sent</small>
                     <small class="has-text-danger" v-if="!user.emailVerified && !emailsent"><a class="has-text-danger" href="#" @click.prevent="verifyEmail">Please verify email</a></small>
                   </p>
-                  <p><small><a href="#">Account Settings</a></small> | <small><a href="#" @click.self.prevent="logout">Logout</a></small></p>
+                  <p><small><a @click="isAccountModalActive = true" href="#">Account Settings</a></small> | <small><a href="#" @click.self.prevent="logout">Logout</a></small></p>
+                  <b-modal :active.sync="isAccountModalActive" has-modal-card>
+                      <modal-account></modal-account>
+                  </b-modal>
                 </p>
               </div>
             </div>
@@ -92,19 +95,24 @@
 </template>
 
 <script>
+import ModalAccount from './AccountSettings'
 import Firebase from 'firebase'
 import '../firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'navbar',
+  components: {
+    ModalAccount
+  },
   computed: {
     ...mapState(['user'])
   },
   data () {
     return {
       notifications: false,
-      emailsent: false
+      emailsent: false,
+      isAccountModalActive: false
     }
   },
   methods: {
@@ -121,6 +129,9 @@ export default {
         }).catch((error) => {
           console.error('Email Error', error)
         })
+    },
+    close: function () {
+      this.isAccountModalActive = false
     }
   }
 }
