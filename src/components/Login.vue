@@ -7,7 +7,8 @@
             <h1 class="title">
               Acdmy.io
             </h1>
-            <div class="box">
+            <div class="box" v-if="!signingUp">
+              <p><strong>Welcome.</strong> Please Login <small class="has-text-primary"> or <a href="#" @click.self.prevent="signingUp = true">Sign Up</a></small></p><br>
               <div class="columns">
                 <div class="column">
                   <a class="button is-google is-social" @click.self.prevent="googleLogin">Google</a>
@@ -17,7 +18,10 @@
                 </div>
               </div>
               <b-message type="is-danger" v-if="loginFailed">
-                  Uh oh. That didn't work. <a href="#">Reset Password?</a>
+                  Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
+              </b-message>
+              <b-message type="is-danger" v-if="isInvalid">
+                  Please enter a valid email.
               </b-message>
               <form>
                 <b-field label="Email (username)">
@@ -37,8 +41,33 @@
                 </p>
               </form>
             </div>
+            <div class="box" v-else>
+              <b-message type="is-danger" v-if="accountExists">
+                  An account with that email already exists. <a href="#" @click.self.prevent="signingUp = false">Login</a>
+              </b-message>
+              <b-field label="Name">
+                  <b-input icon="person" placeholder="Jane Smith" v-model="displayName"></b-input>
+              </b-field>
+              <b-field label="Email (username)">
+                  <b-input type="email" icon="email" v-model="email"
+                      placeholder="jsmith@example.org">
+                  </b-input>
+              </b-field>
+              <b-field label="Password">
+                  <b-input type="password" icon="lock" v-model="password"
+                      placeholder="Str0ngP@ssword"
+                      password-reveal>
+                  </b-input>
+              </b-field>
+              <hr>
+              <p class="control">
+                <button class="button is-primary" @click.self.prevent="signUp" :class="{'is-loading': authenticating}">Register</button>
+                <button class="button is-default" @click.self.prevent="signingUp = false">Cancel</button>
+              </p>
+            </div>
             <p class="has-text-centered">
-              <a href="#/register">Sign Up</a>
+              <a v-if="!signingUp" href="#" @click.self.prevent="signingUp = true">Sign Up</a>
+              <a v-else href="#" @click.self.prevent="signingUp = false">Login</a>
               |
               <a href="#">Forgot password?</a>
             </p>
@@ -63,8 +92,12 @@ export default {
     return {
       email: '',
       password: '',
+      displayName: '',
       authenticating: false,
-      loginFailed: false
+      loginFailed: false,
+      isInvalid: false,
+      accountExists: false,
+      signingUp: false
     }
   },
   methods: {
@@ -74,7 +107,13 @@ export default {
       .catch((error, authData) => {
         if (error) {
           console.log('Login Failed!', error)
-          this.loginFailed = true
+          if (error.code === 'auth/user-not-found') {
+            this.signingUp = true
+          } else if (error.code === 'auth/invalid-email') {
+            this.isInvalid = true
+          } else {
+            this.loginFailed = true
+          }
         } else {
           console.log('Authenticated successfully with payload:', authData)
         }
@@ -95,6 +134,36 @@ export default {
         console.log('Authenticated successfully with payload:', result)
       }).catch((error) => {
         console.log('Login Failed!', error)
+      })
+    },
+    signUp: function () {
+      this.authenticating = true
+      Firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+      .then((user) => {
+        user.updateProfile({
+          displayName: this.displayName
+          // photoURL: "https://example.com/jane-q-user/profile.jpg"
+        }).then((response) => {
+          console.log('added Display Name')
+        }).catch((error) => {
+          // An error happened.
+          console.log('Failed to add Display Name', error)
+        })
+        user.sendEmailVerification()
+          .then((response) => {
+            console.log('Email Sent')
+            this.emailsent = true
+          }).catch((error) => {
+            console.error('Email Error', error)
+          })
+      }).catch((error, authData) => {
+        if (error) {
+          console.log('Signup Failed!', error)
+          this.accountExists = true
+        } else {
+          console.log('Authenticated successfully with payload:', authData)
+        }
+        this.authenticating = false
       })
     }
   }
