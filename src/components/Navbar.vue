@@ -7,13 +7,13 @@
       <p class="navbar-item is-paddingless">Classroom of the Future</p>
     </div>
     <div class="navbar-center navbar-item is-paddingless">
-      <a class="navbar-item is-close" href="#">
+      <a class="navbar-item is-close" >
         <b-icon class="is-circle" icon="question_answer"></b-icon>
       </a>
-      <a class="navbar-item is-close" href="#">
+      <a class="navbar-item is-close" >
         <b-icon class="is-circle" icon="group"></b-icon>
       </a>
-      <a class="navbar-item is-close" href="#">
+      <a class="navbar-item is-close" >
         <b-icon class="is-circle" icon="dashboard"></b-icon>
       </a>
     </div>
@@ -38,7 +38,7 @@
         <b-icon class="is-primary is-circle" icon="mic"></b-icon>
       </a>
       <b-dropdown class="is-marginless" position="is-bottom-left">
-        <a class="navbar-item" href="#" slot="trigger" title="user profile">
+        <a class="navbar-item"  slot="trigger" title="user profile">
           <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
           <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
         </a>
@@ -52,10 +52,10 @@
                   <p class="subtitle is-6">Instructor</p>
                   <p class="subtitle is-6"><small>{{user.email}}</small><br>
                     <small class="has-text-success" v-if="emailsent">email sent</small>
-                    <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger" href="#" @click.prevent="verifyEmail">Please verify email</a></small>
+                    <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger"  @click.prevent="verifyEmail">Please verify email</a></small>
                     <small class="has-text-grey" v-if="isSending">Sending email...</small>
                   </p>
-                  <p><small><a @click="isAccountModalActive = true" href="#">Account Settings</a></small> | <small><a href="#" @click.self.prevent="logout">Logout</a></small></p>
+                  <p><small><a @click="isAccountModalActive = true" >Account Settings</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
                   <b-modal :active.sync="isAccountModalActive" has-modal-card>
                       <modal-account></modal-account>
                   </b-modal>
@@ -185,5 +185,8 @@ export default {
 }
 .is-wide {
   width: 100%
+}
+a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
+  background-color: #fff!important
 }
 </style>

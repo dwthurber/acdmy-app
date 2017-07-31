@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { firebaseMutations } from 'vuexfire'
+
+Vue.use(Vuex)
+Vue.config.debug = true
 
 const mutations = {
   setUser (state, value) {
     state.user = value
-  }
+  },
+  ...firebaseMutations
 }
-
-Vue.use(Vuex)
-Vue.config.debug = true
 
 const state = {
   user: null,

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user !== false">
     <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
     <Navbar></Navbar>
     <div class="columns videobar is-gapless is-multiline">

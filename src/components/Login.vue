@@ -7,64 +7,66 @@
             <h1 class="title">
               Acdmy.io
             </h1>
-            <div class="box" v-if="!signingUp">
-              <p><strong>Welcome.</strong> Please Login <small class="has-text-primary"> or <a href="#" @click.self.prevent="signingUp = true">Sign Up</a></small></p><br>
-              <div class="columns">
-                <div class="column">
-                  <a class="button is-google is-social" @click.self.prevent="googleLogin">Google</a>
+            <transition name="fade" mode="out-in">
+              <div class="box" v-if="!signingUp" key="login">
+                <p><strong>Welcome.</strong> Please Login <small class="has-text-primary"> or <a href="#" @click.self.prevent="signingUp = true">Sign Up</a></small></p><br>
+                <div class="columns">
+                  <div class="column">
+                    <a class="button is-google is-social" @click.self.prevent="googleLogin">Google</a>
+                  </div>
+                  <div class="column">
+                    <a class="button is-facebook is-social" @click.self.prevent="facebookLogin">Facebook</a>
+                  </div>
                 </div>
-                <div class="column">
-                  <a class="button is-facebook is-social" @click.self.prevent="facebookLogin">Facebook</a>
-                </div>
+                <b-message type="is-danger" v-if="loginFailed">
+                    Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
+                </b-message>
+                <b-message type="is-danger" v-if="isInvalid">
+                    Please enter a valid email.
+                </b-message>
+                <form>
+                  <b-field label="Email (username)">
+                      <b-input type="email" icon="email" v-model="email"
+                          placeholder="jsmith@example.org" @keyup.enter="login">
+                      </b-input>
+                  </b-field>
+                  <b-field label="Password">
+                      <b-input type="password" icon="lock" @keyup.enter="login"
+                          placeholder="Str0ngP@ssword" v-model="password"
+                          password-reveal>
+                      </b-input>
+                  </b-field>
+                  <hr>
+                  <p class="control">
+                    <button class="button is-primary" :class="{'is-loading': authenticating}" @click.self.prevent="login">Login</button>
+                  </p>
+                </form>
               </div>
-              <b-message type="is-danger" v-if="loginFailed">
-                  Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
-              </b-message>
-              <b-message type="is-danger" v-if="isInvalid">
-                  Please enter a valid email.
-              </b-message>
-              <form>
+              <div class="box" v-else key="signup">
+                <b-message type="is-danger" v-if="accountExists">
+                    An account with that email already exists. <a href="#" @click.self.prevent="signingUp = false">Login</a>
+                </b-message>
+                <b-field label="Name">
+                    <b-input icon="person" placeholder="Jane Smith" v-model="displayName"></b-input>
+                </b-field>
                 <b-field label="Email (username)">
                     <b-input type="email" icon="email" v-model="email"
-                        placeholder="jsmith@example.org" @keyup.enter="login">
+                        placeholder="jsmith@example.org">
                     </b-input>
                 </b-field>
                 <b-field label="Password">
-                    <b-input type="password" icon="lock" @keyup.enter="login"
-                        placeholder="Str0ngP@ssword" v-model="password"
+                    <b-input type="password" icon="lock" v-model="password"
+                        placeholder="Str0ngP@ssword"
                         password-reveal>
                     </b-input>
                 </b-field>
                 <hr>
                 <p class="control">
-                  <button class="button is-primary" :class="{'is-loading': authenticating}" @click.self.prevent="login">Login</button>
+                  <button class="button is-primary" @click.self.prevent="signUp" :class="{'is-loading': authenticating}">Register</button>
+                  <button class="button is-default" @click.self.prevent="signingUp = false">Cancel</button>
                 </p>
-              </form>
-            </div>
-            <div class="box" v-else>
-              <b-message type="is-danger" v-if="accountExists">
-                  An account with that email already exists. <a href="#" @click.self.prevent="signingUp = false">Login</a>
-              </b-message>
-              <b-field label="Name">
-                  <b-input icon="person" placeholder="Jane Smith" v-model="displayName"></b-input>
-              </b-field>
-              <b-field label="Email (username)">
-                  <b-input type="email" icon="email" v-model="email"
-                      placeholder="jsmith@example.org">
-                  </b-input>
-              </b-field>
-              <b-field label="Password">
-                  <b-input type="password" icon="lock" v-model="password"
-                      placeholder="Str0ngP@ssword"
-                      password-reveal>
-                  </b-input>
-              </b-field>
-              <hr>
-              <p class="control">
-                <button class="button is-primary" @click.self.prevent="signUp" :class="{'is-loading': authenticating}">Register</button>
-                <button class="button is-default" @click.self.prevent="signingUp = false">Cancel</button>
-              </p>
-            </div>
+              </div>
+            </transition>
             <p class="has-text-centered">
               <a v-if="!signingUp" href="#" @click.self.prevent="signingUp = true">Sign Up</a>
               <a v-else href="#" @click.self.prevent="signingUp = false">Login</a>
