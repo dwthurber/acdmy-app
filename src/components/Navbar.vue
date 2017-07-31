@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar is-marginless">
     <div class="navbar-brand">
-      <a class="navbar-item" href="#">
+      <div class="navbar-item" >
         <img src="../assets/acdmyA.png" alt="Acdmy: Synchronous Online Learning Platform">
-      </a>
+      </div>
       <p class="navbar-item is-paddingless">Classroom of the Future</p>
     </div>
     <div class="navbar-center navbar-item is-paddingless">
@@ -49,9 +49,11 @@
               <div class="content">
                 <p>
                   <h4 class="title"><strong v-if="user.displayName">{{user.displayName}}</strong><strong v-else>First Last</strong></h4>
+                  <p class="subtitle is-6">Instructor</p>
                   <p class="subtitle is-6"><small>{{user.email}}</small><br>
                     <small class="has-text-success" v-if="emailsent">email sent</small>
-                    <small class="has-text-danger" v-if="!user.emailVerified && !emailsent"><a class="has-text-danger" href="#" @click.prevent="verifyEmail">Please verify email</a></small>
+                    <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger" href="#" @click.prevent="verifyEmail">Please verify email</a></small>
+                    <small class="has-text-grey" v-if="isSending">Sending email...</small>
                   </p>
                   <p><small><a @click="isAccountModalActive = true" href="#">Account Settings</a></small> | <small><a href="#" @click.self.prevent="logout">Logout</a></small></p>
                   <b-modal :active.sync="isAccountModalActive" has-modal-card>
@@ -70,7 +72,6 @@
         </b-dropdown-option>
         <hr class="dropdown-divider">
         <b-dropdown-option subheader>
-          <p class="title is-6">Connection Settings</p>
           <b-field>
             <b-select placeholder="Video Source" icon="videocam" expanded>
               <option value="1">Option 1</option>
@@ -89,6 +90,17 @@
               <option value="2">Option 2</option>
             </b-select>
           </b-field>
+        </b-dropdown-option>
+        <hr class="dropdown-divider">
+        <b-dropdown-option subheader>
+          <div class="columns">
+            <div class="column">
+              <button class="button is-dark is-outlined is-wide">Room Settings</button>
+            </div>
+            <div class="column">
+              <button class="button is-dark is-outlined is-wide">Student View </button>
+            </div>
+          </div>
         </b-dropdown-option>
       </b-dropdown>
     </div>
@@ -113,7 +125,8 @@ export default {
     return {
       notifications: false,
       emailsent: false,
-      isAccountModalActive: false
+      isAccountModalActive: false,
+      isSending: false
     }
   },
   methods: {
@@ -123,12 +136,15 @@ export default {
       })
     },
     verifyEmail: function () {
+      this.isSending = true
       this.user.sendEmailVerification()
         .then((response) => {
           console.log('Email Sent')
           this.emailsent = true
+          this.isSending = false
         }).catch((error) => {
           console.error('Email Error', error)
+          this.isSending = false
         })
     },
     close: function () {
@@ -166,5 +182,8 @@ export default {
 }
 .is-circle-image {
   border-radius: 50%;
+}
+.is-wide {
+  width: 100%
 }
 </style>
