@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'dashboard-main',
+  name: 'Dashboard-Sessions',
   data () {
     return {
     }

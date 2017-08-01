@@ -85,4 +85,7 @@ body, html {
 #app {
   height: 100%;
 }
+.menu-label {
+  padding-left: 8px;
+}
 </style>

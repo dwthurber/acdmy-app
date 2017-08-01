@@ -5,7 +5,9 @@ import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard'
 import Main from '@/components/dashboard/Main'
 import Sessions from '@/components/dashboard/Sessions'
-// import store from '@/store/index'
+import Classroom from '@/components/dashboard/Classroom'
+import Chat from '@/components/dashboard/Chat'
+import Assets from '@/components/dashboard/Assets'
 
 Vue.use(Router)
 
@@ -24,6 +26,21 @@ export default new Router({
           path: '/user/:uid/sessions',
           component: Sessions,
           name: 'Dashboard-Sessions'
+        },
+        {
+          path: '/user/:uid/classroom',
+          component: Classroom,
+          name: 'Dashboard-Classroom'
+        },
+        {
+          path: '/user/:uid/chat',
+          component: Chat,
+          name: 'Dashboard-Chat'
+        },
+        {
+          path: '/user/:uid/assets',
+          component: Assets,
+          name: 'Dashboard-Assets'
         }
       ]
     },

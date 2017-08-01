@@ -8,12 +8,31 @@
           <b-menu-list>
             <router-link :to="{name: 'Dashboard-Main'}" tag="li" exact append>
               <a><b-icon size="is-small" class="re-align" icon="dashboard" />
-                Home
+                Dashboard
               </a>
             </router-link>
+          </b-menu-list>
+          <b-menu-list label="collaboration">
+            <router-link :to="{name: 'Dashboard-Classroom'}" tag="li" append>
+              <a><b-icon size="is-small" class="re-align" icon="group_work" />
+                Classroom
+              </a>
+            </router-link>
+            <router-link :to="{name: 'Dashboard-Chat'}" tag="li" append>
+              <a><b-icon size="is-small" class="re-align" icon="question_answer" />
+                Chat
+              </a>
+            </router-link>
+          </b-menu-list>
+          <b-menu-list label="setup">
             <router-link :to="{name: 'Dashboard-Sessions'}" tag="li" append>
               <a><b-icon size="is-small" class="re-align" icon="view_list" />
                 Sessions
+              </a>
+            </router-link>
+            <router-link :to="{name: 'Dashboard-Assets'}" tag="li" append>
+              <a><b-icon size="is-small" class="re-align" icon="folder" />
+                Assets
               </a>
             </router-link>
             <b-menu-dropdown>
@@ -26,6 +45,11 @@
               <router-link :to="'/rooms'" tag="li">
                 <a>
                   Rooms
+                </a>
+              </router-link>
+              <router-link :to="'/users'" tag="li">
+                <a>
+                  Users
                 </a>
               </router-link>
             </b-menu-dropdown>
