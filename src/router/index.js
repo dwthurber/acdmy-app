@@ -4,6 +4,7 @@ import Session from '@/components/Session'
 import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard'
 import Main from '@/components/dashboard/Main'
+import Sessions from '@/components/dashboard/Sessions'
 
 Vue.use(Router)
 
@@ -17,6 +18,10 @@ export default new Router({
         {
           path: '',
           component: Main
+        },
+        {
+          path: '/sessions',
+          component: Sessions
         }
       ]
     },

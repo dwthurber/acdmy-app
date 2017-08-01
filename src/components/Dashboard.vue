@@ -1,47 +1,38 @@
 <template>
   <div v-if="user !== false">
     <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
-    <div class="columns">
-      <aside class="column is-2 aside is-primary hero is-fullheight is-hidden-mobile">
-        <div>
-          <div class="main">
-            <div class="title">Main</div>
-            <a href="#" class="item active"><span class="icon"><i class="fa fa-home"></i></span><span class="name">Dashboard</span></a>
-            <a href="#" class="item"><span class="icon"><i class="fa fa-map-marker"></i></span><span class="name">Activity</span></a>
-            <a href="#" class="item"><span class="icon"><i class="fa fa-th-list"></i></span><span class="name">Timeline</span></a>
-            <a href="#" class="item"><span class="icon"><i class="fa fa-folder-o"></i></span><span class="name">Folders</span></a>
-          </div>
-        </div>
+    <Navbar />
+    <div class="columns is-gapless">
+      <aside class="column is-2 aside hero is-fullheight is-mobile">
+        <b-menu>
+          <b-menu-list>
+            <router-link :to="'/'" tag="li" exact>
+              <a><b-icon icon="dashboard" />
+                Home
+              </a>
+            </router-link>
+            <router-link :to="'/sessions'" tag="li">
+              <a><b-icon icon="list" />
+                Sessions
+              </a>
+            </router-link>
+            <b-menu-dropdown>
+              <template slot="trigger"><b-icon icon="settings" /> Settings</template>
+              <router-link :to="'/account'" tag="li">
+                <a>
+                  Account
+                </a>
+              </router-link>
+              <router-link :to="'/rooms'" tag="li">
+                <a>
+                  Rooms
+                </a>
+              </router-link>
+            </b-menu-dropdown>
+          </b-menu-list>
+        </b-menu>
       </aside>
-      <div class="column admin-panel">
-        <nav class="nav has-shadow" id="top">
-          <div class="container">
-            <div class="nav-left">
-              <a class="nav-item" href="../index.html">
-                <img src="../assets/acdmyA.png" alt="Description">
-              </a>
-            </div>
-            <span class="nav-toggle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </span>
-            <div class="nav-right nav-menu is-hidden-tablet">
-              <a href="#" class="nav-item is-active">
-                Dashboard
-              </a>
-              <a href="#" class="nav-item">
-                Activity
-              </a>
-              <a href="#" class="nav-item">
-                Timeline
-              </a>
-              <a href="#" class="nav-item">
-                Folders
-              </a>
-            </div>
-          </div>
-        </nav>
+      <div class="column is-10 admin-panel">
         <router-view></router-view>
       </div>
     </div>
@@ -50,16 +41,18 @@
 
 <script>
 import { mapState } from 'vuex'
+import Navbar from '@/components/Navbar'
 
 export default {
-  components: { },
+  components: { Navbar },
   name: 'dashboard',
   computed: {
     ...mapState(['user'])
   },
   data () {
     return {
-      isLoading: true
+      isLoading: true,
+      dashboardRoute: ''
     }
   },
   mounted () {
@@ -70,37 +63,14 @@ export default {
 
 <style scoped>
 .aside {
-  margin-right: -10px;
+  background-color: #fcfcfc;
+  padding: 12px 0!important;
 }
-.aside .main {
-  padding: 40px;
+.router-link-active {
+  border-right: 3px solid hsl(205, 36%, 43%);
 }
-.aside .title {
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-.aside .main .item {
-  display: block;
-  padding: 10px 0;
-}
-.aside .main .icon {
-  font-size: 19px;
-  padding-right: 30px;
-}
-.aside .main .name {
-  font-size: 16px;
-  font-weight: bold;
-}
-.admin-panel {
-  padding-bottom: 0;
-}
-.content {
-  display: block;
-  background-color: #fff;
-  padding: 40px 20px;
-}
-.hero .tabs ul {
-    border-bottom: 1px solid #d3d6db;
+.router-link-active a {
+  font-weight: bolder;
+  color: hsl(205, 36%, 43%);
 }
 </style>

@@ -83,7 +83,7 @@
 
 <script>
 import Firebase from 'firebase'
-import '../firebase'
+import '@/firebase'
 
 const google = new Firebase.auth.GoogleAuthProvider()
 const facebook = new Firebase.auth.FacebookAuthProvider()

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-marginless">
+  <nav class="navbar is-marginless is-fixed-top" id="top">
     <div class="navbar-brand">
       <div class="navbar-item" >
         <img src="../assets/acdmyA.png" alt="Acdmy: Synchronous Online Learning Platform">
@@ -7,13 +7,13 @@
       <p class="navbar-item is-paddingless">Classroom of the Future</p>
     </div>
     <div class="navbar-center navbar-item is-paddingless">
-      <a class="navbar-item is-close" >
+      <a class="navbar-item is-close" v-if="controls">
         <b-icon class="is-circle" icon="question_answer"></b-icon>
       </a>
-      <a class="navbar-item is-close" >
+      <a class="navbar-item is-close" v-if="controls">
         <b-icon class="is-circle" icon="group"></b-icon>
       </a>
-      <a class="navbar-item is-close" >
+      <a class="navbar-item is-close" v-if="controls">
         <b-icon class="is-circle" icon="dashboard"></b-icon>
       </a>
     </div>
@@ -34,7 +34,7 @@
           <hr class="dropdown-divider">
           <b-dropdown-option><b-icon icon="question_answer"></b-icon> Chat with Support</b-dropdown-option>
       </b-dropdown>
-      <a class="navbar-item is-close" title="toggle mute">
+      <a class="navbar-item is-close" title="toggle mute" v-if="controls">
         <b-icon class="is-primary is-circle" icon="mic"></b-icon>
       </a>
       <b-dropdown class="is-marginless" position="is-bottom-left">
@@ -115,6 +115,7 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'navbar',
+  props: ['controls'],
   components: {
     ModalAccount
   },
