@@ -9,11 +9,15 @@ const mutations = {
   setUser (state, value) {
     state.user = value
   },
+  setRoomId (state, value) {
+    state.roomid = value
+  },
   ...firebaseMutations
 }
 
 const state = {
   user: null,
+  roomid: null,
   count: 0
 }
 

@@ -10,27 +10,32 @@ import Firebase from 'firebase'
 import { mapState } from 'vuex'
 import './firebase'
 
+const randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26))
+const randLetter2 = String.fromCharCode(65 + Math.floor(Math.random() * 26))
+const randLetter3 = String.fromCharCode(65 + Math.floor(Math.random() * 26))
+const uniqid = randLetter + randLetter2 + Date.now() + randLetter3
+
 export default {
   name: 'app',
   store,
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'roomid'])
   },
   beforeCreate () {
+    this.$store.commit('setRoomId', uniqid)
     Firebase.auth().onAuthStateChanged((user) => {
       this.$store.commit('setUser', user || false)
-      if (user && this.$route.path === '/login') {
-        this.$router.replace('/')
-      } else if (user && this.$route.path === '/register') {
-        this.$router.replace('/')
-      } else if (!user && this.$route.path !== '/login') {
+      if (!user) {
         this.$router.replace('/login')
+      } else if (user && this.$route.path === '/register') {
+        this.$router.replace('/user/' + this.user.uid)
+      } else if (user && this.$route.path === '/login') {
+        this.$router.replace('/user/' + this.user.uid)
       }
     })
   },
-  data: {
-    return () {
-      this.isLoading = true
+  data () {
+    return {
     }
   }
 }

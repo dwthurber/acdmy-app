@@ -11,17 +11,19 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/user/:uid',
       name: 'Dashboard',
       component: Dashboard,
       children: [
         {
-          path: '',
-          component: Main
+          path: '/user/:uid',
+          component: Main,
+          name: 'Dashboard-Main'
         },
         {
-          path: '/sessions',
-          component: Sessions
+          path: '/user/:uid/sessions',
+          component: Sessions,
+          name: 'Dashboard-Sessions'
         }
       ]
     },

@@ -6,18 +6,18 @@
       <aside class="column is-2 aside hero is-fullheight is-mobile">
         <b-menu>
           <b-menu-list>
-            <router-link :to="'/'" tag="li" exact>
-              <a><b-icon icon="dashboard" />
+            <router-link :to="{name: 'Dashboard-Main'}" tag="li" exact append>
+              <a><b-icon size="is-small" class="re-align" icon="dashboard" />
                 Home
               </a>
             </router-link>
-            <router-link :to="'/sessions'" tag="li">
-              <a><b-icon icon="list" />
+            <router-link :to="{name: 'Dashboard-Sessions'}" tag="li" append>
+              <a><b-icon size="is-small" class="re-align" icon="view_list" />
                 Sessions
               </a>
             </router-link>
             <b-menu-dropdown>
-              <template slot="trigger"><b-icon icon="settings" /> Settings</template>
+              <template slot="trigger"><b-icon size="is-small" class="re-align" icon="settings" /> Settings</template>
               <router-link :to="'/account'" tag="li">
                 <a>
                   Account
@@ -47,7 +47,7 @@ export default {
   components: { Navbar },
   name: 'dashboard',
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'roomid'])
   },
   data () {
     return {
@@ -72,5 +72,8 @@ export default {
 .router-link-active a {
   font-weight: bolder;
   color: hsl(205, 36%, 43%);
+}
+.re-align {
+  margin-top: -3px;
 }
 </style>
