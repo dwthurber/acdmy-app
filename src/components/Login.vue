@@ -84,12 +84,24 @@
 <script>
 import Firebase from 'firebase'
 import '@/firebase'
+import { mapState } from 'vuex'
 
 const google = new Firebase.auth.GoogleAuthProvider()
 const facebook = new Firebase.auth.FacebookAuthProvider()
 
 export default {
   name: 'login',
+  computed: {
+    ...mapState(['user'])
+  },
+  beforeCreate () {
+    Firebase.auth().onAuthStateChanged((user) => {
+      this.$store.commit('setUser', user || false)
+      if (user) {
+        this.$router.replace('/user/' + this.user.uid)
+      }
+    })
+  },
   data () {
     return {
       email: '',

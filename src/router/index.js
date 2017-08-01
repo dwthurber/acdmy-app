@@ -5,6 +5,7 @@ import Login from '@/components/Login'
 import Dashboard from '@/components/Dashboard'
 import Main from '@/components/dashboard/Main'
 import Sessions from '@/components/dashboard/Sessions'
+// import store from '@/store/index'
 
 Vue.use(Router)
 
@@ -12,11 +13,10 @@ export default new Router({
   routes: [
     {
       path: '/user/:uid',
-      name: 'Dashboard',
       component: Dashboard,
       children: [
         {
-          path: '/user/:uid',
+          path: '',
           component: Main,
           name: 'Dashboard-Main'
         },
@@ -36,6 +36,10 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '*',
+      redirect: { name: 'Login' }
     }
   ]
 })
