@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-marginless is-fixed-top" id="top">
+  <nav class="navbar is-mobile is-marginless is-fixed-top" id="top">
     <div class="navbar-brand">
       <div class="navbar-item" >
         <img src="../assets/acdmyA.png" alt="Acdmy: Synchronous Online Learning Platform">
@@ -70,7 +70,7 @@
             </figure>
           </article>
         </b-dropdown-option>
-        <hr class="dropdown-divider">
+        <!-- <hr class="dropdown-divider">
         <b-dropdown-option subheader>
           <b-field>
             <b-select placeholder="Video Source" icon="videocam" expanded>
@@ -101,7 +101,7 @@
               <button class="button is-dark is-outlined is-wide">Student View </button>
             </div>
           </div>
-        </b-dropdown-option>
+        </b-dropdown-option> -->
       </b-dropdown>
     </div>
   </nav>
@@ -163,7 +163,7 @@ export default {
 }*/
 .navbar-brand,
 .navbar-end {
-  width: 33%;
+  width: 30%;
 }
 .is-circle {
   border: 1px solid #cfcfcf;

@@ -23,22 +23,22 @@ export default new Router({
           name: 'Dashboard-Main'
         },
         {
-          path: '/user/:uid/sessions',
+          path: '/user/:uid/room/:roomid/sessions',
           component: Sessions,
           name: 'Dashboard-Sessions'
         },
         {
-          path: '/user/:uid/classroom',
+          path: '/user/:uid/room/:roomid/classroom',
           component: Classroom,
           name: 'Dashboard-Classroom'
         },
         {
-          path: '/user/:uid/chat',
+          path: '/user/:uid/room/:roomid/chat',
           component: Chat,
           name: 'Dashboard-Chat'
         },
         {
-          path: '/user/:uid/assets',
+          path: '/user/:uid/room/:roomid/assets',
           component: Assets,
           name: 'Dashboard-Assets'
         }

@@ -2,47 +2,43 @@
   <div>
     <section class="hero is-small">
 
-      <div class="hero-body">
+      <div class="hero-body has-text-centered">
         <div class="container">
-          <h1 class="title">
-            Admin Dashboard
+          <h1 class="title is-spaced">
+            Hello {{ user.displayName }}!
           </h1>
           <h2 class="subtitle">
-            A simple admin template
+            Education is the most powerful weapon which you can use to change the world<br>
+            <small>~ Nelson Mandela</small>
           </h2>
         </div>
       </div>
     </section>
     <section>
       <div class="container is-fluid">
-        <div class="columns">
-          <div class="column is-one-third">
-            <nav class="panel">
-              <p class="panel-heading">
-                People
-              </p>
-              <div class="panel-block">
-                <b-field>
-                  <b-input placeholder="Search..."
-                      type="search"
-                      icon="search"
-                      expanded>
-                  </b-input>
-                </b-field>
+        <div class="columns is-mobile is-multiline is-centered">
+          <div class="column is-3 is-fullheight">
+            <div class="block has-text-centered">
+              <router-link :to="{ name: 'Dashboard-AddRoom', params: {} }">
+                <b-icon icon="library_add" size="is-large"></b-icon>
+                <p class="title is-spaced is-4">Add Room</p>
+              </router-link>
+            </div>
+          </div>
+          <div class="column is-3">
+            <router-link :to="{ name: 'Dashboard-Classroom', params: {roomid: 'CHqI16'} }" tag="div" class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <img src="http://via.placeholder.com/250x250" alt="Image">
+                </figure>
               </div>
-              <p class="panel-tabs">
-                <a class="is-active">all</a>
-                <a>teachers</a>
-                <a>students</a>
-              </p>
-              <a v-for="user in users" class="panel-block" :key="user.displayName">
-                <StatusIndicator :is-online="user.online" /> {{ user.displayName }} <small class="is-role has-text-grey is-size-7"> {{ user.role }}</small>
-                <div class="block is-right" :class="{ 'is-online': user.online == true }">
-                  <b-icon icon="question_answer" size="is-small" type="is-grey"></b-icon>
-                  <b-icon icon="videocam" size="is-small" type="is-grey"></b-icon>
+              <div class="card-content">
+                <div class="content">
+                  My Awesome Class<br>
+                  <small class="has-text-grey">Inactive</small>
                 </div>
-              </a>
-            </nav>
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -52,13 +48,14 @@
 
 <script>
 import StatusIndicator from '@/components/StatusIndicator'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
   name: 'Dashboard-Main',
   components: { StatusIndicator },
   computed: {
-    ...mapGetters(['users'])
+    ...mapGetters(['users']),
+    ...mapState(['user'])
   },
   data () {
     return {
@@ -69,17 +66,14 @@ export default {
 </script>
 
 <style scoped>
-.is-right {
-  margin-left: auto;
+.card:hover {
+  cursor: pointer;
+  box-shadow: 1px 1px 10px 1px #ccc;
 }
-.is-online .icon {
-  color: hsl(0, 0%, 29%)!important;
+.is-fullheight {
+  margin: auto 0;
 }
-.is-online .icon:hover {
-  color: hsl(205, 36%, 43%)!important;
-}
-.is-role {
-  margin-left: 4px;
-  text-transform: uppercase;
+.is-spaced {
+  margin-top: 16px;
 }
 </style>
