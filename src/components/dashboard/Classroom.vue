@@ -2,29 +2,49 @@
   <section class="hero is-fullheight">
 
     <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Classroom
-        </h1>
-        <h2 class="subtitle">
-          A simple admin template
-        </h2>
-      </div>
+      <draggable @start="drag=true" @end="drag=false" class="container">
+        <avatar v-for="user in users" :left="randomNumber()" :top="randomNumber()" :photoURL="user.photoURL" :displayName="user.displayName" key="user['.key']"/>
+      </draggable>
     </div>
 
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import avatar from '@/components/Avatar'
+import draggable from 'vuedraggable'
+
 export default {
   name: 'Dashboard-Classroom',
+  components: {
+    avatar,
+    draggable
+  },
+  computed: {
+    ...mapGetters(['users'])
+  },
+  methods: {
+    randomNumber: function () {
+      return Math.floor(Math.random() * 90)
+    },
+    checkOffset: function (evt) {
+      var offset = this.offset()
+      var xPos = offset.left
+      var yPos = offset.top
+      console.log(xPos, yPos)
+    }
+  },
   data () {
     return {
+      offest: null
     }
   }
 }
 </script>
 
 <style scoped>
-
+.container {
+  position: relative;
+}
 </style>

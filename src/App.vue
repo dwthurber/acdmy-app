@@ -82,4 +82,12 @@ body, html {
 .re-align {
   margin-top: -3px;
 }
+.is-circle {
+  border: 1px solid #cfcfcf;
+  border-radius: 50%;
+  padding: 16px;
+}
+.is-circle-image {
+  border-radius: 50%;
+}
 </style>

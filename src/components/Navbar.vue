@@ -165,11 +165,6 @@ export default {
 .navbar-end {
   width: 30%;
 }
-.is-circle {
-  border: 1px solid #cfcfcf;
-  border-radius: 50%;
-  padding: 16px;
-}
 .is-close {
   padding-left: 4px!important;
   padding-right: 4px!important;
@@ -179,9 +174,6 @@ export default {
 }
 .is-user-dropdown {
   width: 400px;
-}
-.is-circle-image {
-  border-radius: 50%;
 }
 .is-wide {
   width: 100%
