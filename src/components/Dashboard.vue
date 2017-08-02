@@ -64,14 +64,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Navbar from '@/components/Navbar'
+import { db } from '@/firebase'
+
+const usersRef = db.ref('users')
 
 export default {
   components: { Navbar },
   name: 'dashboard',
   computed: {
-    ...mapState(['user', 'roomid'])
+    ...mapGetters(['users']),
+    ...mapState(['user'])
   },
   data () {
     return {
@@ -80,6 +84,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.dispatch('setUsersRef', usersRef)
     this.isLoading = false
   }
 }
@@ -96,8 +101,5 @@ export default {
 .router-link-active a {
   font-weight: bolder;
   color: hsl(205, 36%, 43%);
-}
-.re-align {
-  margin-top: -3px;
 }
 </style>

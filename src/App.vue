@@ -6,16 +6,12 @@
 
 <script>
 import Firebase from 'firebase'
-import { mapState, mapGetters } from 'vuex'
-import { db } from '@/firebase'
-
-const usersRef = db.ref('users')
+import { mapState } from 'vuex'
 
 export default {
   name: 'app',
   computed: {
-    ...mapGetters(['users']),
-    ...mapState(['user', 'users'])
+    ...mapState(['user'])
   },
   beforeCreate () {
     Firebase.auth().onAuthStateChanged((user) => {
@@ -28,9 +24,6 @@ export default {
         this.$router.replace('/user/' + this.user.uid)
       }
     })
-  },
-  created () {
-    this.$store.dispatch('setUsersRef', usersRef)
   },
   data () {
     return {
@@ -85,5 +78,8 @@ body, html {
 }
 .menu-label {
   padding-left: 8px;
+}
+.re-align {
+  margin-top: -3px;
 }
 </style>

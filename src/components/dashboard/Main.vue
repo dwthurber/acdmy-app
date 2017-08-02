@@ -1,48 +1,64 @@
 <template>
-  <section class="hero is-small">
+  <div>
+    <section class="hero is-small">
 
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Admin Dashboard
-        </h1>
-        <h2 class="subtitle">
-          A simple admin template
-        </h2>
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Admin Dashboard
+          </h1>
+          <h2 class="subtitle">
+            A simple admin template
+          </h2>
+        </div>
       </div>
-    </div>
-    <p v-for="user in users">{{ user.role }}</p>
-
-    <nav class="level">
-      <div class="level-item has-text-centered">
-        <p class="heading">Tweets</p>
-        <p class="title">3,456</p>
+    </section>
+    <section>
+      <div class="container is-fluid">
+        <div class="columns">
+          <div class="column is-one-third">
+            <nav class="panel">
+              <p class="panel-heading">
+                People
+              </p>
+              <div class="panel-block">
+                <b-field>
+                  <b-input placeholder="Search..."
+                      type="search"
+                      icon="search"
+                      expanded>
+                  </b-input>
+                </b-field>
+              </div>
+              <p class="panel-tabs">
+                <a class="is-active">all</a>
+                <a>teachers</a>
+                <a>students</a>
+              </p>
+              <a v-for="user in users" class="panel-block" :key="user.displayName">
+                <StatusIndicator :is-online="user.online" /> {{ user.displayName }} <small class="is-role has-text-grey is-size-7"> {{ user.role }}</small>
+                <div class="block is-right" :class="{ 'is-online': user.online == true }">
+                  <b-icon icon="question_answer" size="is-small" type="is-grey"></b-icon>
+                  <b-icon icon="videocam" size="is-small" type="is-grey"></b-icon>
+                </div>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
-      <div class="level-item has-text-centered">
-        <p class="heading">Following</p>
-        <p class="title">123</p>
-      </div>
-      <div class="level-item has-text-centered">
-        <p class="heading">Followers</p>
-        <p class="title">456K</p>
-      </div>
-      <div class="level-item has-text-centered">
-        <p class="heading">Likes</p>
-        <p class="title">789</p>
-      </div>
-    </nav>
-  </section>
+    </section>
+  </div>
 </template>
 
 <script>
-import { db } from '@/firebase'
-
-const usersRef = db.ref('users')
+import StatusIndicator from '@/components/StatusIndicator'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Dashboard-Main',
-  firebase: {
-    users: usersRef
+  components: { StatusIndicator },
+  computed: {
+    ...mapGetters(['users'])
   },
   data () {
     return {
@@ -53,5 +69,17 @@ export default {
 </script>
 
 <style scoped>
-
+.is-right {
+  margin-left: auto;
+}
+.is-online .icon {
+  color: hsl(0, 0%, 29%)!important;
+}
+.is-online .icon:hover {
+  color: hsl(205, 36%, 43%)!important;
+}
+.is-role {
+  margin-left: 4px;
+  text-transform: uppercase;
+}
 </style>
