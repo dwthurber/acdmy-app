@@ -110,7 +110,6 @@
 <script>
 import ModalAccount from './AccountSettings'
 import Firebase from 'firebase'
-import '../firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -120,7 +119,7 @@ export default {
     ModalAccount
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'users'])
   },
   data () {
     return {

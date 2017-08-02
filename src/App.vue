@@ -6,17 +6,20 @@
 
 <script>
 import Firebase from 'firebase'
-import { mapState } from 'vuex'
-import '@/firebase'
+import { mapState, mapGetters } from 'vuex'
+import { db } from '@/firebase'
+
+const usersRef = db.ref('users')
 
 export default {
   name: 'app',
   computed: {
-    ...mapState(['user', 'roomid'])
+    ...mapGetters(['users']),
+    ...mapState(['user', 'users'])
   },
   beforeCreate () {
     Firebase.auth().onAuthStateChanged((user) => {
-      this.$store.commit('setUser', user || false)
+      this.$store.commit('SET_USER', user || false)
       if (!user) {
         this.$router.replace('/login')
       } else if (user && this.$route.path === '/register') {
@@ -25,6 +28,9 @@ export default {
         this.$router.replace('/user/' + this.user.uid)
       }
     })
+  },
+  created () {
+    this.$store.dispatch('setUsersRef', usersRef)
   },
   data () {
     return {

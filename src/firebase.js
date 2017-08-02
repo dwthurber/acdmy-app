@@ -7,6 +7,4 @@ const config = {
 }
 
 const firebaseApp = Firebase.initializeApp(config)
-const db = firebaseApp.database()
-
-export default db
+export const db = firebaseApp.database()

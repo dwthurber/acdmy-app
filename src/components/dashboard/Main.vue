@@ -11,6 +11,7 @@
         </h2>
       </div>
     </div>
+    <p v-for="user in users">{{ user.role }}</p>
 
     <nav class="level">
       <div class="level-item has-text-centered">
@@ -34,10 +35,18 @@
 </template>
 
 <script>
+import { db } from '@/firebase'
+
+const usersRef = db.ref('users')
+
 export default {
   name: 'Dashboard-Main',
+  firebase: {
+    users: usersRef
+  },
   data () {
     return {
+
     }
   }
 }
