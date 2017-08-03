@@ -19,9 +19,9 @@ export default {
       if (!user) {
         this.$router.replace('/login')
       } else if (user && this.$route.path === '/register') {
-        this.$router.replace('/user/' + this.user.uid)
+        this.$router.replace('/a/' + this.user.uid)
       } else if (user && this.$route.path === '/login') {
-        this.$router.replace('/user/' + this.user.uid)
+        this.$router.replace('/a/' + this.user.uid)
       }
     })
   },

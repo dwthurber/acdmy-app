@@ -1,21 +1,18 @@
 <template>
   <nav class="navbar is-mobile is-marginless is-fixed-top" id="top">
     <div class="navbar-brand">
-      <div class="navbar-item" >
-        <img src="../assets/acdmyA.png" alt="Acdmy: Synchronous Online Learning Platform">
-      </div>
-      <p class="navbar-item is-paddingless">Classroom of the Future</p>
+      <router-link :to="{ name: 'Main' }" class="navbar-item"><img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform"></router-link>
     </div>
     <div class="navbar-center navbar-item is-paddingless">
-      <a class="navbar-item is-close" v-if="controls">
-        <b-icon class="is-circle" icon="question_answer"></b-icon>
-      </a>
-      <a class="navbar-item is-close" v-if="controls">
-        <b-icon class="is-circle" icon="group"></b-icon>
-      </a>
-      <a class="navbar-item is-close" v-if="controls">
-        <b-icon class="is-circle" icon="dashboard"></b-icon>
-      </a>
+      <small v-if="!$route.params.roomid">My Rooms</small>
+      <div class="tabs is-centered" v-else>
+        <small>My Awesome Class</small>
+        <ul>
+          <li class="is-active"><a><b-icon icon="group_work" size="is-small"></b-icon> Room</a></li>
+          <li><a><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></li>
+          <li><a><b-icon icon="dashboard" size="is-small"></b-icon> Dashboard</a></li>
+        </ul>
+      </div>
     </div>
     <div class="navbar-end is-marginless">
       <b-dropdown class="is-marginless" position="is-bottom-left">
@@ -157,6 +154,19 @@ export default {
 <style scoped>
 .navbar {
   border-bottom: 1px solid #cfcfcf;
+}
+.tabs ul {
+  padding-top: 16px;
+  border-bottom: none;
+  position: relative;
+}
+.tabs small {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+}
+small {
+  text-transform: uppercase;
 }
 /*a.navbar-item:hover {
   background-color: #fff;
