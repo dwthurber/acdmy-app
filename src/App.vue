@@ -36,8 +36,6 @@ export default {
 @import "~bulma/sass/utilities/_all";
 
 $turquoise-deep: hsl(205, 36%, 43%);
-$grey: #cfcfcf;
-$grey-invert: findColorInvert($grey);
 $google: #dd4b39;
 $google-invert: findColorInvert($google);
 $facebook: #3b5998;
@@ -57,7 +55,6 @@ $colors: (
     "success": ($success, $success-invert),
     "warning": ($warning, $warning-invert),
     "danger": ($danger, $danger-invert),
-    "grey": ($grey, $grey-invert),
     "google": ($google, $google-invert),
     "facebook": ($facebook, $facebook-invert),
 );

@@ -4,34 +4,34 @@
       <router-link :to="{ name: 'Main' }" class="navbar-item"><img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform"></router-link>
     </div>
     <div class="navbar-center navbar-item is-paddingless">
-      <small v-if="!$route.params.roomid">My Rooms</small>
+      <small class="uppercase" v-if="!$route.params.roomid">My Rooms</small>
       <div class="tabs is-centered" v-else>
-        <small>My Awesome Class</small>
+        <small class="uppercase">My Awesome Class</small>
         <ul>
-          <li class="is-active"><a><b-icon icon="group_work" size="is-small"></b-icon> Room</a></li>
-          <li><a><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></li>
-          <li><a><b-icon icon="dashboard" size="is-small"></b-icon> Dashboard</a></li>
+          <router-link :to="{ name: 'Main-Classroom' }" tag="li" exact><a><b-icon icon="group_work" size="is-small"></b-icon> Room</a></router-link>
+          <router-link :to="{ name: 'Main-Chat' }" tag="li" exact><a><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></router-link>
+          <router-link :to="{ name: 'Dashboard' }" tag="li" exact><a><b-icon icon="dashboard" size="is-small"></b-icon> Dashboard</a></router-link>
         </ul>
       </div>
     </div>
     <div class="navbar-end is-marginless">
       <b-dropdown class="is-marginless" position="is-bottom-left">
         <a class="navbar-item is-close" slot="trigger" title="notifications">
-          <b-icon class="is-grey" icon="notifications" size="is-small"></b-icon>
+          <b-icon icon="notifications" size="is-small"></b-icon>
         </a>
 
           <b-dropdown-option subheader class="has-text-centered" v-if="!notifications">All up to date!</b-dropdown-option>
       </b-dropdown>
       <b-dropdown class="is-marginless" position="is-bottom-left">
         <a class="navbar-item is-close" slot="trigger" title="help">
-          <b-icon class="is-grey" icon="help" size="is-small"></b-icon>
+          <b-icon icon="help" size="is-small"></b-icon>
         </a>
 
           <b-dropdown-option><b-icon icon="book"></b-icon> Search Guides</b-dropdown-option>
           <hr class="dropdown-divider">
           <b-dropdown-option><b-icon icon="question_answer"></b-icon> Chat with Support</b-dropdown-option>
       </b-dropdown>
-      <a class="navbar-item is-close" title="toggle mute" v-if="controls">
+      <a class="navbar-item is-close" title="toggle mute" v-if="$route.params.sessionid">
         <b-icon class="is-primary is-circle" icon="mic"></b-icon>
       </a>
       <b-dropdown class="is-marginless" position="is-bottom-left">
@@ -40,7 +40,7 @@
           <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
         </a>
 
-        <b-dropdown-option subheader class="is-user-dropdown">
+        <b-dropdown-option subheader class="is-wide-dropdown">
           <article class="media">
             <div class="media-content">
               <div class="content">
@@ -163,10 +163,12 @@ export default {
 .tabs small {
   position: absolute;
   width: 100%;
+  top: 4px;
   text-align: center;
 }
-small {
+.uppercase {
   text-transform: uppercase;
+  font-size: 0.7rem;
 }
 /*a.navbar-item:hover {
   background-color: #fff;
@@ -182,13 +184,16 @@ small {
 .navbar-center {
   margin: 0 auto;
 }
-.is-user-dropdown {
-  width: 400px;
+.is-wide-dropdown {
+  width: 350px;
 }
 .is-wide {
   width: 100%
 }
 a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:hover, .navbar-link.is-active {
   background-color: #fff!important
+}
+.router-link-active a {
+  color: hsl(205, 36%, 43%);
 }
 </style>

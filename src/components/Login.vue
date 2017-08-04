@@ -96,9 +96,8 @@ export default {
   },
   beforeCreate () {
     Firebase.auth().onAuthStateChanged((user) => {
-      this.$store.commit('setUser', user || false)
       if (user) {
-        this.$router.replace('/user/' + this.user.uid)
+        this.$router.replace('/a/' + this.user.uid)
       }
     })
   },
