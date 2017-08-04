@@ -2,16 +2,15 @@
   <section class="hero is-fullheight">
 
     <div class="hero-body">
-      <draggable @start="drag=true" @end="drag=false" class="container">
+      <!-- <draggable @start="drag=true" @end="drag=false" class="container">
         <avatar v-for="user in users" :left="randomNumber()" :top="randomNumber()" :photoURL="user.photoURL" :displayName="user.displayName" key="user['.key']"/>
-      </draggable>
+      </draggable> -->
     </div>
 
   </section>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import avatar from '@/components/Avatar'
 import draggable from 'vuedraggable'
 
@@ -22,7 +21,6 @@ export default {
     draggable
   },
   computed: {
-    ...mapGetters(['users'])
   },
   methods: {
     randomNumber: function () {

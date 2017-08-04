@@ -1,20 +1,18 @@
 <template>
   <div id="session" v-if="user !== false">
     <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
-    <Navbar controls="true" />
-    <div class="columns videobar is-gapless is-multiline">
+    <div class="columns is-mobile videobar is-gapless is-multiline">
       <VideoContainer v-for="(user, index) in users" :user="user" :key="user.id"></VideoContainer>
     </div>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
 import VideoContainer from '@/components/Video'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Navbar, VideoContainer },
+  components: { VideoContainer },
   name: 'session',
   computed: {
     ...mapState(['user'])

@@ -1,12 +1,16 @@
 import { firebaseAction } from 'vuexfire'
 
 const getters = {
-  users: state => state.users
+  users: state => state.users,
+  rooms: state => state.rooms
 }
 
 const actions = {
-  setUsersRef: firebaseAction(({ bindFirebaseRef, unbindFirebaseRef }, { ref }) => {
-    bindFirebaseRef('users', ref)
+  // setUserProfile: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+  //   bindFirebaseRef('userProfile', ref)
+  // }),
+  setRoomsRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('rooms', ref)
   })
 }
 
@@ -14,7 +18,8 @@ const mutations = {
 }
 
 const state = {
-  users: []
+  rooms: [],
+  userProfile: {}
 }
 
 export default {

@@ -1,11 +1,10 @@
 <template>
   <div v-if="user !== false">
     <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
-    <Navbar />
     <router-view v-if="$route.params.roomid"></router-view>
-    <div class="container is-fluid" v-else>
-      <div class="columns is-mobile is-multiline is-centered">
-        <div class="column is-3">
+    <div class="container" v-else>
+      <div class="columns is-tablet is-multiline">
+        <div class="column is-4-desktop is-6-tablet" v-if="userProfile.role == 'instructor'">
           <router-link :to="{ name: 'Main-Classroom', params: {roomid: 'CHqI16'} }" tag="div" class="card is-fullheight is-primary is-outlined">
             <div class="card-hover"></div>
             <div class="card-content">
@@ -16,14 +15,14 @@
             </div>
           </router-link>
         </div>
-        <div class="column is-3">
-          <router-link :to="{ name: 'Main-Classroom', params: {roomid: 'CHqI16'} }" tag="div" class="card is-fullheight">
+        <div class="column is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
+          <router-link :to="{ name: 'Main-Classroom', params: {roomid: room.name} }" tag="div" class="card is-fullheight">
             <div class="card-hover">
-              <small class="status">Active</small>
+              <small class="status is-uppercase">Active</small>
             </div>
             <div class="card-content has-text-centered">
               <div class="content">
-                <p class="is-size-5">My Awesome Class</p>
+                <p class="is-size-5">{{room.name}}</p>
                 <small><b-icon icon="people" size="is-small" class="re-align"></b-icon> 12 students</small> <small><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> 6 sessions</small>
               </div>
             </div>
@@ -35,18 +34,13 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
-import Navbar from '@/components/Navbar'
+import { mapState } from 'vuex'
 import { db } from '@/firebase'
 
-const usersRef = db.ref('users')
-
 export default {
-  components: { Navbar },
   name: 'main',
   computed: {
-    ...mapGetters(['users']),
-    ...mapState(['user'])
+    ...mapState(['user', 'userProfile', 'rooms'])
   },
   data () {
     return {
@@ -55,7 +49,10 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('setUsersRef', usersRef)
+    const usersRef = db.ref('users/' + this.user.uid)
+    const roomsRef = db.ref('rooms')
+    this.$store.dispatch('setUserProfile', usersRef)
+    this.$store.dispatch('setRooms', roomsRef)
     this.isLoading = false
   }
 }
@@ -68,7 +65,7 @@ export default {
   position: relative;
   background-color: hsl(205, 36%, 43%);
   color: #fff;
-  min-height: 250px;
+  min-height: 300px;
   transition-duration: 0.3s;
 }
 .is-outlined {
@@ -122,5 +119,8 @@ export default {
 }
 .add-room {
   margin-top: 8px;
+}
+.is-uppercase {
+  text-transform: uppercase;
 }
 </style>
