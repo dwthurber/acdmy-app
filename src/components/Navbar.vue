@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-mobile is-marginless is-fixed-top" id="top">
+  <nav class="navbar is-marginless" id="top">
     <div class="navbar-brand">
       <router-link :to="{ name: 'Main' }" class="navbar-item"><img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform"></router-link>
       <div class="is-hidden-desktop navbar-center navbar-item is-paddingless">
@@ -135,8 +135,8 @@
         </a>
         <b-dropdown class="is-marginless" position="is-bottom-left">
           <a class="navbar-item"  slot="trigger" title="user profile">
-            <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
-            <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
+            <img v-if="userProfile.profile_picture" class="is-circle-image" :src="userProfile.profile_picture" alt="Profile Image">
+            <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
           </a>
 
           <b-dropdown-option subheader class="is-wide-dropdown">
@@ -144,9 +144,9 @@
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <h4 class="title"><strong v-if="user.displayName">{{user.displayName}}</strong><strong v-else>First Last</strong></h4>
+                    <h4 class="title"><strong v-if="user.displayName">{{userProfile.name}}</strong><strong v-else>First Last</strong></h4>
                     <p class="subtitle is-6">{{userProfile.role}}</p>
-                    <p class="subtitle is-6"><small>{{user.email}}</small><br>
+                    <p class="subtitle is-6"><small>{{userProfile.email}}</small><br>
                       <small class="has-text-success" v-if="emailsent">email sent</small>
                       <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger"  @click.prevent="verifyEmail">Please verify email</a></small>
                       <small class="has-text-grey" v-if="isSending">Sending email...</small>
@@ -160,8 +160,8 @@
               </div>
               <figure class="media-right">
                 <p class="image is-64x64">
-                  <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
-                  <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
+                  <img v-if="userProfile.profile_picture" class="is-circle-image" :src="userProfile.profile_picture" alt="Profile Image">
+                  <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
                 </p>
               </figure>
             </article>
@@ -208,6 +208,7 @@
 import ModalAccount from './AccountSettings'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
+import { db } from '@/firebase'
 
 export default {
   name: 'navbar',
@@ -216,7 +217,7 @@ export default {
     ModalAccount
   },
   computed: {
-    ...mapState(['user', 'userProfile'])
+    ...mapState(['user', 'userProfile', 'rooms'])
   },
   data () {
     return {
@@ -228,7 +229,12 @@ export default {
   },
   methods: {
     logout: function () {
-      Firebase.auth().signOut().then(function () {}, function (error) {
+      const usersRef = db.ref('users/' + this.user.uid)
+      usersRef.update({
+        online: false
+      })
+      Firebase.auth().signOut().then((response) => {
+      }).catch((error) => {
         console.error('Sign Out Error', error)
       })
     },
@@ -254,6 +260,7 @@ export default {
 <style scoped>
 .navbar {
   border-bottom: 1px solid #cfcfcf;
+  background-color: #fcfcfc;
 }
 .tabs ul {
   padding-top: 16px;

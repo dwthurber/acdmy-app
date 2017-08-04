@@ -39,6 +39,6 @@ export default {
   border-bottom: 1px solid #cfcfcf;
 }
 #session {
-  overflow: hidden;
+  /*overflow: hidden;*/
 }
 </style>

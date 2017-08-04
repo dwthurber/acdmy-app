@@ -4,19 +4,43 @@
     <router-view v-if="$route.params.roomid"></router-view>
     <div class="container" v-else>
       <div class="columns is-tablet is-multiline">
-        <div class="column is-4-desktop is-6-tablet" v-if="userProfile.role == 'instructor'">
-          <router-link :to="{ name: 'Main-Classroom', params: {roomid: 'CHqI16'} }" tag="div" class="card is-fullheight is-primary is-outlined">
-            <div class="card-hover"></div>
+        <div class="column is-4-desktop is-6-tablet" v-if="userProfile.role != 'Student'">
+          <div class="card is-fullheight is-primary is-outlined" @click="isAddRoomActive = true">
             <div class="card-content">
               <div class="content has-text-centered">
                 <b-icon icon="library_add" size="is-medium"></b-icon>
                 <p class="is-size-5 add-room">Add Room</p>
               </div>
             </div>
-          </router-link>
+          </div>
         </div>
+        <b-modal :active.sync="isAddRoomActive" :width="640">
+            <div class="box">
+              <h4 class="title is-4">Create a Room</h4>
+              <b-message type="is-danger" v-if="isInvalid">
+                  Please enter a room name
+              </b-message>
+              <form>
+                <b-field label="Room Name">
+                    <b-input type="text" icon="add_circle_outline" v-model="name" maxlength="30"
+                        placeholder="My Awesome Classroom" @keyup.enter="createRoom" >
+                    </b-input>
+                </b-field>
+                <!-- <b-field label="Password">
+                    <b-input type="password" icon="lock" @keyup.enter="login"
+                        placeholder="Str0ngP@ssword" v-model="password"
+                        password-reveal>
+                    </b-input>
+                </b-field> -->
+                <hr>
+                <p class="control">
+                  <button class="button is-primary" :class="{'is-loading': saving}" @click.self.prevent="createRoom">Create</button>
+                </p>
+              </form>
+            </div>
+        </b-modal>
         <div class="column is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
-          <router-link :to="{ name: 'Main-Classroom', params: {roomid: room.name} }" tag="div" class="card is-fullheight">
+          <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card is-fullheight">
             <div class="card-hover">
               <small class="status is-uppercase">Active</small>
             </div>
@@ -45,15 +69,64 @@ export default {
   data () {
     return {
       isLoading: true,
-      dashboardRoute: ''
+      isAddRoomActive: false,
+      name: null,
+      isInvalid: false,
+      saving: false
     }
   },
   mounted () {
-    const usersRef = db.ref('users/' + this.user.uid)
+    const usersRef = db.ref('users')
+    const userProfileRef = db.ref('users/' + this.user.uid)
+    userProfileRef.update({
+      online: true
+    })
+    const profile = {
+      name: this.user.displayName,
+      email: this.user.email,
+      profile_picture: this.user.photoURL,
+      role: null,
+      online: true
+    }
+    usersRef.child(this.user.uid).once('value', function (snapshot) {
+      if (snapshot.val() !== null) {
+        // console.log('user exists!')
+      } else {
+        userProfileRef.set(profile)
+      }
+    })
+
     const roomsRef = db.ref('rooms')
-    this.$store.dispatch('setUserProfile', usersRef)
+    // const userRoomsRef = db.ref('users/' + this.user.uid + '/rooms')
+    this.$store.dispatch('setUserProfile', userProfileRef)
     this.$store.dispatch('setRooms', roomsRef)
     this.isLoading = false
+  },
+  methods: {
+    createRoom: function () {
+      this.saving = true
+      const roomsRef = db.ref('rooms')
+      const userRoomsRef = db.ref('users/' + this.user.uid + '/rooms')
+      if (this.name == null || '') {
+        this.isInvalid = true
+      } else {
+        roomsRef.push({
+          name: this.name,
+          active: true,
+          owner: this.user.uid
+        })
+        roomsRef.on('child_added', function (data) {
+          userRoomsRef.child(data.key).setValue(true)
+          // this.$router.replace({name: 'Main-Classroom', params: {roomid: data.key}})
+        })
+      }
+      this.name = null
+      this.saving = false
+      this.isAddRoomActive = false
+      // const currentRoomRef = db.ref('rooms')
+      // this.$store.dispatch('setCurrentRoom', userProfileRef)
+      // this.$router.replace({name: 'Main-Classroom', params: {roomid: this['.key']}})
+    }
   }
 }
 </script>

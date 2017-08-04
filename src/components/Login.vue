@@ -4,7 +4,7 @@
       <div class="container">
         <div class="columns is-vcentered">
           <div class="column is-4 is-offset-4">
-            <img class="brand" src="../assets/acdmy.png" />
+            <img class="brand" src="../assets/acdmy-white.png" />
             <transition name="fade" mode="out-in">
               <div class="box" v-if="!signingUp" key="login">
                 <p><strong>Welcome.</strong> Please Login <small class="has-text-primary"> or <a href="#" @click.self.prevent="signingUp = true">Sign Up</a></small></p><br>
@@ -192,7 +192,7 @@ export default {
   background-position: center;
 }
 .brand {
-  height: 70px;
+  height: 60px;
   margin-bottom: 16px;
 }
 </style>
