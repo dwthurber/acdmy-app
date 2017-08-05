@@ -10,6 +10,9 @@ const mutations = {
   SET_USER (state, value) {
     state.user = value
   },
+  SET_USER_ROOMS (state, value) {
+    state.rooms = value
+  },
   ...firebaseMutations
 }
 

@@ -58,6 +58,7 @@ export default {
 .aside {
   background-color: #fcfcfc;
   padding: 12px 0!important;
+  position: fixed;
 }
 .router-link-active {
   border-left: 3px solid hsl(205, 36%, 43%);

@@ -49,6 +49,9 @@ export default {
 </script>
 
 <style scoped>
+.is-fullheight {
+  
+}
 .container {
   position: relative;
 }

@@ -261,6 +261,10 @@ export default {
 .navbar {
   border-bottom: 1px solid #cfcfcf;
   background-color: #fcfcfc;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 19;
 }
 .tabs ul {
   padding-top: 16px;
