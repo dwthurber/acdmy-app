@@ -135,7 +135,7 @@
         </a>
         <b-dropdown class="is-marginless" position="is-bottom-left">
           <a class="navbar-item"  slot="trigger" title="user profile">
-            <img v-if="userProfile.profile_picture" class="is-circle-image" :src="userProfile.profile_picture" alt="Profile Image">
+            <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="Profile Image">
             <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
           </a>
 
@@ -144,9 +144,9 @@
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <h4 class="title"><strong v-if="user.displayName">{{userProfile.name}}</strong><strong v-else>First Last</strong></h4>
+                    <h4 class="title"><strong v-if="user.displayName">{{user.displayName}}</strong><strong v-else>First Last</strong></h4>
                     <p class="subtitle is-6">{{userProfile.role}}</p>
-                    <p class="subtitle is-6"><small>{{userProfile.email}}</small><br>
+                    <p class="subtitle is-6"><small>{{user.email}}</small><br>
                       <small class="has-text-success" v-if="emailsent">email sent</small>
                       <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger"  @click.prevent="verifyEmail">Please verify email</a></small>
                       <small class="has-text-grey" v-if="isSending">Sending email...</small>
@@ -160,7 +160,7 @@
               </div>
               <figure class="media-right">
                 <p class="image is-64x64">
-                  <img v-if="userProfile.profile_picture" class="is-circle-image" :src="userProfile.profile_picture" alt="Profile Image">
+                  <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="Profile Image">
                   <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
                 </p>
               </figure>
@@ -208,7 +208,7 @@
 import ModalAccount from './AccountSettings'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
-import { db } from '@/firebase'
+import { usersRef } from '@/firebase'
 
 export default {
   name: 'navbar',
@@ -229,8 +229,7 @@ export default {
   },
   methods: {
     logout: function () {
-      const usersRef = db.ref('users/' + this.user.uid)
-      usersRef.update({
+      usersRef.child(this.user.uid).update({
         online: false
       })
       Firebase.auth().signOut().then((response) => {

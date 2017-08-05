@@ -5,7 +5,7 @@
       <router-view v-if="$route.params.roomid"></router-view>
       <div class="container" v-else>
         <div class="columns is-tablet is-multiline">
-          <div class="column is-4-desktop is-6-tablet" v-if="userProfile.role != 'Student'">
+          <div class="column is-3-widescreen is-4-desktop is-6-tablet" v-if="userProfile.role != 'Student'">
             <div class="card is-fullheight is-primary is-outlined" @click="isAddRoomActive = true">
               <div class="card-content has-text-primary">
                 <div class="content has-text-centered">
@@ -24,7 +24,7 @@
                 <form>
                   <b-field label="Room Name">
                       <b-input type="text" v-model="name" maxlength="50"
-                          placeholder="My Awesome Classroom" @keyup.enter="createRoom" >
+                          placeholder="My Awesome Classroom" @keyup.enter="createRoom">
                       </b-input>
                   </b-field>
                   <hr>
@@ -34,7 +34,7 @@
                 </form>
               </div>
           </b-modal>
-          <div class="column is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']" v-if="room.owner == user.uid">
+          <div class="column is-3-widescreen is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
             <div class="card">
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
               <div class="card-text-hover">
@@ -67,10 +67,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { db } from '@/firebase'
-
-const usersRef = db.ref('users')
-const roomsRef = db.ref('rooms')
+import { db, usersRef, roomsRef, usersRoomsRef, roomsUsersRef } from '@/firebase'
 
 export default {
   name: 'main',
@@ -89,16 +86,10 @@ export default {
     }
   },
   mounted () {
-    // const userRoomsRef = roomsRef.orderByChild('owner').equalTo(this.user.uid)
-    const currentRoomRef = db.ref('rooms/' + this.$route.params.roomid)
-
     usersRef.child(this.user.uid).update({
       online: true
     })
     const profile = {
-      name: this.user.displayName,
-      email: this.user.email,
-      profile_picture: this.user.photoURL,
       role: 'Instructor',
       online: true
     }
@@ -110,16 +101,7 @@ export default {
       }
     })
     this.$store.dispatch('setUserProfile', usersRef.child(this.user.uid))
-
-    // const userRooms = []
-    // roomsRef.orderByChild('owner').equalTo(this.user.uid).on('child_added', function (snapshot) {
-    //   const data = snapshot.val()
-    //   data['.key'] = snapshot.key
-    //   userRooms.push(data)
-    // })
-    // this.$store.commit('SET_USER_ROOMS', userRooms || false)
-    this.$store.dispatch('setCurrentRoom', currentRoomRef)
-    this.$store.dispatch('setRooms', roomsRef)
+    this.$store.dispatch('setRooms', usersRoomsRef.child(this.user.uid))
     this.isLoading = false
   },
   methods: {
@@ -134,11 +116,22 @@ export default {
           active: true,
           owner: this.user.uid
         }
+        const user = {
+          name: this.user.displayName,
+          profile_picture: this.user.photoURL
+        }
         const updates = {}
         updates['/rooms/' + newRoomKey] = newRoom
         updates['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
+        updates['/usersRooms/' + this.user.uid + '/' + newRoomKey] = newRoom
+        updates['/roomsUsers/' + newRoomKey + '/' + this.user.uid] = user
 
         db.ref().update(updates)
+
+        const roomUsers = {}
+        roomUsers['/rooms/' + newRoomKey + '/users/' + this.user.uid] = true
+
+        db.ref().update(roomUsers)
         this.isAddRoomActive = false
       }
       this.name = null
@@ -149,8 +142,9 @@ export default {
     },
     deleteRoom: function () {
       roomsRef.child(this.roomKey).remove()
-      const userRoomRef = db.ref('/users/' + this.user.uid + '/rooms/' + this.roomKey)
-      userRoomRef.remove()
+      usersRef.child(this.user.uid).child('/rooms/').child(this.roomKey).remove()
+      usersRoomsRef.child(this.user.uid).child('/').child(this.roomKey).remove()
+      roomsUsersRef.child(this.roomKey).child('/').child(this.user.uid).remove()
       this.roomKey = null
       this.isDeleteRoomActive = false
     }
@@ -167,7 +161,7 @@ export default {
 .card {
   position: relative;
   background-color: hsl(205, 36%, 43%);
-  min-height: 300px;
+  min-height: 200px;
   transition-duration: 0.3s;
 }
 .is-outlined {

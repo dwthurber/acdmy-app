@@ -25,6 +25,9 @@ const actions = {
   }),
   setCurrentRoom: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('currentRoom', ref)
+  }),
+  setUsers: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('users', ref)
   })
 }
 
@@ -33,6 +36,7 @@ const state = {
   userProfile: {},
   rooms: [],
   currentRoom: null,
+  users: [],
   count: 0
 }
 

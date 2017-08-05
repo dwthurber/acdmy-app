@@ -13,7 +13,7 @@
 <script>
 import avatar from '@/components/Avatar'
 import draggable from 'vuedraggable'
-import { db } from '@/firebase'
+import { roomsRef, roomsUsersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -23,11 +23,11 @@ export default {
     draggable
   },
   computed: {
-    ...mapState(['userProfile', 'rooms', 'currentRoom'])
+    ...mapState(['currentRoom', 'roomsUsers'])
   },
   mounted () {
-    const currentRoomRef = db.ref('rooms/' + this.$route.params.roomid)
-    this.$store.dispatch('setCurrentRoom', currentRoomRef)
+    this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
+    this.$store.dispatch('setUsers', roomsUsersRef.child(this.$route.params.roomid))
   },
   methods: {
     randomNumber: function () {
@@ -50,7 +50,7 @@ export default {
 
 <style scoped>
 .is-fullheight {
-  
+
 }
 .container {
   position: relative;
