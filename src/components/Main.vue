@@ -6,7 +6,7 @@
       <div class="container" v-else>
         <div class="columns is-tablet is-multiline">
           <div class="column is-3-widescreen is-4-desktop is-6-tablet" v-if="userProfile.role != 'Student'">
-            <div class="card is-fullheight is-primary is-outlined" @click="isAddRoomActive = true">
+            <div class="card is-fullheight is-primary is-outlined" @click="createRoom">
               <div class="card-content has-text-primary">
                 <div class="content has-text-centered">
                   <b-icon icon="library_add" size="is-medium"></b-icon>
@@ -15,32 +15,13 @@
               </div>
             </div>
           </div>
-          <b-modal :active.sync="isAddRoomActive" :width="640">
-              <div class="box">
-                <h4 class="title is-4">Create a Room</h4>
-                <b-message type="is-danger" v-if="isInvalid">
-                    Please enter a room name
-                </b-message>
-                <form>
-                  <b-field label="Room Name">
-                      <b-input type="text" v-model="name" maxlength="50"
-                          placeholder="My Awesome Classroom" @keyup.enter="createRoom">
-                      </b-input>
-                  </b-field>
-                  <hr>
-                  <p class="control">
-                    <button class="button is-primary" :class="{'is-loading': saving}" @click.self.prevent="createRoom">Create</button>
-                  </p>
-                </form>
-              </div>
-          </b-modal>
           <div class="column is-3-widescreen is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
             <div class="card">
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
               <div class="card-text-hover">
                 <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
                 <small class="status is-uppercase has-text-warning" v-else>Inactive</small>
-                <button class="button is-danger is-outlined remove" @click="stageDelete(room['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+                <button class="button is-danger is-outlined remove" @click="deleteRoom(room['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
               </div>
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
@@ -49,15 +30,6 @@
                 </div>
               </router-link>
             </div>
-            <b-modal :active.sync="isDeleteRoomActive" :width="640" :name="room.name">
-              <b-message type="is-danger" has-icon>
-                  Warning! You are about to delete this room and all associated data. This action cannot be undone. Are you sure you want to delete this room?<br><br>
-                  <p class="control">
-                    <button class="button is-danger is-outlined" :class="{'is-loading': saving}" @click.self.prevent="deleteRoom">DELETE</button>
-                    <button class="button is-dark is-outlined" @click="isDeleteRoomActive = false">Cancel</button>
-                  </p>
-              </b-message>
-            </b-modal>
           </div>
         </div>
       </div>
@@ -76,13 +48,7 @@ export default {
   },
   data () {
     return {
-      isLoading: true,
-      isAddRoomActive: false,
-      isDeleteRoomActive: false,
-      name: null,
-      isInvalid: false,
-      saving: false,
-      roomKey: null
+      isLoading: true
     }
   },
   mounted () {
@@ -105,48 +71,53 @@ export default {
     this.isLoading = false
   },
   methods: {
-    createRoom: function () {
-      this.saving = true
-      if (this.name == null || '') {
-        this.isInvalid = true
-      } else {
-        const newRoomKey = roomsRef.push().key
-        const newRoom = {
-          name: this.name,
-          active: true,
-          owner: this.user.uid
+    createRoom () {
+      this.$dialog.prompt({
+        message: `What is the name of your room?`,
+        inputMaxlength: 50,
+        inputPlaceholder: 'e.g. My Awesome Classroom',
+        onConfirm: (value) => {
+          const newRoomKey = roomsRef.push().key
+          const newRoom = {
+            name: value,
+            active: true,
+            owner: this.user.uid
+          }
+          const user = {
+            name: this.user.displayName,
+            profile_picture: this.user.photoURL
+          }
+          const updates = {}
+          updates['/rooms/' + newRoomKey] = newRoom
+          updates['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
+          updates['/usersRooms/' + this.user.uid + '/' + newRoomKey] = newRoom
+          updates['/roomsUsers/' + newRoomKey + '/' + this.user.uid] = user
+
+          db.ref().update(updates)
+
+          const roomUsers = {}
+          roomUsers['/rooms/' + newRoomKey + '/users/' + this.user.uid] = true
+
+          db.ref().update(roomUsers)
+          this.$toast.open(value + 'room created!')
         }
-        const user = {
-          name: this.user.displayName,
-          profile_picture: this.user.photoURL
+      })
+    },
+    deleteRoom: function (key) {
+      this.$dialog.confirm({
+        title: 'Deleting Room',
+        message: 'Are you sure you want to <strong>delete</strong> this room? This action cannot be undone.',
+        confirmText: 'Delete Room',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => {
+          roomsRef.child(key).remove()
+          usersRef.child(this.user.uid).child('/rooms/').child(key).remove()
+          usersRoomsRef.child(this.user.uid).child('/').child(key).remove()
+          roomsUsersRef.child(key).child('/').child(this.user.uid).remove()
+          this.$toast.open('Room deleted')
         }
-        const updates = {}
-        updates['/rooms/' + newRoomKey] = newRoom
-        updates['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
-        updates['/usersRooms/' + this.user.uid + '/' + newRoomKey] = newRoom
-        updates['/roomsUsers/' + newRoomKey + '/' + this.user.uid] = user
-
-        db.ref().update(updates)
-
-        const roomUsers = {}
-        roomUsers['/rooms/' + newRoomKey + '/users/' + this.user.uid] = true
-
-        db.ref().update(roomUsers)
-        this.isAddRoomActive = false
-      }
-      this.name = null
-      this.saving = false
-    },
-    stageDelete: function (key) {
-      this.roomKey = key
-    },
-    deleteRoom: function () {
-      roomsRef.child(this.roomKey).remove()
-      usersRef.child(this.user.uid).child('/rooms/').child(this.roomKey).remove()
-      usersRoomsRef.child(this.user.uid).child('/').child(this.roomKey).remove()
-      roomsUsersRef.child(this.roomKey).child('/').child(this.user.uid).remove()
-      this.roomKey = null
-      this.isDeleteRoomActive = false
+      })
     }
   }
 }

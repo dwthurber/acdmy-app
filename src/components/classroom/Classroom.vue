@@ -2,16 +2,21 @@
   <section class="hero is-fullheight">
 
     <div class="hero-body">
-      <!-- <draggable @start="drag=true" @end="drag=false" class="container">
-        <avatar v-for="user in users" :left="randomNumber()" :top="randomNumber()" :photoURL="user.photoURL" :displayName="user.displayName" key="user['.key']"/>
-      </draggable> -->
+      <div class="add-circle">
+        <b-icon icon="add" type="is-primary" size="is-medium"></b-icon>
+      </div>
+      <draggable @start="drag=true" @end="drag=false" class="container" v-for="user in users" :key="user['.key']">
+        <div class="image is-96x96 is-avatar" :style="{top: randomNumber() + '%', left: randomNumber() + '%'}">
+          <img class="" :src="user.profile_picture" alt="User Profile Image">
+          <span class="tag is-primary">{{user.name}}</span>
+        </div>
+      </draggable>
     </div>
 
   </section>
 </template>
 
 <script>
-import avatar from '@/components/Avatar'
 import draggable from 'vuedraggable'
 import { roomsRef, roomsUsersRef } from '@/firebase'
 import { mapState } from 'vuex'
@@ -19,11 +24,10 @@ import { mapState } from 'vuex'
 export default {
   name: 'Classroom',
   components: {
-    avatar,
     draggable
   },
   computed: {
-    ...mapState(['currentRoom', 'roomsUsers'])
+    ...mapState(['currentRoom', 'users'])
   },
   mounted () {
     this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
@@ -49,10 +53,47 @@ export default {
 </script>
 
 <style scoped>
-.is-fullheight {
-
-}
-.container {
+.hero-body {
   position: relative;
+}
+.is-avatar {
+  border-radius: 50%;
+  overflow: hidden
+}
+.image {
+  position: absolute;
+}
+.is-avatar:hover .tag {
+  opacity: 0.8;
+  transition-duration: 0.2s;
+  cursor: move;
+}
+.tag {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 100%;
+  border-radius: 0;
+  opacity: 0;
+  transition-duration: 0.5s;
+  overflow: ellipse;
+}
+.add-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 200px;
+  width: 200px;
+  margin-top: -100px;
+  margin-left: -100px;
+  border: 1px dotted hsl(205, 36%, 43%);
+  border-radius: 50%;
+}
+.add-circle .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -16px;
+  margin-left: -16px;
 }
 </style>
