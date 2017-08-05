@@ -22,16 +22,10 @@
               </b-message>
               <form>
                 <b-field label="Room Name">
-                    <b-input type="text" icon="add_circle_outline" v-model="name" maxlength="30"
+                    <b-input type="text" v-model="name" maxlength="30"
                         placeholder="My Awesome Classroom" @keyup.enter="createRoom" >
                     </b-input>
                 </b-field>
-                <!-- <b-field label="Password">
-                    <b-input type="password" icon="lock" @keyup.enter="login"
-                        placeholder="Str0ngP@ssword" v-model="password"
-                        password-reveal>
-                    </b-input>
-                </b-field> -->
                 <hr>
                 <p class="control">
                   <button class="button is-primary" :class="{'is-loading': saving}" @click.self.prevent="createRoom">Create</button>
@@ -43,6 +37,7 @@
           <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card is-fullheight">
             <div class="card-hover">
               <small class="status is-uppercase">Active</small>
+              <button class="button is-danger is-outlined remove"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
             </div>
             <div class="card-content has-text-centered">
               <div class="content">
@@ -97,7 +92,6 @@ export default {
     })
 
     const roomsRef = db.ref('rooms')
-    // const userRoomsRef = db.ref('users/' + this.user.uid + '/rooms')
     this.$store.dispatch('setUserProfile', userProfileRef)
     this.$store.dispatch('setRooms', roomsRef)
     this.isLoading = false
@@ -106,26 +100,31 @@ export default {
     createRoom: function () {
       this.saving = true
       const roomsRef = db.ref('rooms')
-      const userRoomsRef = db.ref('users/' + this.user.uid + '/rooms')
       if (this.name == null || '') {
         this.isInvalid = true
       } else {
-        roomsRef.push({
+        const newRoomKey = roomsRef.push().key
+        const newRoom = {
           name: this.name,
           active: true,
           owner: this.user.uid
-        })
-        roomsRef.on('child_added', function (data) {
-          userRoomsRef.child(data.key).setValue(true)
-          // this.$router.replace({name: 'Main-Classroom', params: {roomid: data.key}})
-        })
+        }
+        const updates = {}
+        updates['/rooms/' + newRoomKey] = newRoom
+        updates['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
+
+        db.ref().update(updates)
       }
       this.name = null
       this.saving = false
       this.isAddRoomActive = false
-      // const currentRoomRef = db.ref('rooms')
-      // this.$store.dispatch('setCurrentRoom', userProfileRef)
-      // this.$router.replace({name: 'Main-Classroom', params: {roomid: this['.key']}})
+    },
+    deleteRoom: function (key) {
+      // const updates = {}
+      // updates['/rooms/' + key] = null
+      // updates['/users/' + this.user.uid + '/rooms/' + key] = null
+      //
+      // db.ref().update(updates)
     }
   }
 }
@@ -195,5 +194,10 @@ export default {
 }
 .is-uppercase {
   text-transform: uppercase;
+}
+.remove {
+  position: absolute;
+  top: 8px;
+  left: 8px;
 }
 </style>

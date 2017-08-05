@@ -13,14 +13,21 @@
 <script>
 import avatar from '@/components/Avatar'
 import draggable from 'vuedraggable'
+import { db } from '@/firebase'
+import { mapState } from 'vuex'
 
 export default {
-  name: 'Dashboard-Classroom',
+  name: 'Classroom',
   components: {
     avatar,
     draggable
   },
   computed: {
+    ...mapState(['userProfile', 'rooms', 'currentRoom'])
+  },
+  mounted () {
+    const currentRoomRef = db.ref('rooms/' + this.$route.params.roomid)
+    this.$store.dispatch('setCurrentRoom', currentRoomRef)
   },
   methods: {
     randomNumber: function () {

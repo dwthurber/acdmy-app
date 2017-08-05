@@ -105,7 +105,7 @@
       <div class="navbar-center navbar-item is-paddingless">
         <small class="uppercase" v-if="!$route.params.roomid">My Rooms</small>
         <div class="tabs is-centered" v-else>
-          <small class="uppercase">My Awesome Class</small>
+          <small class="uppercase">{{currentRoom.name}}</small>
           <ul>
             <router-link :to="{ name: 'Main-Classroom' }" tag="li" exact><a><b-icon icon="group_work" size="is-small"></b-icon> Room</a></router-link>
             <router-link :to="{ name: 'Main-Chat' }" tag="li" exact><a><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></router-link>
@@ -217,7 +217,7 @@ export default {
     ModalAccount
   },
   computed: {
-    ...mapState(['user', 'userProfile', 'rooms'])
+    ...mapState(['user', 'userProfile', 'rooms', 'currentRoom'])
   },
   data () {
     return {
