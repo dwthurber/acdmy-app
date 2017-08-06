@@ -1,30 +1,18 @@
 <template>
-  <section class="hero is-fullheight">
-
-    <div class="hero-body">
-      <div class="add-circle">
-        <b-icon icon="add" type="is-primary" size="is-medium"></b-icon>
-      </div>
-      <draggable @start="drag=true" @end="drag=false" class="container" v-for="user in users" :key="user['.key']">
-        <div class="image is-96x96 is-avatar" :style="{top: randomNumber() + '%', left: randomNumber() + '%'}">
-          <img class="" :src="user.profile_picture" alt="User Profile Image">
-          <span class="tag is-primary">{{user.name}}</span>
-        </div>
-      </draggable>
-    </div>
-
+  <section class="hero">
+    <div class="hero-body is-paddingless" id="container"></div>
   </section>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
+import Konva from 'konva'
 import { roomsRef, roomsUsersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'Classroom',
   components: {
-    draggable
+
   },
   computed: {
     ...mapState(['currentRoom', 'users'])
@@ -32,6 +20,119 @@ export default {
   mounted () {
     this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
     this.$store.dispatch('setUsers', roomsUsersRef.child(this.$route.params.roomid))
+    var width = window.innerWidth
+    var height = window.innerHeight
+    var stage = new Konva.Stage({
+      container: 'container',
+      width: width,
+      height: height
+    })
+    var layer = new Konva.Layer()
+    stage.add(layer)
+    var tempLayer = new Konva.Layer()
+    stage.add(tempLayer)
+    var text = new Konva.Text({
+      fill: 'black'
+    })
+    layer.add(text)
+    var star
+    for (var i = 0; i < 10; i++) {
+      star = new Konva.Star({
+        x: stage.width() * Math.random(),
+        y: stage.height() * Math.random(),
+        fill: 'blue',
+        numPoints: 10,
+        innerRadius: 20,
+        outerRadius: 25,
+        draggable: true,
+        name: 'star ' + i,
+        shadowOffsetX: 5,
+        shadowOffsetY: 5
+      })
+      layer.add(star)
+    }
+    layer.draw()
+    stage.on('dragstart', function (e) {
+      e.target.moveTo(tempLayer)
+      text.text('Moving ' + e.target.name())
+      layer.draw()
+    })
+    var previousShape
+    stage.on('dragmove', function (evt) {
+      var pos = stage.getPointerPosition()
+      var shape = layer.getIntersection(pos)
+      if (previousShape && shape) {
+        if (previousShape !== shape) {
+          // leave from old targer
+          previousShape.fire('dragleave', {
+            type: 'dragleave',
+            target: previousShape,
+            evt: evt.evt
+          }, true)
+          // enter new targer
+          shape.fire('dragenter', {
+            type: 'dragenter',
+            target: shape,
+            evt: evt.evt
+          }, true)
+          previousShape = shape
+        } else {
+          previousShape.fire('dragover', {
+            type: 'dragover',
+            target: previousShape,
+            evt: evt.evt
+          }, true)
+        }
+      } else if (!previousShape && shape) {
+        previousShape = shape
+        shape.fire('dragenter', {
+          type: 'dragenter',
+          target: shape,
+          evt: evt.evt
+        }, true)
+      } else if (previousShape && !shape) {
+        previousShape.fire('dragleave', {
+          type: 'dragleave',
+          target: previousShape,
+          evt: evt.evt
+        }, true)
+        previousShape = undefined
+      }
+    })
+    stage.on('dragend', function (e) {
+      var pos = stage.getPointerPosition()
+      var shape = layer.getIntersection(pos)
+      if (shape) {
+        previousShape.fire('drop', {
+          type: 'drop',
+          target: previousShape,
+          evt: e.evt
+        }, true)
+      }
+      previousShape = undefined
+      e.target.moveTo(layer)
+      layer.draw()
+      tempLayer.draw()
+    })
+    stage.on('dragenter', function (e) {
+      e.target.fill('green')
+      text.text('dragenter ' + e.target.name())
+      layer.draw()
+    })
+    stage.on('dragleave', function (e) {
+      e.target.fill('blue')
+      text.text('dragleave ' + e.target.name())
+      layer.draw()
+    })
+    stage.on('dragover', function (e) {
+      text.text('dragover ' + e.target.name())
+      layer.draw()
+    })
+    stage.on('drop', function (e) {
+      e.target.fill('red')
+      text.text('drop ' + e.target.name())
+      layer.draw()
+    })
   },
   methods: {
     randomNumber: function () {
@@ -53,7 +154,10 @@ export default {
 </script>
 
 <style scoped>
-.hero-body {
+/*.hero {
+  margin-top: -57px;
+}*/
+/*.hero-body {
   position: relative;
 }
 .is-avatar {
@@ -95,5 +199,5 @@ export default {
   left: 50%;
   margin-top: -16px;
   margin-left: -16px;
-}
+}*/
 </style>
