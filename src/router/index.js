@@ -14,32 +14,32 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/a/:uid/',
+      path: '/',
       component: Main,
       name: 'Main',
       children: [
         {
-          path: '/a/:uid/r/:roomid/',
+          path: '/r/:roomid/',
           component: Classroom,
           name: 'Main-Classroom'
         },
         {
-          path: '/a/:uid/r/:roomid/chat',
+          path: '/r/:roomid/chat',
           component: Chat,
           name: 'Main-Chat'
         },
         {
-          path: '/a/:uid/r/:roomid/dashboard/',
+          path: '/r/:roomid/dashboard/',
           component: Dashboard,
           name: 'Dashboard',
           children: [
             {
-              path: '/a/:uid/r/:roomid/sessions',
+              path: '/r/:roomid/sessions',
               component: Sessions,
               name: 'Dashboard-Sessions'
             },
             {
-              path: '/a/:uid/r/:roomid/assets',
+              path: '/r/:roomid/assets',
               component: Assets,
               name: 'Dashboard-Assets'
             }
@@ -59,7 +59,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: { name: 'Login' }
+      redirect: { name: 'Main' }
     }
   ]
 })
