@@ -144,14 +144,13 @@
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <h4 class="title"><strong v-if="user.displayName">{{user.displayName}}</strong><strong v-else>First Last</strong></h4>
-                    <p class="subtitle is-6">{{userProfile.role}}</p>
+                    <h4 class="title"><strong>{{user.displayName}}</strong></h4>
                     <p class="subtitle is-6"><small>{{user.email}}</small><br>
                       <small class="has-text-success" v-if="emailsent">email sent</small>
                       <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger"  @click.prevent="verifyEmail">Please verify email</a></small>
                       <small class="has-text-grey" v-if="isSending">Sending email...</small>
                     </p>
-                    <p><small><a @click="isAccountModalActive = true" >Account Settings</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
+                    <p><small><a @click="isAccountModalActive = true" >Account</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
                     <b-modal :active.sync="isAccountModalActive" has-modal-card>
                         <modal-account></modal-account>
                     </b-modal>

@@ -9,8 +9,8 @@
             <div class="card is-fullheight is-primary is-outlined" @click="createRoom">
               <div class="card-content has-text-primary">
                 <div class="content has-text-centered">
-                  <b-icon icon="library_add" size="is-medium"></b-icon>
-                  <p class="is-size-5 add-room">Add Room</p>
+                  <b-icon icon="group_add" size="is-medium"></b-icon>
+                  <p class="is-size-5 add-room">New Room</p>
                 </div>
               </div>
             </div>

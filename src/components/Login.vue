@@ -69,7 +69,8 @@
               <a v-if="!signingUp" href="#" @click.self.prevent="signingUp = true">Sign Up</a>
               <a v-else href="#" @click.self.prevent="signingUp = false">Login</a>
               |
-              <a href="#">Forgot password?</a>
+              <a v-if="!signingUp" href="#">Forgot Password?</a>
+              <a v-else href="#">Need Help?</a>
             </p>
           </div>
         </div>
