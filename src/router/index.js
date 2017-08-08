@@ -33,25 +33,24 @@ export default new Router({
         {
           path: '/r/:roomid/dashboard/',
           component: Dashboard,
-          name: 'Dashboard',
           children: [
             {
-              path: '/r/:roomid/sessions',
+              path: '/',
               component: ManageSessions,
               name: 'Dashboard-Sessions'
             },
             {
-              path: '/r/:roomid/assets',
+              path: '/r/:roomid/dashboard/assets',
               component: Assets,
               name: 'Dashboard-Assets'
             },
             {
-              path: '/r/:roomid/people',
+              path: '/r/:roomid/dashboard/people',
               component: People,
               name: 'Dashboard-People'
             },
             {
-              path: '/r/:roomid/settings',
+              path: '/r/:roomid/dashboard/settings',
               component: Settings,
               name: 'Dashboard-Settings'
             }
