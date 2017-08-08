@@ -21,8 +21,6 @@ export default {
       this.$store.commit('SET_USER', user || false)
       if (!user) {
         this.$router.replace('/login')
-      } else if (user && this.$route.path === '/register') {
-        this.$router.replace('/')
       } else if (user && this.$route.path === '/login') {
         this.$router.replace('/')
       }

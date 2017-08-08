@@ -2,12 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Session from '@/components/Session'
 import Login from '@/components/Login'
-import Dashboard from '@/components/dashboard/Dashboard'
 import Main from '@/components/Main'
-import Sessions from '@/components/dashboard/Sessions'
-import Classroom from '@/components/classroom/Classroom'
-import Chat from '@/components/classroom/Chat'
-import Assets from '@/components/dashboard/Assets'
+import Dashboard from '@/components/main/Dashboard'
+import ManageSessions from '@/components/main/ManageSessions'
+import Classroom from '@/components/main/Classroom'
+import Chat from '@/components/main/Chat'
+import Assets from '@/components/main/Assets'
+import People from '@/components/main/People'
+import Settings from '@/components/main/Settings'
 
 Vue.use(Router)
 
@@ -35,13 +37,23 @@ export default new Router({
           children: [
             {
               path: '/r/:roomid/sessions',
-              component: Sessions,
+              component: ManageSessions,
               name: 'Dashboard-Sessions'
             },
             {
               path: '/r/:roomid/assets',
               component: Assets,
               name: 'Dashboard-Assets'
+            },
+            {
+              path: '/r/:roomid/people',
+              component: People,
+              name: 'Dashboard-People'
+            },
+            {
+              path: '/r/:roomid/settings',
+              component: Settings,
+              name: 'Dashboard-Settings'
             }
           ]
         }

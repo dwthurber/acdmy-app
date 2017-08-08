@@ -2,20 +2,12 @@
   <section class="hero is-fullheight is-primary is-dark">
     <div class="hero-body">
       <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column is-4 is-offset-4">
+        <div class="columns is-vcentered is-centered">
+          <div class="column is-5">
             <img class="brand" src="../assets/acdmy-white.png" />
             <transition name="fade" mode="out-in">
               <div class="box" v-if="!signingUp" key="login">
                 <p><strong>Welcome.</strong> Please Login <small class="has-text-primary"> or <a href="#" @click.self.prevent="signingUp = true">Sign Up</a></small></p><br>
-                <div class="columns">
-                  <div class="column">
-                    <a class="button is-google is-social" @click.self.prevent="googleLogin">Google</a>
-                  </div>
-                  <div class="column">
-                    <a class="button is-facebook is-social" @click.self.prevent="facebookLogin">Facebook</a>
-                  </div>
-                </div>
                 <b-message type="is-danger" v-if="loginFailed">
                     Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
                 </b-message>
@@ -65,12 +57,24 @@
                 </p>
               </div>
             </transition>
+            <div class="box">
+              <div class="columns">
+                <div class="column">
+                  <a class="button is-google is-social" @click.self.prevent="googleLogin">Google</a>
+                </div>
+                <div class="column">
+                  <a class="button is-facebook is-social" @click.self.prevent="facebookLogin">Facebook</a>
+                </div>
+              </div>
+            </div>
             <p class="has-text-centered">
               <a v-if="!signingUp" href="#" @click.self.prevent="signingUp = true">Sign Up</a>
               <a v-else href="#" @click.self.prevent="signingUp = false">Login</a>
               |
               <a v-if="!signingUp" href="#">Forgot Password?</a>
               <a v-else href="#">Need Help?</a>
+              |
+              <a>Privacy Policy</a>
             </p>
           </div>
         </div>
@@ -93,13 +97,6 @@ export default {
   computed: {
     ...mapState(['user'])
   },
-  beforeCreate () {
-    Firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.$router.replace('/a/' + this.user.uid)
-      }
-    })
-  },
   data () {
     return {
       email: '',
@@ -115,6 +112,8 @@ export default {
   methods: {
     login: function () {
       this.authenticating = true
+      this.isInvalid = false
+      this.accountExists = false
       Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .catch((error, authData) => {
         if (error) {
