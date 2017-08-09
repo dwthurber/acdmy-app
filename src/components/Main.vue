@@ -6,7 +6,7 @@
       <router-view v-if="$route.params.roomid"></router-view>
       <div class="container" v-else>
         <div class="columns is-tablet is-multiline">
-          <div class="column is-3-widescreen is-4-desktop is-6-tablet" v-if="userProfile.role != 'Student'">
+          <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-if="userProfile.role != 'Student'">
             <div class="card is-fullheight is-primary is-outlined" @click="createRoom">
               <div class="card-content has-text-primary">
                 <div class="content has-text-centered">
@@ -16,7 +16,7 @@
               </div>
             </div>
           </div>
-          <div class="column is-3-widescreen is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
+          <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
             <div class="card">
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
               <div class="card-text-hover">

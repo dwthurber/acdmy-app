@@ -19,16 +19,16 @@
             <b-icon icon="notifications" size="is-small"></b-icon>
           </a>
 
-            <b-dropdown-option subheader class="has-text-centered" v-if="!notifications">All up to date!</b-dropdown-option>
+            <div custom class="dropdown-item has-text-centered" v-if="!notifications">All up to date!</div>
         </b-dropdown>
         <b-dropdown class="is-marginless" position="is-bottom-left">
           <a class="navbar-item is-close" slot="trigger" title="help">
             <b-icon icon="help" size="is-small"></b-icon>
           </a>
 
-            <b-dropdown-option><b-icon icon="book"></b-icon> Search Guides</b-dropdown-option>
+            <a class="dropdown-item"><b-icon icon="book"></b-icon> Search Guides</a>
             <hr class="dropdown-divider">
-            <b-dropdown-option><b-icon icon="question_answer"></b-icon> Chat with Support</b-dropdown-option>
+            <a class="dropdown-item"><b-icon icon="question_answer"></b-icon> Chat with Support</a>
         </b-dropdown>
         <a class="navbar-item is-close" title="toggle mute" v-if="$route.params.sessionid">
           <b-icon class="is-primary is-circle" icon="mic"></b-icon>
@@ -39,19 +39,18 @@
             <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
           </a>
 
-          <b-dropdown-option subheader>
+          <div custom class="dropdown-item">
             <article class="media">
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <h4 class="title"><strong v-if="user.displayName">{{user.displayName}}</strong><strong v-else>First Last</strong></h4>
-                    <p class="subtitle is-6">Instructor</p>
+                    <h4 class="title"><strong>{{user.displayName}}</strong></h4>
                     <p class="subtitle is-6"><small>{{user.email}}</small><br>
                       <small class="has-text-success" v-if="emailsent">email sent</small>
                       <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger"  @click.prevent="verifyEmail">Please verify email</a></small>
                       <small class="has-text-grey" v-if="isSending">Sending email...</small>
                     </p>
-                    <p><small><a @click="isAccountModalActive = true" >Account Settings</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
+                    <p><small><a @click="isAccountModalActive = true" >Account</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
                     <b-modal :active.sync="isAccountModalActive" has-modal-card>
                         <modal-account></modal-account>
                     </b-modal>
@@ -60,14 +59,14 @@
               </div>
               <figure class="media-right">
                 <p class="image is-64x64">
-                  <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
-                  <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
+                  <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="Profile Image">
+                  <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
                 </p>
               </figure>
             </article>
-          </b-dropdown-option>
+          </div>
           <!-- <hr class="dropdown-divider">
-          <b-dropdown-option subheader>
+          <b-dropdown-option custom>
             <b-field>
               <b-select placeholder="Video Source" icon="videocam" expanded>
                 <option value="1">Option 1</option>
@@ -88,7 +87,7 @@
             </b-field>
           </b-dropdown-option>
           <hr class="dropdown-divider">
-          <b-dropdown-option subheader>
+          <b-dropdown-option custom>
             <div class="columns">
               <div class="column">
                 <button class="button is-dark is-outlined is-wide">Room Settings</button>
@@ -119,27 +118,27 @@
             <b-icon icon="notifications" size="is-small"></b-icon>
           </a>
 
-            <b-dropdown-option subheader class="has-text-centered" v-if="!notifications">All up to date!</b-dropdown-option>
+            <div custom class="dropdown-item has-text-centered" v-if="!notifications">All up to date!</div>
         </b-dropdown>
         <b-dropdown class="is-marginless" position="is-bottom-left">
           <a class="navbar-item is-close" slot="trigger" title="help">
             <b-icon icon="help" size="is-small"></b-icon>
           </a>
 
-            <b-dropdown-option><b-icon icon="book"></b-icon> Search Guides</b-dropdown-option>
-            <hr class="dropdown-divider">
-            <b-dropdown-option><b-icon icon="question_answer"></b-icon> Chat with Support</b-dropdown-option>
+          <a class="dropdown-item"><b-icon icon="book"></b-icon> Search Guides</a>
+          <hr class="dropdown-divider">
+          <a class="dropdown-item"><b-icon icon="question_answer"></b-icon> Chat with Support</a>
         </b-dropdown>
         <a class="navbar-item is-close" title="toggle mute" v-if="$route.params.sessionid">
           <b-icon class="is-primary is-circle" icon="mic"></b-icon>
         </a>
-        <b-dropdown class="is-marginless" position="is-bottom-left">
+        <b-dropdown position="is-bottom-left">
           <a class="navbar-item"  slot="trigger" title="user profile">
             <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="Profile Image">
             <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
           </a>
 
-          <b-dropdown-option subheader class="is-wide-dropdown">
+          <div custom class="dropdown-item is-wide-dropdown">
             <article class="media">
               <div class="media-content">
                 <div class="content">
@@ -164,9 +163,9 @@
                 </p>
               </figure>
             </article>
-          </b-dropdown-option>
+          </div>
           <!-- <hr class="dropdown-divider">
-          <b-dropdown-option subheader>
+          <b-dropdown-option custom>
             <b-field>
               <b-select placeholder="Video Source" icon="videocam" expanded>
                 <option value="1">Option 1</option>
@@ -187,7 +186,7 @@
             </b-field>
           </b-dropdown-option>
           <hr class="dropdown-divider">
-          <b-dropdown-option subheader>
+          <b-dropdown-option custom>
             <div class="columns">
               <div class="column">
                 <button class="button is-dark is-outlined is-wide">Room Settings</button>

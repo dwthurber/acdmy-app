@@ -2,8 +2,8 @@
   <div class="container is-fluid">
     <div class="columns is-mobile">
       <aside class="column is-narrow">
-        <b-menu>
-          <b-menu-list>
+        <div class="menu">
+          <ul class="menu-list">
             <!-- <router-link :to="{name: 'Dashboard'}" tag="li" exact append >
               <a><b-icon class="re-align" icon="home" />
                 <span class="is-hidden-touch">Home</span>
@@ -34,8 +34,8 @@
                 <span class="is-hidden-touch">Settings</span>
               </a>
             </router-link>
-          </b-menu-list>
-        </b-menu>
+          </ul>
+        </div>
       </aside>
       <div class="column content-panel">
         <router-view></router-view>

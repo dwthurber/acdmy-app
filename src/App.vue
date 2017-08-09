@@ -33,13 +33,12 @@ export default {
 <style lang="scss">
 @import "~bulma/sass/utilities/_all";
 
-$turquoise-deep: hsl(205, 36%, 43%);
 $google: #dd4b39;
 $google-invert: findColorInvert($google);
 $facebook: #3b5998;
 $facebook-invert: findColorInvert($facebook);
 
-$primary: $turquoise-deep;
+$primary: hsl(205, 36%, 43%);
 $primary-invert: findColorInvert($primary);
 
 // Setup $colors to use as bulma classes
