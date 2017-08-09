@@ -1,6 +1,7 @@
 <template>
   <div v-if="user !== false">
     <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
+    <Navbar v-if="user" />
     <div class="main">
       <router-view v-if="$route.params.roomid"></router-view>
       <div class="container" v-else>
@@ -39,10 +40,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import Navbar from '@/components/Navbar'
 import { db, usersRef, roomsRef, usersRoomsRef, roomsUsersRef } from '@/firebase'
 
 export default {
   name: 'main',
+  components: {Navbar},
   computed: {
     ...mapState(['user', 'userProfile', 'rooms'])
   },

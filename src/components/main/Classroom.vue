@@ -15,7 +15,7 @@ export default {
 
   },
   computed: {
-    ...mapState(['currentRoom', 'users'])
+    ...mapState(['users'])
   },
   mounted () {
     this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))

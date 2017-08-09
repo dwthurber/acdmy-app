@@ -211,12 +211,11 @@ import { usersRef } from '@/firebase'
 
 export default {
   name: 'navbar',
-  props: ['controls'],
   components: {
     ModalAccount
   },
   computed: {
-    ...mapState(['user', 'userProfile', 'rooms', 'currentRoom'])
+    ...mapState(['user', 'userProfile', 'currentRoom'])
   },
   data () {
     return {

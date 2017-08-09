@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <Navbar v-if="user" />
     <router-view v-if="user !== null"></router-view>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'app',
-  components: {Navbar},
   computed: {
     ...mapState(['user'])
   },

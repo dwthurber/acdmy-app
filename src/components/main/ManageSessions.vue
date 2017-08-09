@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div class="container">
-      <h1 class="title">
-        Manage Sessions
-      </h1>
-      <h2 class="subtitle">
-        A simple admin template
-      </h2>
-    </div>
+    <h1 class="title">
+      Manage Sessions
+    </h1>
+    <h2 class="subtitle">
+      A simple admin template
+    </h2>
   </div>
 </template>
 

@@ -48,28 +48,28 @@
 
           </template>
 
-            <!-- <template slot="detail" scope="props">
-                <article class="media">
-                    <figure class="media-left">
-                        <p class="image is-64x64">
-                            <img src="static/img/placeholder-128x128.png">
-                        </p>
-                    </figure>
-                    <div class="media-content">
-                        <div class="content">
-                            <p>
-                                <strong>{{ props.row.user.first_name }} {{ props.row.user.last_name }}</strong>
-                                <small>@{{ props.row.user.first_name }}</small>
-                                <small>31m</small>
-                                <br>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Proin ornare magna eros, eu pellentesque tortor vestibulum ut.
-                                Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                            </p>
-                        </div>
-                    </div>
-                </article>
-            </template> -->
+          <template slot="detail" scope="props">
+            <article class="media">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img src="static/img/placeholder-128x128.png">
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ props.row.user.first_name }} {{ props.row.user.last_name }}</strong>
+                    <small>@{{ props.row.user.first_name }}</small>
+                    <small>31m</small>
+                    <br>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Proin ornare magna eros, eu pellentesque tortor vestibulum ut.
+                    Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+                  </p>
+                </div>
+              </div>
+            </article>
+          </template>
 
           <div slot="empty" class="has-text-centered">
             No people... That's awefully lonely. Add one above.
@@ -98,7 +98,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Dashboard-People',
   computed: {
-    ...mapState(['currentRoom', 'users'])
+    ...mapState(['users'])
   },
   data () {
     return {
