@@ -55,22 +55,28 @@ export default {
     }
   },
   mounted () {
-    usersRef.child(this.user.uid).update({
-      online: true
-    })
+    const uid = this.user.uid
     const profile = {
-      role: 'Instructor',
-      online: true
+      isAdmin: false,
+      email: this.user.email
     }
+    const admin = false
     usersRef.child(this.user.uid).once('value', function (snapshot) {
       if (snapshot.val() !== null) {
-        // console.log('user exists!')
+        return {
+          admin: snapshot.val().isAdmin
+        }
       } else {
-        usersRef.child(this.user.uid).set(profile)
+        usersRef.child(uid).set(profile)
       }
     })
-    this.$store.dispatch('setUserProfile', usersRef.child(this.user.uid))
-    this.$store.dispatch('setRooms', usersRoomsRef.child(this.user.uid))
+    console.log(admin)
+    // this.$store.dispatch('setUserProfile', usersRef.child(this.user.uid))
+    if (admin) {
+      this.$store.dispatch('setRooms', roomsRef)
+    } else {
+      this.$store.dispatch('setRooms', usersRoomsRef.child(uid))
+    }
     this.isLoading = false
   },
   methods: {
@@ -92,16 +98,10 @@ export default {
           }
           const updates = {}
           updates['/rooms/' + newRoomKey] = newRoom
-          updates['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
           updates['/usersRooms/' + this.user.uid + '/' + newRoomKey] = newRoom
           updates['/roomsUsers/' + newRoomKey + '/' + this.user.uid] = user
 
           db.ref().update(updates)
-
-          const roomUsers = {}
-          roomUsers['/rooms/' + newRoomKey + '/users/' + this.user.uid] = true
-
-          db.ref().update(roomUsers)
           this.$toast.open(value + 'room created!')
         }
       })

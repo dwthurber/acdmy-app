@@ -86,7 +86,7 @@
 
 <script>
 import Firebase from 'firebase'
-import '@/firebase'
+// import '@/firebase'
 import { mapState } from 'vuex'
 
 const google = new Firebase.auth.GoogleAuthProvider()

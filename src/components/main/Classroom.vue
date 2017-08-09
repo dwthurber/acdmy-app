@@ -15,11 +15,14 @@ export default {
 
   },
   computed: {
-    ...mapState(['users'])
+    ...mapState(['users', 'user'])
   },
   mounted () {
     this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
     this.$store.dispatch('setUsers', roomsUsersRef.child(this.$route.params.roomid))
+    roomsUsersRef.child(this.$route.params.roomid).child(this.user.uid).update({
+      online: true
+    })
     var width = window.innerWidth - 32
     var height = window.innerHeight - 89
     var stage = new Konva.Stage({

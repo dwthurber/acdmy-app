@@ -206,7 +206,7 @@
 import ModalAccount from './AccountSettings'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
-import { usersRef } from '@/firebase'
+import { roomsUsersRef } from '@/firebase'
 
 export default {
   name: 'navbar',
@@ -226,9 +226,11 @@ export default {
   },
   methods: {
     logout: function () {
-      usersRef.child(this.user.uid).update({
-        online: false
-      })
+      if (this.currentRoom) {
+        roomsUsersRef.child(this.currentRoom['.key']).child(this.user.uid).update({
+          online: false
+        })
+      }
       Firebase.auth().signOut().then((response) => {
       }).catch((error) => {
         console.error('Sign Out Error', error)
