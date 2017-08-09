@@ -1,7 +1,7 @@
 <template>
   <div class="container is-fluid">
     <div class="columns is-mobile">
-      <aside class="column is-2 is-1-touch">
+      <aside class="column is-narrow">
         <b-menu>
           <b-menu-list>
             <!-- <router-link :to="{name: 'Dashboard'}" tag="li" exact append >
@@ -37,7 +37,7 @@
           </b-menu-list>
         </b-menu>
       </aside>
-      <div class="column is-10 is-11-touch">
+      <div class="column content-panel">
         <router-view></router-view>
       </div>
     </div>
@@ -68,5 +68,8 @@ export default {
 .router-link-active a {
   font-weight: bolder;
   color: hsl(205, 36%, 43%);
+}
+.content-panel {
+  padding: 0.75rem 1.75rem;
 }
 </style>

@@ -1,16 +1,20 @@
 <template>
   <form action="">
     <div class="modal-card" @click.stop>
-      <header class="modal-card-head">
-        <p class="modal-card-title">Account Settings</p>
+      <header class="modal-card-head has-text-centered">
+        <p class="modal-card-title">Account Profile</p>
       </header>
-      <section class="modal-card-body">
-        <b-field label="Name">
-            <b-input icon="person" placeholder="Jane Smith" v-model="user.displayName"></b-input>
+      <section class="modal-card-body has-text-centered">
+        <p class="image is-96x96">
+          <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
+          <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
+        </p>
+        <b-field>
+            <b-input icon="person" :placeholder="user.displayName" v-model="displayName"></b-input>
         </b-field>
-        <b-field label="Email (username)">
+        <b-field>
             <b-input type="email" icon="email"
-                placeholder="jsmith@example.org" v-model="user.email">
+                :placeholder="user.email" v-model="email">
             </b-input>
         </b-field>
       </section>
@@ -32,12 +36,16 @@ export default {
   },
   data () {
     return {
-      emailsent: false
+      saving: false,
+      displayName: null,
+      email: null
     }
   }
 }
 </script>
 
 <style scoped>
-
+.image {
+  margin: 8px auto;
+}
 </style>
