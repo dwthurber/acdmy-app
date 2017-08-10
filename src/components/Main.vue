@@ -6,7 +6,7 @@
       <router-view v-if="$route.params.roomid"></router-view>
       <div class="container" v-else>
         <div class="columns is-tablet is-multiline">
-          <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-if="userProfile.role != 'Student'">
+          <div class="column is-3-fullhd is-4-desktop is-6-tablet">
             <div class="card is-fullheight is-primary is-outlined" @click="createRoom">
               <div class="card-content has-text-primary">
                 <div class="content has-text-centered">
@@ -22,7 +22,7 @@
               <div class="card-text-hover">
                 <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
                 <small class="status is-uppercase has-text-warning" v-else>Inactive</small>
-                <button class="button is-danger is-outlined remove" @click="deleteRoom(room['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+                <button v-if="room.owner == user.uid" class="button is-danger is-outlined remove" @click="deleteRoom(room['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
               </div>
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
@@ -55,32 +55,32 @@ export default {
     }
   },
   mounted () {
+    const store = this.$store
     const uid = this.user.uid
     const profile = {
       isAdmin: false,
       email: this.user.email
     }
-    const admin = false
     usersRef.child(this.user.uid).once('value', function (snapshot) {
       if (snapshot.val() !== null) {
-        return {
-          admin: snapshot.val().isAdmin
+        const admin = snapshot.val().isAdmin
+        if (admin) {
+          store.dispatch('setRooms', roomsRef)
+        } else {
+          store.dispatch('setRooms', usersRoomsRef.child(uid))
         }
       } else {
         usersRef.child(uid).set(profile)
+        store.dispatch('setRooms', usersRoomsRef.child(uid))
       }
     })
-    console.log(admin)
     // this.$store.dispatch('setUserProfile', usersRef.child(this.user.uid))
-    if (admin) {
-      this.$store.dispatch('setRooms', roomsRef)
-    } else {
-      this.$store.dispatch('setRooms', usersRoomsRef.child(uid))
-    }
+
     this.isLoading = false
   },
   methods: {
     createRoom () {
+      const toast = this.$toast
       this.$dialog.prompt({
         message: `What is the name of your room?`,
         inputMaxlength: 50,
@@ -94,7 +94,8 @@ export default {
           }
           const user = {
             name: this.user.displayName,
-            profile_picture: this.user.photoURL
+            profile_picture: this.user.photoURL,
+            role: 'Instructor'
           }
           const updates = {}
           updates['/rooms/' + newRoomKey] = newRoom
@@ -102,11 +103,12 @@ export default {
           updates['/roomsUsers/' + newRoomKey + '/' + this.user.uid] = user
 
           db.ref().update(updates)
-          this.$toast.open(value + 'room created!')
+          toast.open(value + 'room created!')
         }
       })
     },
     deleteRoom: function (key) {
+      const toast = this.$toast
       this.$dialog.confirm({
         title: 'Deleting Room',
         message: 'Are you sure you want to <strong>delete</strong> this room? This action cannot be undone.',
@@ -114,11 +116,13 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          roomsRef.child(key).remove()
-          usersRef.child(this.user.uid).child('/rooms/').child(key).remove()
-          usersRoomsRef.child(this.user.uid).child('/').child(key).remove()
-          roomsUsersRef.child(key).child('/').child(this.user.uid).remove()
-          this.$toast.open('Room deleted')
+          roomsRef.child(key).once('value', function (snapshot) {
+            const owner = snapshot.val().owner
+            roomsRef.child(key).remove()
+            usersRoomsRef.child(owner).child('/').child(key).remove()
+            roomsUsersRef.child(key).child('/').child(owner).remove()
+            toast.open('Room deleted')
+          })
         }
       })
     }

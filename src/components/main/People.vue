@@ -37,42 +37,21 @@
             <b-table-column field="name" label="Name" sortable>
               {{ props.row.name }}
             </b-table-column>
-            <b-table-column field="status" label="Status" sortable centered>
-              <span class="tag is-success">
-                Online
-              </span>
-            </b-table-column>
             <b-table-column field="role" label="Role" sortable>
               {{ props.row.role }}
             </b-table-column>
-
-          </template>
-
-          <template slot="detail" scope="props">
-            <article class="media">
-              <figure class="media-left">
-                <p class="image is-64x64">
-                  <img src="static/img/placeholder-128x128.png">
-                </p>
-              </figure>
-              <div class="media-content">
-                <div class="content">
-                  <p>
-                    <strong>{{ props.row.user.first_name }} {{ props.row.user.last_name }}</strong>
-                    <small>@{{ props.row.user.first_name }}</small>
-                    <small>31m</small>
-                    <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Proin ornare magna eros, eu pellentesque tortor vestibulum ut.
-                    Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
-                  </p>
-                </div>
-              </div>
-            </article>
+            <b-table-column field="online" label="Status" width="40" sortable centered>
+              <span class="tag is-success" v-if="props.row.online">
+                Online
+              </span>
+              <span class="tag is-grey" v-else>
+                Offline
+              </span>
+            </b-table-column>
           </template>
 
           <div slot="empty" class="has-text-centered">
-            No people... That's awefully lonely. Add one above.
+            Loading...
           </div>
         </b-table>
       </b-tab-item>
@@ -111,7 +90,7 @@ export default {
       isCheckable: false,
       isEmpty: false,
       isLoading: true,
-      isDetailed: true,
+      isDetailed: false,
       hasMobileCards: true,
       isPaginated: false,
       isPaginationSimple: false,

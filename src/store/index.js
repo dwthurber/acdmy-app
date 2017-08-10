@@ -10,16 +10,10 @@ const mutations = {
   SET_USER (state, value) {
     state.user = value
   },
-  SET_USER_ROOMS (state, value) {
-    state.rooms = value
-  },
   ...firebaseMutations
 }
 
 const actions = {
-  setUserProfile: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef('userProfile', ref)
-  }),
   setRooms: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('rooms', ref)
   }),
@@ -33,7 +27,6 @@ const actions = {
 
 const state = {
   user: null,
-  userProfile: {},
   rooms: [],
   currentRoom: null,
   users: [],
