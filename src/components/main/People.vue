@@ -7,7 +7,7 @@
         </h2>
       </div>
       <div class="level-right">
-        <button class="button level-item is-primary is-outlined"><b-icon icon="add" size="is-small"></b-icon> &nbsp; Add People</button>
+        <button class="button level-item is-primary is-outlined"><b-icon icon="person_add" size="is-small"></b-icon> &nbsp; Add People</button>
       </div>
     </nav>
 

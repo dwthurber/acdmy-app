@@ -2,9 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import router from './router'
 import Buefy from 'buefy'
+import { sync } from 'vuex-router-sync'
+import router from './router'
 import store from './store/index'
+
+sync(store, router)
 
 Vue.use(Buefy)
 

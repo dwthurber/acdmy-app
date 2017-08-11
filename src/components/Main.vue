@@ -27,7 +27,7 @@
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
                   <p class="is-size-5">{{room.name}}</p>
-                  <b-icon v-if="!room.students || !room.sessions" icon="open_in_browser"></b-icon>
+                  <b-icon v-if="!room.students || !room.sessions" icon="widgets"></b-icon>
                   <small v-if="room.students"><b-icon icon="people" size="is-small" class="re-align"></b-icon> {{room.students}} people</small>
                   <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> {{room.sesions}} sessions</small>
                 </div>
@@ -49,7 +49,7 @@ export default {
   name: 'main',
   components: {Navbar},
   computed: {
-    ...mapState(['user', 'rooms', 'usersRooms'])
+    ...mapState(['user', 'rooms', 'usersRooms', 'route'])
   },
   created () {
     this.isLoading = true
@@ -78,6 +78,10 @@ export default {
       })
     },
     resetRoom () {
+      if (this.currentRoom) {
+        this.$store.dispatch('unsetCurrentRoom', roomsRef)
+        this.$store.dispatch('unsetPeople', peopleRef)
+      }
       this.$store.commit('SET_CURRENT_ROOM', null)
       this.$store.commit('SET_PEOPLE', [])
     },
@@ -121,16 +125,16 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
-          // remove user index
+          // first remove user index
           const roomsUsersRef = roomsRef.child(key).child('users').child('/')
           roomsUsersRef.once('value', function (snap) {
             snap.forEach(function (childSnapshot) {
-              var userKey = childSnapshot.key
+              const userKey = childSnapshot.key
               let updates = {}
               updates['/users/' + userKey + '/rooms/' + key] = null
               db.ref().update(updates)
             })
-            // remove room and associated nodes
+            // then remove room and associated nodes
             roomsRef.child(key).remove()
             peopleRef.child(key).remove()
             toast.open('Room deleted')

@@ -28,6 +28,12 @@ const actions = {
   }),
   setPeople: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('people', ref)
+  }),
+  unsetCurrentRoom: firebaseAction(({ unbindFirebaseRef }, { ref }) => {
+    unbindFirebaseRef('currentRoom')
+  }),
+  unsetPeople: firebaseAction(({ unbindFirebaseRef }, { ref }) => {
+    unbindFirebaseRef('people')
   })
 }
 
