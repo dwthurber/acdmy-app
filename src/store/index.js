@@ -10,8 +10,11 @@ const mutations = {
   SET_USER (state, value) {
     state.user = value
   },
-  SET_ROOMS (state, value) {
-    state.rooms = value
+  SET_CURRENT_ROOM (state, value) {
+    state.currentRoom = value
+  },
+  SET_PEOPLE (state, value) {
+    state.people = value
   },
   ...firebaseMutations
 }
@@ -20,23 +23,19 @@ const actions = {
   setRooms: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('rooms', ref)
   }),
-  setUsersRooms: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef('usersRooms', ref)
-  }),
   setCurrentRoom: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('currentRoom', ref)
   }),
-  setUsers: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef('users', ref)
+  setPeople: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('people', ref)
   })
 }
 
 const state = {
   user: null,
-  usersRooms: [],
   rooms: [],
   currentRoom: null,
-  users: []
+  people: []
 }
 
 export default new Vuex.Store({

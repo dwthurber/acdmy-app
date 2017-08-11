@@ -5,7 +5,7 @@
       <div class="is-hidden-desktop navbar-center navbar-item is-paddingless">
         <small class="uppercase" v-if="!$route.params.roomid">My Rooms</small>
         <div class="tabs is-centered" v-else>
-          <small class="uppercase">My Awesome Class</small>
+          <small class="uppercase" v-if="currentRoom">{{currentRoom.name}}</small>
           <ul>
             <router-link :to="{ name: 'Main-Classroom' }" tag="li" exact><a><b-icon icon="group_work" size="is-small"></b-icon> Room</a></router-link>
             <router-link :to="{ name: 'Main-Chat' }" tag="li" exact><a><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></router-link>
@@ -104,7 +104,7 @@
       <div class="navbar-center navbar-item is-paddingless">
         <small class="uppercase" v-if="!$route.params.roomid">My Rooms</small>
         <div class="tabs is-centered" v-else>
-          <small class="uppercase">{{currentRoom.name}}</small>
+          <small class="uppercase" v-if="currentRoom">{{currentRoom.name}}</small>
           <ul>
             <router-link :to="{ name: 'Main-Classroom' }" tag="li" exact><a><b-icon icon="group_work" size="is-small"></b-icon> Room</a></router-link>
             <router-link :to="{ name: 'Main-Chat' }" tag="li" exact><a><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></router-link>
@@ -206,7 +206,7 @@
 import ModalAccount from './AccountSettings'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
-import { roomsUsersRef } from '@/firebase'
+import { peopleRef } from '@/firebase'
 
 export default {
   name: 'navbar',
@@ -227,7 +227,7 @@ export default {
   methods: {
     logout: function () {
       if (this.currentRoom) {
-        roomsUsersRef.child(this.currentRoom['.key']).child(this.user.uid).update({
+        peopleRef.child(this.currentRoom['.key']).child(this.user.uid).update({
           online: false
         })
       }
@@ -251,6 +251,13 @@ export default {
     close: function () {
       this.isAccountModalActive = false
     }
+  },
+  updated () {
+    // this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
+    // this.$store.dispatch('setUsers', peopleRef.child(this.$route.params.roomid))
+    // peopleRef.child(this.$route.params.roomid).child(this.user.uid).update({
+    //   online: true
+    // })
   }
 }
 </script>

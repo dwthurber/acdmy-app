@@ -15,7 +15,7 @@
       <b-tab-item label="People">
         <br>
         <b-table
-          :data="users"
+          :data="people"
           :bordered="isBordered"
           :striped="isStriped"
           :narrowed="isNarrowed"
@@ -77,7 +77,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Dashboard-People',
   computed: {
-    ...mapState(['users'])
+    ...mapState(['people'])
   },
   data () {
     return {

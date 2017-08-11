@@ -27,7 +27,7 @@
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
                   <p class="is-size-5">{{room.name}}</p>
-                  <b-icon v-if="!room.students || !room.sessions" icon="open_in_browser" size="is-medium"></b-icon>
+                  <b-icon v-if="!room.students || !room.sessions" icon="open_in_browser"></b-icon>
                   <small v-if="room.students"><b-icon icon="people" size="is-small" class="re-align"></b-icon> {{room.students}} people</small>
                   <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> {{room.sesions}} sessions</small>
                 </div>
@@ -52,28 +52,35 @@ export default {
     ...mapState(['user', 'rooms', 'usersRooms'])
   },
   created () {
-    const uid = this.user.uid // define logged in user id from auth data
-    // define default profile setup and create default user if none created
-    const profile = {
-      isAdmin: false,
-      email: this.user.email
-    }
-    usersRef.child(uid).once('value', function (snapshot) {
-      if (!snapshot.val()) {
-        usersRef.child(uid).set(profile)
-      }
-    })
-    // get rooms for each user
-    this.$store.dispatch('setRooms', usersRef.child(uid).child('rooms'))
-
-    this.isLoading = false // stop loading spinner
+    this.isLoading = true
+    this.setUserProfile()
+    this.resetRoom()
+    this.$store.dispatch('setRooms', usersRef.child(this.user.uid).child('rooms'))
+    this.isLoading = false
   },
   data () {
     return {
-      isLoading: true
+      isLoading: false
     }
   },
   methods: {
+    setUserProfile () {
+      const uid = this.user.uid
+      // define default profile setup used to create first time user
+      const profile = {
+        isAdmin: false,
+        email: this.user.email
+      }
+      usersRef.child(uid).once('value', function (snapshot) {
+        if (!snapshot.val()) {
+          usersRef.child(uid).set(profile)
+        }
+      })
+    },
+    resetRoom () {
+      this.$store.commit('SET_CURRENT_ROOM', null)
+      this.$store.commit('SET_PEOPLE', [])
+    },
     createRoom () {
       let toast = this.$toast
       this.$dialog.prompt({

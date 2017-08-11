@@ -45,7 +45,8 @@
 </template>
 
 <script>
-import { roomsRef, roomsUsersRef } from '@/firebase'
+import { roomsRef, peopleRef } from '@/firebase'
+import { mapState } from 'vuex'
 
 export default {
   name: 'dashboard',
@@ -53,9 +54,20 @@ export default {
     return {
     }
   },
-  mounted () {
-    this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
-    this.$store.dispatch('setUsers', roomsUsersRef.child(this.$route.params.roomid))
+  computed: {
+    ...mapState(['user'])
+  },
+  created () {
+    this.setActiveRoom()
+  },
+  methods: {
+    setActiveRoom () {
+      this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
+      this.$store.dispatch('setPeople', peopleRef.child(this.$route.params.roomid))
+      peopleRef.child(this.$route.params.roomid).child(this.user.uid).update({
+        online: true
+      })
+    }
   }
 }
 </script>
