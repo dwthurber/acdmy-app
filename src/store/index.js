@@ -29,8 +29,7 @@ const state = {
   user: null,
   rooms: [],
   currentRoom: null,
-  users: [],
-  count: 0
+  users: []
 }
 
 export default new Vuex.Store({

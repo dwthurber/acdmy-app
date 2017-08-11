@@ -6,7 +6,7 @@
 
 <script>
 import Konva from 'konva'
-import { roomsRef, roomsUsersRef } from '@/firebase'
+import { roomsRef, membersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -19,8 +19,8 @@ export default {
   },
   mounted () {
     this.$store.dispatch('setCurrentRoom', roomsRef.child(this.$route.params.roomid))
-    this.$store.dispatch('setUsers', roomsUsersRef.child(this.$route.params.roomid))
-    roomsUsersRef.child(this.$route.params.roomid).child(this.user.uid).update({
+    this.$store.dispatch('setUsers', membersRef.child(this.user.uid).child(this.$route.params.roomid))
+    membersRef.child(this.user.uid).child(this.$route.params.roomid).child(this.user.uid).update({
       online: true
     })
     var width = window.innerWidth - 32

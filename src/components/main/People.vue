@@ -1,10 +1,10 @@
 <template>
   <div>
-    <nav class="level is-mobile">
+    <nav class="level">
       <div class="level-left">
-        <h1 class="title level-item">
+        <h2 class="title level-item">
           Manage People
-        </h1>
+        </h2>
       </div>
       <div class="level-right">
         <button class="button level-item is-primary is-outlined"><b-icon icon="add" size="is-small"></b-icon> &nbsp; Add People</button>
@@ -31,8 +31,8 @@
           :checked-rows.sync="checkedRows">
 
           <template scope="props">
-            <b-table-column field="profile_picture" label="" width="40">
-              <img class="is-circle-image image" :src="props.row.profile_picture">
+            <b-table-column field="profile_picture" label="" width="60" centered>
+              <img class="is-circle-image image is-32x32" :src="props.row.profile_picture">
             </b-table-column>
             <b-table-column field="name" label="Name" sortable>
               {{ props.row.name }}
@@ -40,7 +40,7 @@
             <b-table-column field="role" label="Role" sortable>
               {{ props.row.role }}
             </b-table-column>
-            <b-table-column field="online" label="Status" width="40" sortable centered>
+            <b-table-column field="online" label="Status" width="90" sortable>
               <span class="tag is-success" v-if="props.row.online">
                 Online
               </span>

@@ -22,7 +22,7 @@
               <div class="card-text-hover">
                 <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
                 <small class="status is-uppercase has-text-warning" v-else>Inactive</small>
-                <button v-if="room.owner == user.uid" class="button is-danger is-outlined remove" @click="deleteRoom(room['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+                <button class="button is-danger is-outlined remove" @click="deleteRoom(room['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
               </div>
               <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
@@ -41,7 +41,7 @@
 <script>
 import { mapState } from 'vuex'
 import Navbar from '@/components/Navbar'
-import { db, usersRef, roomsRef, usersRoomsRef, roomsUsersRef } from '@/firebase'
+import { db, usersRef, roomsRef, membersRef } from '@/firebase'
 
 export default {
   name: 'main',
@@ -55,27 +55,39 @@ export default {
     }
   },
   mounted () {
-    const store = this.$store
-    const uid = this.user.uid
+    let uid = this.user.uid
     const profile = {
       isAdmin: false,
       email: this.user.email
     }
     usersRef.child(this.user.uid).once('value', function (snapshot) {
       if (snapshot.val() !== null) {
-        const admin = snapshot.val().isAdmin
-        if (admin) {
-          store.dispatch('setRooms', roomsRef)
-        } else {
-          store.dispatch('setRooms', usersRoomsRef.child(uid))
-        }
+        // const admin = snapshot.val().isAdmin
       } else {
         usersRef.child(uid).set(profile)
-        store.dispatch('setRooms', usersRoomsRef.child(uid))
       }
     })
-    // this.$store.dispatch('setUserProfile', usersRef.child(this.user.uid))
-
+    // let rooms = this.rooms
+    // const userRoomsRef = usersRef.child(uid).child('rooms')
+    // userRoomsRef.on('child_added', function (snap) {
+    //   roomsRef.child(snap.key).once('value', function (snapshot) {
+    //     let data = {
+    //       key: snapshot.key,
+    //       val: snapshot.val()
+    //     }
+    //     rooms.push(data)
+    //   })
+    // })
+    // userRoomsRef.on('child_removed', function (snap) {
+    //   roomsRef.child(snap.key).once('value', function (snapshot) {
+    //     let data = {
+    //       key: snapshot.key,
+    //       val: snapshot.val()
+    //     }
+    //     rooms.push(data)
+    //   })
+    // })
+    this.$store.dispatch('setRooms', roomsRef.child(uid))
     this.isLoading = false
   },
   methods: {
@@ -89,20 +101,27 @@ export default {
           const newRoomKey = roomsRef.push().key
           const newRoom = {
             name: value,
-            active: true,
-            owner: this.user.uid
+            active: true
           }
+          // const newUserRoom = {
+          //   name: value
+          // }
           const user = {
             name: this.user.displayName,
             profile_picture: this.user.photoURL,
             role: 'Instructor'
           }
           const updates = {}
-          updates['/rooms/' + newRoomKey] = newRoom
-          updates['/usersRooms/' + this.user.uid + '/' + newRoomKey] = newRoom
-          updates['/roomsUsers/' + newRoomKey + '/' + this.user.uid] = user
-
+          updates['/rooms/' + this.user.uid + '/' + newRoomKey] = newRoom
+          // updates['/usersRooms/' + this.user.uid + '/' + newRoomKey] = true
+          updates['/members/' + this.user.uid + '/' + newRoomKey] = user
           db.ref().update(updates)
+
+          // const indexes = {}
+          // indexes['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
+          // indexes['/rooms/' + newRoomKey + '/users/' + this.user.uid] = true
+          // db.ref().update(indexes)
+
           toast.open(value + 'room created!')
         }
       })
@@ -119,8 +138,8 @@ export default {
           roomsRef.child(key).once('value', function (snapshot) {
             const owner = snapshot.val().owner
             roomsRef.child(key).remove()
-            usersRoomsRef.child(owner).child('/').child(key).remove()
-            roomsUsersRef.child(key).child('/').child(owner).remove()
+            usersRef.child(owner).child('/rooms/').child(key).remove()
+            membersRef.child(key).child('/').child(owner).remove()
             toast.open('Room deleted')
           })
         }

@@ -11,5 +11,4 @@ export const db = firebaseApp.database()
 
 export const usersRef = db.ref('users')
 export const roomsRef = db.ref('rooms')
-export const usersRoomsRef = db.ref('/usersRooms/')
-export const roomsUsersRef = db.ref('/roomsUsers/')
+export const membersRef = db.ref('/members/')
