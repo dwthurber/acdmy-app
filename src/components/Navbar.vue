@@ -35,8 +35,8 @@
         </a>
         <b-dropdown class="is-marginless" position="is-bottom-left">
           <a class="navbar-item"  slot="trigger" title="user profile">
-            <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
-            <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="User Profile Image">
+            <img v-if="user.photoURL" class="is-circle-image image is-32x32" :src="user.photoURL" alt="User Profile Image">
+            <img v-else class="is-circle-image image is-32x32" src="../assets/user-placeholder.png" alt="User Profile Image">
           </a>
 
           <div custom class="dropdown-item">
@@ -134,8 +134,8 @@
         </a>
         <b-dropdown position="is-bottom-left">
           <a class="navbar-item"  slot="trigger" title="user profile">
-            <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="Profile Image">
-            <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
+            <img v-if="user.photoURL" class="is-circle-image image is-32x32" :src="user.photoURL" alt="Profile Image">
+            <img v-else class="is-circle-image image is-32x32" src="../assets/user-placeholder.png" alt="Profile Image">
           </a>
 
           <div custom class="dropdown-item is-wide-dropdown">
@@ -312,5 +312,8 @@ export default {
 }
 .is-64x64 img {
   max-height: initial;
+  height: 64px;
+  width: auto;
+  overflow: hidden;
 }
 </style>
