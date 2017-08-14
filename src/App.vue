@@ -22,11 +22,6 @@ export default {
         this.$router.replace('/')
       } else if (user && this.$route.path === '/signup') {
         this.$router.replace('/')
-      } else if (user && this.$route.path === '/register') {
-        this.$router.replace('/')
-      }
-      if (!user.emailVerified || !user.displayName) {
-        this.$router.replace('/register')
       }
     })
   },
