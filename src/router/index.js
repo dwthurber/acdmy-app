@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Session from '@/components/Session'
 import Login from '@/components/Login'
+import Signup from '@/components/Signup'
+import Register from '@/components/Register'
 import Main from '@/components/Main'
 import Dashboard from '@/components/main/Dashboard'
 import ManageSessions from '@/components/main/ManageSessions'
@@ -67,6 +69,16 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     },
     {
       path: '*',
