@@ -6,6 +6,7 @@
           <img class="brand image is-hidden-tablet" src="../assets/acdmy.png" />
           <h2 class="title"><strong>Welcome.</strong></h2>
           <p class="subtitle">Let's start with an email address.</p>
+          <br><br>
           <b-message type="is-danger" v-if="accountExists">
               An account with that email already exists. <a href="#">Login</a>
           </b-message>
@@ -19,7 +20,7 @@
           </b-field>
           <p class="control">
             <button class="button is-primary" @click.self.prevent="profile = true">Sign Up</button>
-            <button class="button is-default" href="/login">Cancel</button>
+            <router-link :to="{ name: 'Login', params: {} }" class="button is-default">Cancel</router-link>
           </p>
           <hr>
           <button class="button is-google is-social" @click.self.prevent="googleLogin">Or, Signup with Google</button>

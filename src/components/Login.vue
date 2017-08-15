@@ -6,6 +6,7 @@
           <img class="brand image is-hidden-tablet" src="../assets/acdmy.png" />
           <h2 class="title"><strong>Welcome.</strong></h2>
           <p class="subtitle">Please Login <small> or <router-link class="has-text-primary" :to="{ name: 'Signup', params: {} }">Sign Up</router-link>.</small></p>
+          <br><br>
           <b-message type="is-danger" v-if="loginFailed">
               Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
           </b-message>

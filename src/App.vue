@@ -11,17 +11,17 @@ import { mapState } from 'vuex'
 export default {
   name: 'app',
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'route'])
   },
   beforeCreate () {
     Firebase.auth().onAuthStateChanged((user) => {
       this.$store.commit('SET_USER', user || false)
       if (!user) {
-        this.$router.replace('/login')
-      } else if (user && this.$route.path === '/login') {
-        this.$router.replace('/')
-      } else if (user && this.$route.path === '/signup') {
-        this.$router.replace('/')
+        this.$router.replace({ name: 'Login' })
+      } else if (user && this.route.name === 'Login') {
+        this.$router.replace({ name: 'Main' })
+      } else if (user && this.route.name === 'Signup') {
+        this.$router.replace({ name: 'Main' })
       }
     })
   },
@@ -42,6 +42,8 @@ $facebook-invert: findColorInvert($facebook);
 
 $primary: hsl(205, 36%, 43%);
 $primary-invert: findColorInvert($primary);
+
+$family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // Setup $colors to use as bulma classes
 $colors: (

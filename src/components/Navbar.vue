@@ -316,4 +316,7 @@ export default {
   width: auto;
   overflow: hidden;
 }
+.image.is-32x32 {
+  max-height: initial;
+}
 </style>
