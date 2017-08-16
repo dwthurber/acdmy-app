@@ -147,7 +147,7 @@ export default {
 </script>
 <style scoped>
 .main {
-  padding-top: 57px;
+  padding-top: 53px;
 }
 .container {
   padding: 24px;

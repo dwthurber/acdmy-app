@@ -70,7 +70,7 @@ $link-focus-border: $primary;
 
 body, html {
   height: 100%;
-  background-color: #fdfdfd;
+  background-color: #fcfcfc;
 }
 #app {
   height: 100%;

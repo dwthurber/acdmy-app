@@ -78,4 +78,11 @@ export default {
 .navbar-burger {
   margin-left: 0;
 }
+@media screen and (max-width: 1007px) {
+  .navbar-brand,
+  .navbar-item {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
 </style>
