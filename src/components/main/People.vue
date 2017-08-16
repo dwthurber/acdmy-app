@@ -2,7 +2,7 @@
   <div>
     <nav class="level">
       <div class="level-left">
-        <h2 class="title level-item">
+        <h2 class="subtitle is-3 level-item">
           Manage People
         </h2>
       </div>

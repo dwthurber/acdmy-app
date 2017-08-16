@@ -18,13 +18,13 @@
           </div>
           <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
             <div class="card">
-              <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
+              <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
               <div class="card-text-hover">
                 <!-- <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
                 <small class="status is-uppercase has-text-warning" v-else>Inactive</small> -->
                 <button class="button is-danger is-outlined remove is-small" @click="deleteRoom(room['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
               </div>
-              <router-link :to="{ name: 'Main-Classroom', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
+              <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
                   <p class="is-size-5">{{room.name}}</p>
                   <b-icon v-if="!room.students || !room.sessions" icon="widgets"></b-icon>

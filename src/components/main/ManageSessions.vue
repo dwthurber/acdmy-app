@@ -1,11 +1,9 @@
 <template>
   <div>
-    <h1 class="title">
+    <h2 class="subtitle is-3">
       Manage Sessions
-    </h1>
-    <h2 class="subtitle">
-      A simple admin template
     </h2>
+
   </div>
 </template>
 

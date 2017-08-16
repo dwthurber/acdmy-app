@@ -7,8 +7,8 @@ import Setup from '@/components/Setup'
 import Main from '@/components/Main'
 import Dashboard from '@/components/main/Dashboard'
 import ManageSessions from '@/components/main/ManageSessions'
-import Classroom from '@/components/main/Classroom'
-import Chat from '@/components/main/Chat'
+// import Classroom from '@/components/main/Classroom'
+// import Chat from '@/components/main/Chat'
 import Assets from '@/components/main/Assets'
 import People from '@/components/main/People'
 import Settings from '@/components/main/Settings'
@@ -22,18 +22,18 @@ export default new Router({
       component: Main,
       name: 'Main',
       children: [
+        // {
+        //   path: '/r/:roomid/',
+        //   component: Classroom,
+        //   name: 'Main-Classroom'
+        // },
+        // {
+        //   path: '/r/:roomid/chat',
+        //   component: Chat,
+        //   name: 'Main-Chat'
+        // },
         {
-          path: '/r/:roomid/',
-          component: Classroom,
-          name: 'Main-Classroom'
-        },
-        {
-          path: '/r/:roomid/chat',
-          component: Chat,
-          name: 'Main-Chat'
-        },
-        {
-          path: '/r/:roomid/dashboard/',
+          path: '/r/:roomid',
           component: Dashboard,
           children: [
             {
