@@ -90,7 +90,7 @@ export default {
 }
 .content-panel {
   padding: 0.75rem 1.75rem;
-  background-color: #fff;
-  box-shadow: 1px 1px 1px 1px #f5f5f5;
+  /*background-color: #fff;
+  box-shadow: 1px 1px 1px 1px #f5f5f5;*/
 }
 </style>

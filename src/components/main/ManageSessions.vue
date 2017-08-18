@@ -3,7 +3,8 @@
     <h2 class="subtitle is-3">
       Manage Sessions
     </h2>
-
+    <div class="box">
+    </div>
   </div>
 </template>
 

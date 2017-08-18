@@ -3,7 +3,7 @@
     <div class="hero-body">
       <div class="container">
         <div key="login">
-          <img class="brand image is-hidden-tablet" src="../assets/acdmy.png" />
+          <img class="brand image is-hidden-tablet" src="../../assets/acdmy.png" />
           <h2 class="title"><strong>Welcome.</strong></h2>
           <p class="subtitle">Please Login <small> or <router-link class="has-text-primary" :to="{ name: 'Signup', params: {} }">Sign Up</router-link>.</small></p>
           <br><br>
@@ -110,8 +110,8 @@ export default {
 
 <style scoped>
 .brand {
-  height: 80px;
-  margin-bottom: 16px;
+  height: 60px;
+  margin: -32px auto 24px auto;
 }
 .is-bottom {
   position: absolute;

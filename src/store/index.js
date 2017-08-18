@@ -41,7 +41,8 @@ const state = {
   user: null,
   rooms: [],
   currentRoom: null,
-  people: []
+  people: [],
+  route: null
 }
 
 export default new Vuex.Store({
