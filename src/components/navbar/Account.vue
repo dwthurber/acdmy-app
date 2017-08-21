@@ -5,7 +5,7 @@
       <img v-else class="is-circle-image image is-32x32" src="../../assets/user-placeholder.png" alt="Profile Image">
     </a>
 
-    <div custom class="dropdown-item is-wide-dropdown">
+    <b-dropdown-item custom class="is-wide-dropdown">
       <article class="media">
         <div class="media-content">
           <div class="content">
@@ -30,9 +30,12 @@
           </p>
         </figure>
       </article>
-    </div>
-    <!-- <hr class="dropdown-divider">
-    <b-dropdown-option custom>
+    </b-dropdown-item>
+    <hr class="dropdown-divider">
+    <b-dropdown-item class="dropdown-item">
+      <b-icon icon="videocam" /> Test Video Setup
+    </b-dropdown-item>
+    <!-- <b-dropdown-option custom>
       <b-field>
         <b-select placeholder="Video Source" icon="videocam" expanded>
           <option value="1">Option 1</option>
