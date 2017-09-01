@@ -123,7 +123,7 @@ export default {
 
 <style scoped>
 .is-wide-dropdown {
-  width: 350px;
+  min-width: 350px;
 }
 .is-wide {
   width: 100%

@@ -2,7 +2,7 @@
   <div>
     <nav class="level">
       <div class="level-left">
-        <h2 class="title level-item">
+        <h2 class="subtitle is-3 level-item">
           Room Settings
         </h2>
       </div>
@@ -15,6 +15,8 @@
         </div>
       </div>
     </nav>
+    <div class="box">
+    </div>
   </div>
 </template>
 
