@@ -89,4 +89,7 @@ body, html {
 .is-circle-image {
   border-radius: 50%;
 }
+.modal-card {
+  border-radius: 5px;
+}
 </style>

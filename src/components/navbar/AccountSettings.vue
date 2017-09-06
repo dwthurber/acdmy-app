@@ -56,7 +56,4 @@ export default {
 .image {
   display: inline-block;
 }
-.modal-card {
-  border-radius: 5px;
-}
 </style>

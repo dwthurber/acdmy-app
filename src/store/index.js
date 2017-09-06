@@ -34,6 +34,9 @@ const actions = {
   }),
   unsetPeople: firebaseAction(({ unbindFirebaseRef }, { ref }) => {
     unbindFirebaseRef('people')
+  }),
+  setSessions: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('sessions', ref)
   })
 }
 
@@ -42,6 +45,7 @@ const state = {
   rooms: [],
   currentRoom: null,
   people: [],
+  sessions: [],
   route: null
 }
 
