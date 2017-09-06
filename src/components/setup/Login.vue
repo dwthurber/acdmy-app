@@ -7,25 +7,25 @@
           <h2 class="title"><strong>Welcome.</strong></h2>
           <p class="subtitle">Please Login <small> or <router-link class="has-text-primary" :to="{ name: 'Signup', params: {} }">Sign Up</router-link>.</small></p>
           <b-message type="is-danger" v-if="loginFailed">
-              Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
+            Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
           </b-message>
           <b-message type="is-danger" v-if="isInvalid">
-              Please enter a valid email.
+            Please enter a valid email.
           </b-message>
           <b-message type="is-danger" v-if="noUser">
-              No account with the email. Try again or <router-link :to="{ name: 'Signup', params: {} }">Sign Up</router-link>
+            No account with the email. Try again or <router-link :to="{ name: 'Signup', params: {} }">Sign Up</router-link>
           </b-message>
           <form>
             <b-field label="Email (username)">
-                <b-input type="email" icon="email" v-model="email"
-                    placeholder="jsmith@example.org" @keyup.enter="login">
-                </b-input>
+              <b-input type="email" icon="email" v-model="email"
+                placeholder="jsmith@example.org" @keyup.enter="login">
+              </b-input>
             </b-field>
             <b-field label="Password">
-                <b-input type="password" icon="lock" @keyup.enter="login"
-                    placeholder="Str0ngP@ssword" v-model="password"
-                    password-reveal>
-                </b-input>
+              <b-input type="password" icon="lock" @keyup.enter="login"
+                  placeholder="Str0ngP@ssword" v-model="password"
+                  password-reveal>
+              </b-input>
             </b-field>
             <hr>
             <p class="control">

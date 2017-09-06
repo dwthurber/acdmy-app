@@ -14,7 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "buefy": "^0.5.0",
+    "buefy": "^0.5.2",
     "firebase": "^4.2.0",
     "konva": "^1.6.7",
     "twilio-video": "^1.2.0",

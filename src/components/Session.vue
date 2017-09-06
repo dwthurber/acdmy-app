@@ -1,6 +1,6 @@
 <template>
   <div id="session" v-if="user !== false">
-    <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
+    <b-loading :active.sync="isLoading"></b-loading>
     <div class="columns is-mobile videobar is-gapless is-multiline">
       <VideoContainer v-for="(user, index) in users" :user="user" :key="user.id"></VideoContainer>
     </div>

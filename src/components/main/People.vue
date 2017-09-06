@@ -106,7 +106,7 @@ export default {
       this.$dialog.prompt({
         message: `Copy this link and send to anyone to invite them`,
         inputType: 'url',
-        inputvModel: url,
+        inputModel: url,
         onConfirm: () => {
         }
       })

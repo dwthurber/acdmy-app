@@ -1,6 +1,6 @@
 <template>
   <div v-if="user !== false">
-    <b-loading :active.sync="isLoading" :canCancel="false"></b-loading>
+    <b-loading :active.sync="isLoading"></b-loading>
     <Navbar />
     <div class="main">
       <router-view v-if="$route.params.roomid"></router-view>
