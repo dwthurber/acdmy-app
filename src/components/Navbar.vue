@@ -4,8 +4,6 @@
       <router-link :to="{ name: 'Main' }" class="navbar-item"><img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform"></router-link>
       <div class="is-hidden-desktop navbar-center navbar-item is-paddingless">
         <small class="uppercase" v-if="!$route.params.roomid">My Rooms</small>
-        <!-- <small class="uppercase" v-if="$route.params.roomid && currentRoom">{{currentRoom.name}}</small> -->
-        <Tabs v-else />
       </div>
       <div class="navbar-end navbar-item is-hidden-desktop">
         <Help />
@@ -18,9 +16,6 @@
     </div>
     <div class="navbar-menu">
       <div class="navbar-center navbar-item is-paddingless">
-        <small class="uppercase" v-if="!$route.params.roomid">My Rooms</small>
-        <!-- <small class="uppercase" v-if="$route.params.roomid && currentRoom">{{currentRoom.name}}</small> -->
-        <Tabs v-else />
       </div>
       <div class="navbar-end is-marginless">
         <Help />
@@ -31,6 +26,7 @@
         <Account />
       </div>
     </div>
+    <Tabs />
   </nav>
 </template>
 
@@ -63,6 +59,10 @@ export default {
   width: 100%;
   top: 0;
   z-index: 19;
+}
+.navbar-brand,
+.navbar-end {
+  z-index: 20;
 }
 .uppercase {
   text-transform: uppercase;

@@ -115,5 +115,9 @@ export default {
 </script>
 
 <style scoped>
-
+@media screen and (max-width: 768px) {
+  .level-right .button {
+    margin: 8px auto;
+  }
+}
 </style>
