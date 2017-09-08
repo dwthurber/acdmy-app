@@ -17,11 +17,12 @@
     "buefy": "^0.5.2",
     "firebase": "^4.2.0",
     "konva": "^1.6.7",
+    "moment": "^2.18.1",
     "twilio-video": "^1.2.0",
     "vue": "^2.3.3",
-    "vuedraggable": "^2.14.1",
     "vue-router": "^2.6.0",
     "vue-style-loader": "^3.0.1",
+    "vuedraggable": "^2.14.1",
     "vuefire": "^1.4.3",
     "vuex": "^2.3.1",
     "vuexfire": "^2.2.0"
