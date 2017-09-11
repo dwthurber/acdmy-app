@@ -236,7 +236,10 @@
             {{ props.row.endDate | formatDate }} at {{ props.row.endTime }}
           </b-table-column>
           <b-table-column field="" label="">
-            <button class="button is-danger is-outlined is-small" @click="deleteSession(props.row['.key']); isDeleteRoomActive = true"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+            <button class="button is-primary is-outlined is-small" @click="deleteSession(props.row['.key']); isDeleteRoomActive = true"><b-icon icon="edit" size="is-small"></b-icon></button>
+            <router-link class="button is-primary is-small" :to="{name: 'Session', params: {sessionid: props.row['.key']}}" append exact>
+              <b-icon icon="remove_red_eye" size="is-small"></b-icon>
+            </router-link>
           </b-table-column>
         </template>
 
@@ -286,7 +289,7 @@ export default {
       isDetailed: false,
       hasMobileCards: true,
       isPaginated: false,
-      isPaginationSimple: false,
+      isPaginationSimple: true,
       perPage: 10
     }
   },

@@ -43,6 +43,18 @@ $facebook-invert: findColorInvert($facebook);
 $primary: hsl(205, 36%, 43%);
 $primary-invert: findColorInvert($primary);
 
+$success: hsl(153, 39%, 45%);
+$success-invert: findColorInvert($success);
+
+$warning: hsl(45, 74%, 65%);
+$warning-invert: findColorInvert($warning);
+
+$info: hsl(205, 40%, 73%);
+$info-invert: findColorInvert($info);
+
+$danger: hsl(3, 74, 65%);
+$danger-invert: findColorInvert($danger);
+
 $family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // Setup $colors to use as bulma classes
