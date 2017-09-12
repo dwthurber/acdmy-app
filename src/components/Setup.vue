@@ -1,19 +1,35 @@
 <template>
-  <div class="columns is-vcentered is-centered">
-    <div class="column is-4-widescreen is-5-desktop is-half-tablet">
-      <router-view></router-view>
+  <div class="hero is-fullheight is-light">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <img class="brand" src="../assets/acdmy.png" />
+            <!-- <p class="subtitle">Classroom of the Future</p> -->
+            <router-view></router-view>
+            <p class="has-text-centered has-text-grey">
+              <router-link v-if="$route.path == '/signup'" :to="{ name: 'Login', params: {} }">Login</router-link>
+              <router-link v-else :to="{ name: 'Signup', params: {} }">Sign Up</router-link>
+              |
+              <a v-if="$route.path == '/signup'" href="#">Need Help?</a>
+              <a v-else href="#">Forgot Password</a>
+              |
+              <a>Privacy Policy</a>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="column is-8-widescreen is-7-desktop is-half-tablet is-hidden-mobile">
+    <!-- <div class="column is-8-widescreen is-7-desktop is-half-tablet is-hidden-mobile">
       <section class="hero is-fullheight is-background is-dark">
         <div class="hero-body">
           <div class="container">
-            <img class="brand" src="../assets/acdmy-white.png" />
-            <p class="subtitle">Classroom of the Future</p>
+
           </div>
         </div>
 
       </section>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -87,5 +103,9 @@ export default {
 .brand {
   height: 60px;
   margin-bottom: 16px;
+}
+.is-vcentered {
+  align-items: center;
+  justify-content: center;
 }
 </style>

@@ -1,71 +1,55 @@
 <template>
-  <div class="hero is-fullheight is-white">
-    <div class="hero-body">
-      <div class="container">
-        <div key="signup">
-          <img class="brand image is-hidden-tablet" src="../../assets/acdmy.png" />
-          <h2 class="title"><strong>Welcome.</strong></h2>
-          <p class="subtitle">Please setup your profile.</p>
-          <b-message type="is-danger" v-if="accountExists">
-              An account with that email already exists. <a href="#">Login</a>
-          </b-message>
-          <b-message type="is-danger" v-if="isInvalid">
-              Please fill out all fields
-          </b-message>
+  <div key="signup" class="box">
+    <h2 class="title"><strong>Welcome.</strong></h2>
+    <p class="subtitle">Please setup your profile.</p>
+    <b-message type="is-danger" v-if="accountExists">
+        An account with that email already exists. <a href="#">Login</a>
+    </b-message>
+    <b-message type="is-danger" v-if="isInvalid">
+        Please fill out all fields
+    </b-message>
 
-          <b-field>
-            <b-upload v-model="profile_picture">
-              <a class="button is-primary is-outlined">
-                <b-icon icon="file_upload"></b-icon>
-                <span>Upload a profile picture</span>
-              </a>
-            </b-upload>
-            <div v-if="profile_picture && profile_picture.length">
-              <span class="file-name">
-                {{ profile_picture[0].name }}
-              </span>
-            </div>
-          </b-field>
-          <br>
-          <b-field label="Email (username)">
-            <b-input type="email" icon="email" v-model="email"
-              placeholder="jsmith@example.org">
-            </b-input>
-          </b-field>
-          <b-field label="Room ID" type="is-success" v-if="route.query.room">
-              <b-input icon="widgets" :placeholder="route.query.room" v-model="roomId" disabled></b-input>
-          </b-field>
-          <!-- <b-field label="Room ID" v-else>
-              <b-input icon="widgets" placeholder="Room ID" v-model="roomId"></b-input>
-          </b-field> -->
-          <b-field label="Full Name">
-              <b-input icon="person" placeholder="Jane Smith" v-model="displayName"></b-input>
-          </b-field>
-          <b-field label="Password">
-              <b-input type="password" icon="lock" v-model="password"
-                  placeholder="Password"
-                  password-reveal>
-              </b-input>
-          </b-field>
-          <hr>
-          <p class="control">
-            <button class="button is-primary" @click.self.prevent="signUp" :class="{'is-loading': authenticating}">Sign Up</button>
-            <router-link :to="{ name: 'Login', params: {} }" class="button is-default">Cancel</router-link>
-          </p>
-          <!-- <hr> -->
-          <!-- <button class="button is-google is-social" @click.self.prevent="googleLogin">Or, Signup with Google</button> -->
-        </div>
+    <b-field>
+      <b-upload v-model="profile_picture">
+        <a class="button is-primary is-outlined">
+          <b-icon icon="file_upload"></b-icon>
+          <span>Upload a profile picture</span>
+        </a>
+      </b-upload>
+      <div v-if="profile_picture && profile_picture.length">
+        <span class="file-name">
+          {{ profile_picture[0].name }}
+        </span>
       </div>
-      <div class="is-bottom">
-        <p class="has-text-centered">
-          <router-link :to="{ name: 'Login', params: {} }">Login</router-link>
-          |
-          <a href="#">Need Help?</a>
-          |
-          <a>Privacy Policy</a>
-        </p>
-      </div>
-    </div>
+    </b-field>
+    <br>
+    <b-field>
+      <b-input type="email" icon="email" v-model="email"
+        placeholder="jsmith@example.org">
+      </b-input>
+    </b-field>
+    <b-field type="is-success" v-if="route.query.room">
+        <b-input icon="widgets" :placeholder="route.query.room" v-model="roomId" disabled></b-input>
+    </b-field>
+    <!-- <b-field label="Room ID" v-else>
+        <b-input icon="widgets" placeholder="Room ID" v-model="roomId"></b-input>
+    </b-field> -->
+    <b-field>
+        <b-input icon="person" placeholder="Full Name" v-model="displayName"></b-input>
+    </b-field>
+    <b-field>
+        <b-input type="password" icon="lock" v-model="password"
+            placeholder="Password"
+            password-reveal>
+        </b-input>
+    </b-field>
+    <hr>
+    <p class="control">
+      <button class="button is-primary" @click.self.prevent="signUp" :class="{'is-loading': authenticating}">Sign Up</button>
+      <router-link :to="{ name: 'Login', params: {} }" class="button is-default">Cancel</router-link>
+    </p>
+    <!-- <hr> -->
+    <!-- <button class="button is-google is-social" @click.self.prevent="googleLogin">Or, Signup with Google</button> -->
   </div>
 </template>
 
