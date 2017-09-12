@@ -229,15 +229,15 @@
           <b-table-column field="name" label="Name" sortable>
             {{ props.row.name }}
           </b-table-column>
-          <b-table-column field="startDate" label="Start" sortable>
-            {{ props.row.startDate | formatDate }} at {{ props.row.startTime }}
+          <b-table-column field="startDate" label="When" sortable>
+            {{ props.row.startDate | formatDate }}
           </b-table-column>
-          <b-table-column field="endDate" label="End" sortable>
+          <!-- <b-table-column field="endDate" label="End" sortable>
             {{ props.row.endDate | formatDate }} at {{ props.row.endTime }}
-          </b-table-column>
-          <b-table-column field="" label="">
-            <button class="button is-primary is-outlined is-small" @click="deleteSession(props.row['.key']); isDeleteRoomActive = true"><b-icon icon="edit" size="is-small"></b-icon></button>
-            <router-link class="button is-primary is-small" :to="{name: 'Session', params: {sessionid: props.row['.key']}}" append exact>
+          </b-table-column> -->
+          <b-table-column field="" label="" width="85">
+            <button class="button is-danger is-outlined is-small" @click="deleteSession(props.row['.key']); isDeleteRoomActive = true"><b-icon icon="delete" size="is-small"></b-icon></button>
+            <router-link class="button is-primary is-outlined is-small" :to="{name: 'Session', params: {sessionid: props.row['.key']}}" append exact>
               <b-icon icon="remove_red_eye" size="is-small"></b-icon>
             </router-link>
           </b-table-column>
@@ -264,7 +264,7 @@ export default {
   filters: {
     formatDate: function (value) {
       if (value) {
-        return moment(String(value)).format('dddd MMM Do YYYY')
+        return moment(String(value)).calendar()
       }
     }
   },
@@ -286,7 +286,7 @@ export default {
       isCheckable: false,
       isEmpty: false,
       isLoading: true,
-      isDetailed: false,
+      isDetailed: true,
       hasMobileCards: true,
       isPaginated: false,
       isPaginationSimple: true,

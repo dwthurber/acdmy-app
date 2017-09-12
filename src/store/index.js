@@ -13,6 +13,9 @@ const mutations = {
   SET_CURRENT_ROOM (state, value) {
     state.currentRoom = value
   },
+  SET_CURRENT_SESSION (state, value) {
+    state.currentSession = value
+  },
   SET_PEOPLE (state, value) {
     state.people = value
   },
@@ -46,6 +49,7 @@ const state = {
   currentRoom: null,
   people: [],
   sessions: [],
+  currentSession: null,
   route: null
 }
 
