@@ -16,7 +16,7 @@
               </div>
             </div>
           </div>
-          <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="room in rooms" :key="room['.key']">
+          <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="(room, index) in rooms" :key="room['.key']">
             <div class="card">
               <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
               <div class="card-text-hover">
@@ -27,9 +27,9 @@
               <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
                   <p class="is-size-5">{{room.name}}</p>
-                  <b-icon v-if="!room.students || !room.sessions" icon="widgets"></b-icon>
+                  <b-icon v-if="!room.students && !room.sessions" icon="widgets"></b-icon>
                   <small v-if="room.students"><b-icon icon="people" size="is-small" class="re-align"></b-icon> {{room.students}} people</small>
-                  <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> {{room.sesions}} sessions</small>
+                  <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> <span v-for="(item, index) in room.sessions">{{++item}}</span> sessions</small>
                 </div>
               </router-link>
             </div>
@@ -43,13 +43,18 @@
 <script>
 import { mapState } from 'vuex'
 import Navbar from '@/components/Navbar'
-import { db, usersRef, roomsRef, peopleRef } from '@/firebase'
+import { db, usersRef, roomsRef, peopleRef, sessionsRef } from '@/firebase'
 
 export default {
   name: 'main',
   components: {Navbar},
   computed: {
     ...mapState(['user', 'rooms', 'usersRooms', 'route'])
+  },
+  filters: {
+    limit: function (arr, limit) {
+      return arr.slice(0, limit)
+    }
   },
   created () {
     this.isLoading = true
@@ -120,7 +125,7 @@ export default {
       // const uid = this.user.uid
       this.$dialog.confirm({
         title: 'Deleting Room',
-        message: 'Are you sure you want to <strong>delete</strong> this room? This action cannot be undone.',
+        message: 'Are you sure you want to <strong>delete</strong> this room and all associated data (e.g. sessions)? <strong>This action cannot be undone.</strong>',
         confirmText: 'Delete Room',
         type: 'is-danger',
         hasIcon: true,
@@ -137,6 +142,7 @@ export default {
             // then remove room and associated nodes
             roomsRef.child(key).remove()
             peopleRef.child(key).remove()
+            sessionsRef.child(key).remove()
             toast.open('Room deleted')
           })
         }

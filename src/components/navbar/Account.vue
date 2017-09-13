@@ -17,7 +17,7 @@
                 <small class="has-text-grey" v-if="isSending">Sending email...</small>
               </p>
               <p><small><a @click="isAccountModalActive = true" >Account</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
-              <b-modal :active.sync="isAccountModalActive" has-modal-card>
+              <b-modal :active.sync="isAccountModalActive" has-modal-card canCancel>
                   <modal-account></modal-account>
               </b-modal>
             </p>

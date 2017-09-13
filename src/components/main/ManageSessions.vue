@@ -11,7 +11,7 @@
         <button class="button level-item is-primary" @click="confirm"><b-icon icon="add_circle_outline" size="is-small"></b-icon> &nbsp; Start New Session</button>
       </div>
     </nav>
-    <b-modal :active.sync="isModalActive" has-modal-card>
+    <b-modal :active.sync="isModalActive" has-modal-card canCancel>
       <form action="">
         <div class="modal-card" @click.stop>
           <section class="modal-card-body">
@@ -259,7 +259,7 @@ import moment from 'moment'
 export default {
   name: 'Dashboard-Sessions',
   computed: {
-    ...mapState(['sessions', 'route'])
+    ...mapState(['sessions', 'route', 'rooms'])
   },
   filters: {
     formatDate: function (value) {
@@ -304,7 +304,9 @@ export default {
       this.$store.dispatch('setSessions', sessionsRef.child(this.route.params.roomid))
     },
     scheduleSession () {
+      let roomKey = this.route.params.roomid
       let newSessionKey = sessionsRef.push().key
+
       const newSession = {
         name: this.sessionName,
         startDate: this.startDate,
@@ -313,13 +315,21 @@ export default {
         endTime: this.endTime,
         layout: this.layout
       }
-      // const increment = {
-      //   sessions: 1
-      // }
       let updates = {}
-      updates['/sessions/' + this.route.params.roomid + '/' + newSessionKey] = newSession
-      updates['/rooms/' + this.route.params.roomid + '/sessions/' + newSessionKey] = true
+      updates['/sessions/' + roomKey + '/' + newSessionKey] = newSession
+      updates['/rooms/' + roomKey + '/sessions/' + newSessionKey] = true
       db.ref().update(updates)
+
+      // add session count
+      const roomsUsersRef = roomsRef.child(roomKey).child('users').child('/')
+      roomsUsersRef.once('value', function (snap) {
+        snap.forEach(function (childSnapshot) {
+          const userKey = childSnapshot.key
+          let updates = {}
+          updates['/users/' + userKey + '/rooms/' + roomKey + '/sessions/' + newSessionKey] = true
+          db.ref().update(updates)
+        })
+      })
 
       this.isModalActive = false
       this.$toast.open('Session scheduled')
@@ -340,9 +350,19 @@ export default {
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => {
+          let roomKey = this.route.params.roomid
+          const roomsUsersRef = roomsRef.child(roomKey).child('users').child('/')
+          roomsUsersRef.once('value', function (snap) {
+            snap.forEach(function (childSnapshot) {
+              const userKey = childSnapshot.key
+              let updates = {}
+              updates['/users/' + userKey + '/rooms/' + roomKey + '/sessions/' + key] = null
+              db.ref().update(updates)
+            })
+          })
           // then remove room and associated nodes
-          sessionsRef.child(this.route.params.roomid).child(key).remove()
-          roomsRef.child(this.route.params.roomid).child('sessions').child(key).remove()
+          sessionsRef.child(roomKey).child(key).remove()
+          roomsRef.child(roomKey).child('sessions').child(key).remove()
           toast.open('Session removed')
         }
       })
