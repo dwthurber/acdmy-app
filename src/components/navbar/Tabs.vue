@@ -1,6 +1,6 @@
 <template>
   <div class="tabs is-centered">
-    <small class="uppercase" v-if="currentRoom">{{currentRoom.name}}</small>
+    <small class="uppercase has-text-grey" v-if="currentRoom">{{currentRoom.name}}</small>
     <ul v-if="route.params.roomid && !route.params.sessionid">
       <!-- <router-link :to="{ name: 'Main-Classroom' }" tag="li" exact><a class="is-size-7"><b-icon icon="group_work" size="is-small"></b-icon> Room</a></router-link>
       <router-link :to="{ name: 'Main-Chat' }" tag="li" exact><a class="is-size-7"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></router-link> -->
@@ -8,13 +8,16 @@
     </ul>
     <ul v-else-if="route.params.sessionid">
       <li>
-        <a class="is-size-7"><b-icon icon="people" size="is-small"></b-icon> Groups</a>
+        <a class="is-size-7"><b-icon icon="people" size="is-small"></b-icon> People</a>
       </li>
       <li>
         <a class="is-size-7"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a>
       </li>
       <li>
         <a class="is-size-7"><b-icon icon="view_quilt" size="is-small"></b-icon> Layout</a>
+      </li>
+      <li>
+        <a class="is-size-7"><b-icon icon="more" size="is-small"></b-icon> More</a>
       </li>
     </ul>
   </div>

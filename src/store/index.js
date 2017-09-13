@@ -40,6 +40,9 @@ const actions = {
   }),
   setSessions: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('sessions', ref)
+  }),
+  setCurrentSession: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('currentSession', ref)
   })
 }
 

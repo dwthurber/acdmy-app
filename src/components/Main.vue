@@ -1,8 +1,8 @@
 <template>
-  <div v-if="user !== false">
+  <div v-if="user !== false" class="is-maxheight">
     <b-loading :active.sync="isLoading"></b-loading>
     <Navbar />
-    <div class="main">
+    <div class="main is-maxheight">
       <router-view v-if="$route.params.roomid"></router-view>
       <div class="container" v-else>
         <div class="columns is-tablet is-multiline">

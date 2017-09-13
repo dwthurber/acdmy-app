@@ -86,6 +86,7 @@ body, html {
 }
 #app {
   height: 100%;
+  // overflow-y: hidden;
 }
 .menu-label {
   padding-left: 8px;
@@ -103,5 +104,8 @@ body, html {
 }
 .modal-card {
   border-radius: 5px;
+}
+.is-maxheight {
+  height: 100%;
 }
 </style>

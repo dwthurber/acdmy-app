@@ -1,35 +1,42 @@
 <template>
-  <div id="session" v-if="user !== false">
+  <div id="session" v-if="user !== false" class="is-maxheight">
     <b-loading :active.sync="isLoading"></b-loading>
-    <div class="columns is-mobile videobar is-gapless is-multiline">
-      <VideoContainer v-for="(user, index) in users" :user="user" :key="user.id"></VideoContainer>
-    </div>
+    <router-view v-if="$route.params.sessionid"></router-view>
+    <Videobar v-if="currentSession.layout == 1"/>
   </div>
 </template>
 
 <script>
-import VideoContainer from '@/components/Video'
+import Videobar from '@/components/session/Videobar'
 import { mapState } from 'vuex'
+import { roomsRef, peopleRef, sessionsRef } from '@/firebase'
 
 export default {
-  components: { VideoContainer },
+  components: { Videobar },
   name: 'session',
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'route', 'currentSession'])
   },
   data () {
     return {
-      users: [
-        { id: 0, name: 'Derek', hand: false },
-        { id: 1, name: 'Alyssa', hand: true },
-        { id: 2, name: 'Ryan', hand: false },
-        { id: 3, name: 'Emily', hand: false }
-      ],
       isLoading: true
     }
   },
+  created () {
+    this.setActiveRoom()
+  },
   mounted () {
     this.isLoading = false
+  },
+  methods: {
+    setActiveRoom () {
+      this.$store.dispatch('setCurrentRoom', roomsRef.child(this.route.params.roomid))
+      this.$store.dispatch('setCurrentSession', sessionsRef.child(this.route.params.roomid).child(this.route.params.sessionid))
+      this.$store.dispatch('setPeople', peopleRef.child(this.route.params.roomid))
+      peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
+        online: true
+      })
+    }
   }
 }
 </script>
