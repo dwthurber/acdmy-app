@@ -20,9 +20,6 @@ const mutations = {
 }
 
 const actions = {
-  unsetCurrentRoom: firebaseAction(({ unbindFirebaseRef }, { ref }) => {
-    unbindFirebaseRef('currentRoom')
-  }),
   setCurrentSession: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('currentSession', ref)
   })

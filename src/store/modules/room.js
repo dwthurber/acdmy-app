@@ -4,9 +4,6 @@ const getters = {
 }
 
 const actions = {
-  // setUserProfile: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-  //   bindFirebaseRef('userProfile', ref)
-  // }),
   setCurrentRoomRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('data', ref)
   }),
