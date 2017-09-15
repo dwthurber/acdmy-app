@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { peopleRef } from '@/firebase'
+import { peopleRef, roomsRef, sessionsRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -68,7 +68,17 @@ export default {
   created () {
     this.setOnlineStatus()
   },
+  mounted () {
+    this.bindRefs()
+  },
   methods: {
+    bindRefs () {
+      if (this.route.params.roomid) {
+        this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
+        this.$store.dispatch('setPeopleRef', peopleRef.child(this.route.params.roomid))
+        this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))
+      }
+    },
     setOnlineStatus () {
       peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
         online: true

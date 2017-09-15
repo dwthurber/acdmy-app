@@ -252,7 +252,7 @@
 </template>
 
 <script>
-import { db, sessionsRef, roomsRef } from '@/firebase'
+import { db, sessionsRef } from '@/firebase'
 import { mapState } from 'vuex'
 import moment from 'moment'
 
@@ -311,21 +311,16 @@ export default {
         endTime: this.endTime,
         layout: this.layout
       }
+
       let updates = {}
       updates['/sessions/' + roomKey + '/' + newSessionKey] = newSession
-      updates['/rooms/' + roomKey + '/sessions/' + newSessionKey] = true
-      db.ref().update(updates)
 
-      // add session count
-      const roomsUsersRef = roomsRef.child(roomKey).child('users').child('/')
-      roomsUsersRef.once('value', function (snap) {
-        snap.forEach(function (childSnapshot) {
-          const userKey = childSnapshot.key
-          let updates = {}
-          updates['/users/' + userKey + '/rooms/' + roomKey + '/sessions/' + newSessionKey] = true
-          db.ref().update(updates)
-        })
-      })
+      if (this.room.sessions.length) {
+        updates['/rooms/' + roomKey + '/sessions'] = this.room.sessions.length + 1
+      } else {
+        updates['/rooms/' + roomKey + '/sessions'] = 1
+      }
+      db.ref().update(updates)
 
       this.isModalActive = false
       this.$toast.open('Session scheduled')
@@ -347,18 +342,13 @@ export default {
         hasIcon: true,
         onConfirm: () => {
           let roomKey = this.route.params.roomid
-          const roomsUsersRef = roomsRef.child(roomKey).child('users').child('/')
-          roomsUsersRef.once('value', function (snap) {
-            snap.forEach(function (childSnapshot) {
-              const userKey = childSnapshot.key
-              let updates = {}
-              updates['/users/' + userKey + '/rooms/' + roomKey + '/sessions/' + key] = null
-              db.ref().update(updates)
-            })
-          })
-          // then remove room and associated nodes
+          var count = this.room.sessions.length - 1
+          console.log(count)
           sessionsRef.child(roomKey).child(key).remove()
-          roomsRef.child(roomKey).child('sessions').child(key).remove()
+
+          let updates = {}
+          updates['/rooms/' + roomKey + '/sessions'] = count
+          db.ref().update(updates)
           toast.open('Session removed')
         }
       })

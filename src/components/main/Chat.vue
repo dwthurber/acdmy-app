@@ -33,8 +33,8 @@ export default {
   },
   methods: {
     setActiveRoom () {
-      this.$store.dispatch('setCurrentRoom', roomsRef.child(this.route.params.roomid))
-      this.$store.dispatch('setPeople', peopleRef.child(this.route.params.roomid))
+      // this.$store.dispatch('setCurrentRoom', roomsRef.child(this.route.params.roomid))
+      // this.$store.dispatch('setPeople', peopleRef.child(this.route.params.roomid))
       peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
         online: true
       })

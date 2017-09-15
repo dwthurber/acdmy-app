@@ -32,7 +32,7 @@ export default {
     setActiveRoom () {
       this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))
       this.$store.dispatch('setCurrentSession', sessionsRef.child(this.route.params.roomid).child(this.route.params.sessionid))
-      this.$store.dispatch('setPeople', peopleRef.child(this.route.params.roomid))
+      // this.$store.dispatch('setPeople', peopleRef.child(this.route.params.roomid))
       peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
         online: true
       })

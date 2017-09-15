@@ -29,7 +29,7 @@
                   <p class="is-size-5">{{room.name}}</p>
                   <b-icon v-if="!room.students && !room.sessions" icon="widgets"></b-icon>
                   <small v-if="room.students"><b-icon icon="people" size="is-small" class="re-align"></b-icon> {{room.students}} people</small>
-                  <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> <span v-for="(item, index) in room.sessions">{{++item}}</span> sessions</small>
+                  <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> {{room.sessions}} sessions</small>
                 </div>
               </router-link>
             </div>
@@ -62,6 +62,9 @@ export default {
     this.setUserRooms()
     this.isLoading = false
   },
+  mounted () {
+    this.bindRefs()
+  },
   updated () {
     this.bindRefs()
   },
@@ -72,11 +75,7 @@ export default {
   },
   methods: {
     bindRefs () {
-      if (this.route.params.roomid) {
-        this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
-        this.$store.dispatch('setPeopleRef', peopleRef.child(this.route.params.roomid))
-        this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))
-      } else {
+      if (!this.route.params.roomid) {
         this.$store.commit('SET_CURRENT_ROOM', null)
         this.$store.commit('SET_PEOPLE', [])
       }
