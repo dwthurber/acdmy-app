@@ -16,15 +16,15 @@
               </div>
             </div>
           </div>
-          <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="(room, index) in rooms" :key="room['.key']">
+          <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="(room, index) in userRooms" :key="room.id">
             <div class="card">
-              <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
+              <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room.id} }" tag="div" class="card-hover"></router-link>
               <div class="card-text-hover">
                 <!-- <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
                 <small class="status is-uppercase has-text-warning" v-else>Inactive</small> -->
-                <button class="button is-danger is-outlined remove is-small" @click="deleteRoom(room['.key'])"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+                <button class="button is-danger is-outlined remove is-small" @click="deleteRoom(room.id)"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
               </div>
-              <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
+              <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room.id} }" tag="div" class="card-content has-text-centered has-text-white">
                 <div class="content">
                   <p class="is-size-5">{{room.name}}</p>
                   <b-icon v-if="!room.students && !room.sessions" icon="widgets"></b-icon>
@@ -49,7 +49,7 @@ export default {
   name: 'main',
   components: {Navbar},
   computed: {
-    ...mapState(['user', 'rooms', 'usersRooms', 'route'])
+    ...mapState(['user', 'userRooms', 'route', 'room'])
   },
   filters: {
     limit: function (arr, limit) {
@@ -59,9 +59,11 @@ export default {
   created () {
     this.isLoading = true
     this.setUserProfile()
-    this.resetRoom()
-    this.$store.dispatch('setRooms', usersRef.child(this.user.uid).child('rooms'))
+    this.setUserRooms()
     this.isLoading = false
+  },
+  updated () {
+    this.bindRefs()
   },
   data () {
     return {
@@ -69,6 +71,30 @@ export default {
     }
   },
   methods: {
+    bindRefs () {
+      if (this.route.params.roomid) {
+        this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
+        this.$store.dispatch('setPeopleRef', peopleRef.child(this.route.params.roomid))
+        this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))
+      } else {
+        this.$store.commit('SET_CURRENT_ROOM', null)
+        this.$store.commit('SET_PEOPLE', [])
+      }
+    },
+    setUserRooms () {
+      const uid = this.user.uid
+      let store = this.$store
+      usersRef.child(uid).child('rooms').on('child_added', function (user) {
+        roomsRef.once('value', function (classroom) {
+          store.commit('SET_USER_ROOMS', classroom.val())
+        })
+      })
+      usersRef.child(uid).child('rooms').on('child_removed', function (user) {
+        roomsRef.once('value', function (classroom) {
+          store.commit('SET_USER_ROOMS', classroom.val())
+        })
+      })
+    },
     setUserProfile () {
       const uid = this.user.uid
       // define default profile setup used to create first time user
@@ -82,14 +108,6 @@ export default {
         }
       })
     },
-    resetRoom () {
-      if (this.currentRoom) {
-        this.$store.dispatch('unsetCurrentRoom', roomsRef)
-        this.$store.dispatch('unsetPeople', peopleRef)
-      }
-      this.$store.commit('SET_CURRENT_ROOM', null)
-      this.$store.commit('SET_PEOPLE', [])
-    },
     createRoom () {
       let toast = this.$toast
       this.$dialog.prompt({
@@ -98,21 +116,23 @@ export default {
         inputPlaceholder: 'e.g. My Awesome Classroom',
         onConfirm: (value) => {
           let newRoomKey = roomsRef.push().key
-          const newRoom = {
-            name: value
-          }
           const user = {
             name: this.user.displayName,
             profile_picture: this.user.photoURL,
             role: 'Instructor'
           }
+          const newRoom = {
+            name: value,
+            id: newRoomKey
+          }
+
           let updates = {}
           updates['/rooms/' + newRoomKey] = newRoom
           updates['/people/' + newRoomKey + '/' + this.user.uid] = user
           db.ref().update(updates)
 
           let indexes = {}
-          indexes['/users/' + this.user.uid + '/rooms/' + newRoomKey] = newRoom
+          indexes['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
           indexes['/rooms/' + newRoomKey + '/users/' + this.user.uid] = true
           db.ref().update(indexes)
 

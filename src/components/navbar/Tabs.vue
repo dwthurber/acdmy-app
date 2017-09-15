@@ -1,6 +1,7 @@
 <template>
   <div class="tabs is-centered">
-    <small class="uppercase has-text-grey" v-if="currentRoom">{{currentRoom.name}}</small>
+    <small class="uppercase has-text-grey" v-if="room.data">{{room.data.name}}</small>
+    <p class="uppercase has-text-grey" v-else>All Rooms</p>
     <ul v-if="route.params.roomid && !route.params.sessionid">
       <!-- <router-link :to="{ name: 'Main-Classroom' }" tag="li" exact><a class="is-size-7"><b-icon icon="group_work" size="is-small"></b-icon> Room</a></router-link>
       <router-link :to="{ name: 'Main-Chat' }" tag="li" exact><a class="is-size-7"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></router-link> -->
@@ -29,7 +30,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'tabs',
   computed: {
-    ...mapState(['currentRoom', 'route'])
+    ...mapState(['room', 'route'])
   },
   data () {
     return {
@@ -64,5 +65,9 @@ export default {
 .router-link-active a {
   color: hsl(205, 36%, 43%);
   border-bottom-color: hsl(205, 36%, 43%);
+}
+p.uppercase {
+  margin: 12px auto;
+  display: block;
 }
 </style>

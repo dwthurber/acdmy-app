@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import { roomsRef, peopleRef } from '@/firebase'
+import { peopleRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -66,12 +66,10 @@ export default {
     ...mapState(['user', 'route'])
   },
   created () {
-    this.setActiveRoom()
+    this.setOnlineStatus()
   },
   methods: {
-    setActiveRoom () {
-      this.$store.dispatch('setCurrentRoom', roomsRef.child(this.route.params.roomid))
-      this.$store.dispatch('setPeople', peopleRef.child(this.route.params.roomid))
+    setOnlineStatus () {
       peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
         online: true
       })

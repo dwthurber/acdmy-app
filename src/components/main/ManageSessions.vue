@@ -196,7 +196,7 @@
     </b-modal>
     <div class="box">
       <p class="subtitle is-uppercase is-7 has-text-grey">Upcoming Sessions</p>
-      <section class="hero has-text-centered" v-if="sessions.length == 0">
+      <section class="hero has-text-centered" v-if="room.sessions.length == 0">
         <div class="hero-body">
           <h1 class="title has-text-grey">
             No Upcoming Sessions
@@ -210,7 +210,7 @@
     <div class="box">
       <p class="subtitle is-uppercase is-7 has-text-grey">All Sessions</p>
       <b-table
-        :data="sessions"
+        :data="room.sessions"
         :bordered="isBordered"
         :striped="isStriped"
         :narrowed="isNarrowed"
@@ -259,7 +259,7 @@ import moment from 'moment'
 export default {
   name: 'Dashboard-Sessions',
   computed: {
-    ...mapState(['sessions', 'route', 'rooms'])
+    ...mapState(['room', 'route', 'rooms'])
   },
   filters: {
     formatDate: function (value) {
@@ -294,15 +294,11 @@ export default {
     }
   },
   created () {
-    this.setSessions()
     const today = new Date()
     this.minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 0)
     this.isLoading = false
   },
   methods: {
-    setSessions () {
-      this.$store.dispatch('setSessions', sessionsRef.child(this.route.params.roomid))
-    },
     scheduleSession () {
       let roomKey = this.route.params.roomid
       let newSessionKey = sessionsRef.push().key

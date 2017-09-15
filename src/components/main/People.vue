@@ -16,7 +16,7 @@
         <b-tab-item label="People">
           <br>
           <b-table
-            :data="people"
+            :data="room.people"
             :bordered="isBordered"
             :striped="isStriped"
             :narrowed="isNarrowed"
@@ -79,7 +79,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'Dashboard-People',
   computed: {
-    ...mapState(['people', 'currentRoom'])
+    ...mapState(['room'])
   },
   data () {
     return {
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     prompt () {
-      let url = 'https://localhost:8080/#/signup?room=' + this.currentRoom['.key']
+      let url = 'https://localhost:8080/#/signup?room=' + this.room.data.id
       console.log(url)
       this.$dialog.prompt({
         message: `Copy this link and send to anyone to invite them`,
