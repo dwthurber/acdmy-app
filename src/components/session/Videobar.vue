@@ -1,7 +1,7 @@
 <template>
   <div id="videobar" class="is-maxheight">
     <div class="columns is-mobile videobar is-gapless is-multiline is-marginless">
-      <VideoContainer v-for="(user, index) in people" :user="user" :key="user.id"></VideoContainer>
+      <VideoContainer v-for="(user, index) in room.people" :user="user" :key="user['.key']"></VideoContainer>
     </div>
     <Block />
   </div>
@@ -16,7 +16,7 @@ export default {
   components: { VideoContainer, Block },
   name: 'videobar',
   computed: {
-    ...mapState(['user', 'people'])
+    ...mapState(['user', 'room'])
   },
   data () {
     return {

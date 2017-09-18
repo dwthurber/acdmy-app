@@ -12,6 +12,7 @@ import ManageSessions from '@/components/main/ManageSessions'
 import Assets from '@/components/main/Assets'
 import People from '@/components/main/People'
 import Settings from '@/components/main/Settings'
+import Rooms from '@/components/rooms'
 
 Vue.use(Router)
 
@@ -22,6 +23,10 @@ export default new Router({
       component: Main,
       name: 'Main',
       children: [
+        {
+          path: '/',
+          component: Rooms
+        },
         // {
         //   path: '/r/:roomid/',
         //   component: Classroom,

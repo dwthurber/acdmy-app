@@ -2,38 +2,42 @@
   <section class="hero is-maxheight">
     <div class="hero-body box">
       <div class="container">
-        <div class="columns is-centered">
-          <div class="column is-half has-text-centered">
+        <div class="columns is-multiline is-centered">
+          <div class="column is-narrow has-text-centered">
             <h2 class="subtitle is-5">
               Drag and Drop or Choose
             </h2>
 
             <hr>
-            <div class="columns is-centered is-mobile is-multiline">
-              <div class="column is-2">
-                <b-icon icon="question_answer" size="is-medium"></b-icon>
-                <p class="is-size-7">Collaboration</p>
+            <div class="columns is-centered is-multiline">
+              <div class="column is-4 has-text-centered">
+                <b-icon icon="edit" size="is-medium"></b-icon>
+                <p class="is-size-7">Document</p>
               </div>
-              <div class="column is-2">
+              <div class="column is-4">
                 <b-icon icon="folder" size="is-medium"></b-icon>
                 <p class="is-size-7">Asset</p>
               </div>
-              <div class="column is-2">
-                <b-icon icon="videocam" size="is-medium"></b-icon>
-                <p class="is-size-7">Video</p>
-              </div>
-              <div class="column is-2">
+              <!-- <div class="column is-4">
+                <b-icon icon="question_answer" size="is-medium"></b-icon>
+                <p class="is-size-7">Chat</p>
+              </div> -->
+              <!-- <div class="column is-4">
                 <b-icon icon="poll" size="is-medium"></b-icon>
                 <p class="is-size-7">Poll</p>
-              </div>
-              <div class="column is-2">
+              </div> -->
+              <!-- <div class="column is-4">
                 <b-icon icon="picture_in_picture" size="is-medium"></b-icon>
                 <p class="is-size-7">Whiteboard</p>
-              </div>
-              <div class="column is-2">
+              </div> -->
+              <div class="column is-4">
                 <b-icon icon="screen_share" size="is-medium"></b-icon>
                 <p class="is-size-7">Screen Share</p>
               </div>
+              <!-- <div class="column is-3">
+                <b-icon icon="extension" size="is-medium"></b-icon>
+                <p class="is-size-7">Plugin</p>
+              </div> -->
             </div>
           </div>
         </div>

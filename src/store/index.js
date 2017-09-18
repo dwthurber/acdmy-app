@@ -20,7 +20,7 @@ const mutations = {
 }
 
 const actions = {
-  setCurrentSession: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+  setCurrentSessionRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('currentSession', ref)
   })
 }

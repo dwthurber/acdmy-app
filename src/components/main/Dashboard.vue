@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['user', 'route'])
+    ...mapState(['user', 'route', 'room'])
   },
   created () {
     this.setOnlineStatus()
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     bindRefs () {
-      if (this.route.params.roomid) {
+      if (!this.room.data) {
         this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
         this.$store.dispatch('setPeopleRef', peopleRef.child(this.route.params.roomid))
         this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))

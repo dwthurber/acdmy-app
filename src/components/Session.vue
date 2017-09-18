@@ -1,6 +1,5 @@
 <template>
   <div id="session" v-if="user !== false" class="is-maxheight">
-    <b-loading :active.sync="isLoading"></b-loading>
     <router-view v-if="$route.params.sessionid"></router-view>
     <Videobar v-if="currentSession.layout == 1"/>
   </div>
@@ -15,24 +14,28 @@ export default {
   components: { Videobar },
   name: 'session',
   computed: {
-    ...mapState(['user', 'route', 'currentSession'])
+    ...mapState(['user', 'route', 'currentSession', 'room'])
   },
   data () {
     return {
-      isLoading: true
     }
   },
   created () {
-    this.setActiveRoom()
+    this.setOnlineStatus()
   },
   mounted () {
-    this.isLoading = false
+    this.bindRefs()
   },
   methods: {
-    setActiveRoom () {
-      this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))
-      this.$store.dispatch('setCurrentSession', sessionsRef.child(this.route.params.roomid).child(this.route.params.sessionid))
-      // this.$store.dispatch('setPeople', peopleRef.child(this.route.params.roomid))
+    bindRefs () {
+      this.$store.dispatch('setCurrentSessionRef', sessionsRef.child(this.route.params.roomid).child(this.route.params.sessionid))
+      if (!this.room.data) {
+        this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
+        this.$store.dispatch('setPeopleRef', peopleRef.child(this.route.params.roomid))
+        this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))
+      }
+    },
+    setOnlineStatus () {
       peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
         online: true
       })
