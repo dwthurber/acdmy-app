@@ -1,21 +1,16 @@
 <template>
-  <div v-if="user !== false" class="is-maxheight">
+  <div class="main">
     <b-loading :active.sync="isLoading"></b-loading>
-    <Navbar />
-    <div class="main is-maxheight">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import Navbar from '@/components/Navbar'
 import { usersRef } from '@/firebase'
 
 export default {
   name: 'main',
-  components: {Navbar},
   computed: {
     ...mapState(['user'])
   },
@@ -51,7 +46,9 @@ export default {
 
 <style scoped>
 .main {
-  padding-top: 53px;
+  /*padding-top: 53px;*/
+  flex: 1;
+  overflow-y: auto;
 }
 .container {
   padding: 24px;

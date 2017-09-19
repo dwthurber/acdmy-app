@@ -3,7 +3,9 @@
     <div class="columns is-mobile videobar is-gapless is-multiline is-marginless">
       <VideoContainer v-for="(user, index) in room.people" :user="user" :key="user['.key']"></VideoContainer>
     </div>
-    <Block />
+    <div class="block">
+      <Block />
+    </div>
   </div>
 </template>
 
@@ -26,10 +28,16 @@ export default {
 </script>
 
 <style scoped>
+#videobar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
 .videobar {
   border-bottom: 1px solid #cfcfcf;
+  min-height: 101px;
 }
-#session {
-  /*overflow: hidden;*/
+.block {
+  flex: 1;
 }
 </style>

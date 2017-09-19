@@ -62,13 +62,13 @@ export default new Router({
               name: 'Dashboard-Settings'
             }
           ]
-        },
-        {
-          path: '/r/:roomid/s/:sessionid',
-          name: 'Session',
-          component: Session
         }
       ]
+    },
+    {
+      path: '/r/:roomid/s/:sessionid',
+      name: 'Session',
+      component: Session
     },
     {
       path: '/login',

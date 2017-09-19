@@ -89,17 +89,11 @@ export default {
 </script>
 
 <style scoped>
-.router-link-active {
-  /*border-left: 3px solid hsl(205, 36%, 43%);
-  background-color: hsl(0, 0%, 96%);*/
-}
 .router-link-active a {
   font-weight: bolder;
   color: hsl(205, 36%, 43%);
 }
 .content-panel {
   padding: 0.75rem 1.75rem;
-  /*background-color: #fff;
-  box-shadow: 1px 1px 1px 1px #f5f5f5;*/
 }
 </style>

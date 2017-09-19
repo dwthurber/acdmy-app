@@ -1,15 +1,18 @@
 <template>
   <div id="app">
+    <Navbar v-if="user" />
     <router-view v-if="user !== null"></router-view>
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/Navbar'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'app',
+  components: {Navbar},
   computed: {
     ...mapState(['user', 'route'])
   },
@@ -87,6 +90,9 @@ body, html {
 #app {
   height: 100%;
   // overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .menu-label {
   padding-left: 8px;

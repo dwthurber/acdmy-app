@@ -1,5 +1,5 @@
 <template>
-  <div id="session" v-if="user !== false" class="is-maxheight">
+  <div id="session" v-if="user !== false">
     <router-view v-if="$route.params.sessionid"></router-view>
     <Videobar v-if="currentSession.layout == 1"/>
   </div>
@@ -50,5 +50,7 @@ export default {
 }
 #session {
   /*overflow: hidden;*/
+  flex: 1;
+  overflow-y: auto;
 }
 </style>

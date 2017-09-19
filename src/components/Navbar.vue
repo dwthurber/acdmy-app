@@ -55,7 +55,7 @@ export default {
 .navbar {
   border-bottom: 1px solid #f3f3f3;
   background-color: #ffffff;
-  position: fixed;
+  /*position: fixed;*/
   width: 100%;
   top: 0;
   z-index: 19;
