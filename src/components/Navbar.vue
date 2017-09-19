@@ -3,7 +3,6 @@
     <div class="navbar-brand">
       <router-link :to="{ name: 'Main' }" class="navbar-item"><img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform"></router-link>
       <div class="is-hidden-desktop navbar-center navbar-item is-paddingless">
-        <small class="uppercase" v-if="!$route.params.roomid">My Rooms</small>
       </div>
       <div class="navbar-end navbar-item is-hidden-desktop">
         <Help />
@@ -55,28 +54,14 @@ export default {
 .navbar {
   border-bottom: 1px solid #f3f3f3;
   background-color: #ffffff;
-  /*position: fixed;*/
   width: 100%;
-  top: 0;
-  z-index: 19;
 }
 .navbar-brand,
 .navbar-end {
   z-index: 20;
 }
-.uppercase {
-  text-transform: uppercase;
-  font-size: 0.7rem;
-}
-.is-close {
-  padding-left: 4px!important;
-  padding-right: 4px!important;
-}
 .navbar-center {
   margin: 0 auto;
-}
-.navbar-burger {
-  margin-left: 0;
 }
 @media screen and (max-width: 1007px) {
   .navbar-brand,

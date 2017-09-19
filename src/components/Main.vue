@@ -46,7 +46,6 @@ export default {
 
 <style scoped>
 .main {
-  /*padding-top: 53px;*/
   flex: 1;
   overflow-y: auto;
 }

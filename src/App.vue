@@ -89,7 +89,6 @@ body, html {
 }
 #app {
   height: 100%;
-  // overflow-y: hidden;
   display: flex;
   flex-direction: column;
   overflow: hidden;

@@ -21,11 +21,11 @@ export default new Router({
     {
       path: '/',
       component: Main,
-      name: 'Main',
       children: [
         {
           path: '/',
-          component: Rooms
+          component: Rooms,
+          name: 'Main'
         },
         // {
         //   path: '/r/:roomid/',

@@ -2,7 +2,7 @@
   <div class="container" v-else>
     <div class="columns is-tablet is-multiline">
       <div class="column is-3-fullhd is-4-desktop is-6-tablet">
-        <div class="card is-fullheight is-primary is-outlined" @click="createRoom">
+        <div class="card is-maxheight is-primary is-outlined" @click="createRoom">
           <div class="card-content has-text-primary">
             <div class="content has-text-centered">
               <b-icon icon="group_add" size="is-medium"></b-icon>
@@ -195,9 +195,6 @@ export default {
 }
 .card:hover .card-text-hover {
   opacity: 1;
-}
-.is-fullheight {
-  height: 100%;
 }
 .status {
   position: absolute;
