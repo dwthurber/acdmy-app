@@ -1,17 +1,17 @@
 <template>
   <div id="session" v-if="user !== false">
     <router-view v-if="$route.params.sessionid"></router-view>
-    <Videobar v-if="currentSession.layout == 1"/>
+    <VideobarLayout v-if="currentSession.layout == 1"/>
   </div>
 </template>
 
 <script>
-import Videobar from '@/components/session/Videobar'
+import VideobarLayout from '@/components/session/VideobarLayout'
 import { mapState } from 'vuex'
 import { roomsRef, peopleRef, sessionsRef } from '@/firebase'
 
 export default {
-  components: { Videobar },
+  components: { VideobarLayout },
   name: 'session',
   computed: {
     ...mapState(['user', 'route', 'currentSession', 'room'])

@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'videoContainer',
+  name: 'videocontainer',
   props: ['user'],
   data () {
     return {
