@@ -1,7 +1,7 @@
 <template>
   <div id="session" v-if="user !== false">
     <router-view v-if="$route.params.sessionid"></router-view>
-    <VideobarLayout v-if="currentSession.layout == 1"/>
+    <VideobarLayout v-if="session.layout == 1"/>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
   components: { VideobarLayout },
   name: 'session',
   computed: {
-    ...mapState(['user', 'route', 'currentSession', 'room'])
+    ...mapState(['user', 'route', 'session', 'room'])
   },
   data () {
     return {

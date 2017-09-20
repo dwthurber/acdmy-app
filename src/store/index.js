@@ -14,21 +14,21 @@ const mutations = {
     state.userRooms = value
   },
   SET_CURRENT_SESSION (state, value) {
-    state.currentSession = value
+    state.session = value
   },
   ...firebaseMutations
 }
 
 const actions = {
   setCurrentSessionRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef('currentSession', ref)
+    bindFirebaseRef('session', ref)
   })
 }
 
 const state = {
   user: null,
   userRooms: [],
-  currentSession: null,
+  session: null,
   route: null
 }
 

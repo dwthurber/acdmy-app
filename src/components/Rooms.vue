@@ -1,5 +1,6 @@
 <template>
-  <div class="container" v-else>
+  <div class="container">
+    <b-loading :active.sync="isLoading"></b-loading>
     <div class="columns is-tablet is-multiline">
       <div class="column is-3-fullhd is-4-desktop is-6-tablet">
         <div class="card is-maxheight is-primary is-outlined" @click="createRoom">
@@ -49,12 +50,14 @@ export default {
   },
   created () {
     this.setUserRooms()
+    this.isLoading = false
   },
   updated () {
     this.unbindRefs()
   },
   data () {
     return {
+      isLoading: true
     }
   },
   methods: {

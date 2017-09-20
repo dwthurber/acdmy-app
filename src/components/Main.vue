@@ -1,6 +1,5 @@
 <template>
   <div class="main">
-    <b-loading :active.sync="isLoading"></b-loading>
     <router-view></router-view>
   </div>
 </template>
@@ -15,15 +14,10 @@ export default {
     ...mapState(['user'])
   },
   created () {
-    this.isLoading = true
     this.setUserProfile()
-  },
-  mounted () {
-    this.isLoading = false
   },
   data () {
     return {
-      isLoading: true
     }
   },
   methods: {

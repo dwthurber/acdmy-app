@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-1">
+  <div class="column is-1-desktop is-2-tablet">
     <div class="box is-paddingless" :id="'video' + user['.key']">
       <b-icon title="feature user" class="is-info is-hand" icon="pan_tool" v-if="user.hand"></b-icon>
       <span class="tag is-primary">{{user.name}}</span>
