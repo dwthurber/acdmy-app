@@ -2,7 +2,7 @@
   <form action="">
     <div class="modal-card" @click.stop>
       <section class="modal-card-body">
-        <p class="subtitle is-3">Account Profile</p>
+        <p class="subtitle is-3">{{user.displayName}}</p>
         <div class="columns is-mobile">
           <div class="column is-8">
             <b-field>
@@ -14,25 +14,7 @@
               </b-input>
             </b-field>
             <br>
-            <p class="subtitle is-4">Reset Password</p>
-            <b-field label="Current Password">
-              <b-input type="password" icon="lock" @keyup.enter="login"
-                placeholder="********" v-model="password"
-                password-reveal>
-              </b-input>
-            </b-field>
-            <b-field label="New Password">
-              <b-input type="password" icon="lock" @keyup.enter="login"
-                placeholder="********" v-model="password"
-                password-reveal>
-              </b-input>
-            </b-field>
-            <b-field>
-              <b-input type="password" icon="lock" @keyup.enter="login"
-                placeholder="********" v-model="password"
-                password-reveal>
-              </b-input>
-            </b-field>
+            <button class="button is-danger is-outlined" @click="resetPassword()">Reset Password</button>
           </div>
           <div class="column has-text-right">
             <p class="image is-96x96">
@@ -42,7 +24,7 @@
           </div>
         </div>
         <hr>
-        <a class="button is-success">Save changes</a>
+        <a class="button is-primary">Save changes</a>
         <a class="button" @click="$parent.close()">Cancel</a>
       </section>
     </div>
@@ -50,6 +32,7 @@
 </template>
 
 <script>
+import Firebase from 'firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -62,6 +45,35 @@ export default {
       saving: false,
       displayName: null,
       email: null
+    }
+  },
+  methods: {
+    resetPassword: function () {
+      let toast = this.$toast
+      Firebase.auth().sendPasswordResetEmail(this.user.email).then(function () {
+        toast.open({
+          message: 'Email sent',
+          type: 'is-success'
+        })
+      }).catch(function (error) {
+        if (error.code === 'auth/user-not-found') {
+          toast.open({
+            message: 'No user with that email exists',
+            type: 'is-danger'
+          })
+        } else if (error.code === 'auth/invalid-email') {
+          toast.open({
+            message: 'Email address bad. Please try again',
+            type: 'is-warning'
+          })
+        } else {
+          toast.open({
+            message: 'An error occured. Please try again',
+            type: 'is-danger'
+          })
+        }
+        console.log(error)
+      })
     }
   }
 }
