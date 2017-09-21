@@ -12,7 +12,7 @@
             <p>
               <h4 class="title"><strong>{{user.displayName}}</strong></h4>
               <p class="subtitle is-6"><small>{{user.email}}</small><br>
-                <small class="has-text-success" v-if="emailsent">email sent</small>
+                <small class="has-text-success" v-if="emailsent">Email sent</small>
                 <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger"  @click.prevent="verifyEmail">Please verify email</a></small>
                 <small class="has-text-grey" v-if="isSending">Sending email...</small>
               </p>

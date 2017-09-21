@@ -14,7 +14,7 @@ export default {
     ...mapState(['user'])
   },
   created () {
-    this.setUserProfile()
+    // this.setUserProfile()
   },
   data () {
     return {

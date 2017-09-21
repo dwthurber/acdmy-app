@@ -26,8 +26,6 @@
       <hr>
       <p class="control">
         <button class="button is-primary" :class="{'is-loading': authenticating}" @click.self.prevent="login">Login</button>
-
-        <button class="button is-google" @click.self.prevent="googleLogin">Or, Login with Google</button>
       </p>
     </form>
   </div>
@@ -36,8 +34,6 @@
 <script>
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
-
-const google = new Firebase.auth.GoogleAuthProvider()
 
 export default {
   name: 'login',
@@ -76,14 +72,6 @@ export default {
           console.log('Authenticated successfully with payload:', authData)
         }
         this.authenticating = false
-      })
-    },
-    googleLogin: function () {
-      Firebase.auth().signInWithPopup(google)
-      .then((result) => {
-        console.log('Authenticated successfully with payload:', result)
-      }).catch((error) => {
-        console.log('Login Failed!', error)
       })
     }
   }

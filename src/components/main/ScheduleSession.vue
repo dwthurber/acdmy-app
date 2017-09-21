@@ -200,7 +200,7 @@ export default {
     return {
       minDate: null,
       sessionName: null,
-      startDate: new Date(),
+      startDate: null,
       startTime: null,
       endDate: new Date(),
       endTime: null,
@@ -210,7 +210,8 @@ export default {
     }
   },
   created () {
-    const today = new Date(today.getDate())
+    const today = new Date()
+    this.startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate())
     this.minDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 0)
   },
   methods: {

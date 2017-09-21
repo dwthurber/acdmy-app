@@ -19,7 +19,7 @@ export default {
   beforeCreate () {
     Firebase.auth().onAuthStateChanged((user) => {
       this.$store.commit('SET_USER', user || false)
-      if (!user) {
+      if (!user && this.$route.name !== 'Signup') {
         this.$router.replace({ name: 'Login' })
       } else if (user && this.route.name === 'Login') {
         this.$router.replace({ name: 'Main' })

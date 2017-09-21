@@ -1,5 +1,5 @@
 <template>
-  <div class="hero is-fullheight">
+  <div class="hero is-fullheight is-background">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
@@ -97,7 +97,7 @@ export default {
 }
 .is-background {
   background-color: #F62459;
-  background-image: linear-gradient(rgba(70, 116, 149, 0.6),rgba(70, 116, 149, 0.6)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url('../assets/bg.jpg');
+  background-image: linear-gradient(rgba(200, 200, 200, 0.6),rgba(200, 200, 200, 0.9)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url('../assets/bg.jpg');
   background-position: center;
 }
 .brand {
@@ -107,5 +107,8 @@ export default {
 .is-vcentered {
   align-items: center;
   justify-content: center;
+}
+.hero {
+  overflow-y: auto;
 }
 </style>
