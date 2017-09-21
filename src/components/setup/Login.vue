@@ -2,15 +2,6 @@
   <div key="login" class="box">
     <h2 class="title"><strong>Welcome.</strong></h2>
     <p class="subtitle">Please login <small> or <router-link class="has-text-primary" :to="{ name: 'Signup', params: {} }">sign up</router-link></small></p>
-    <b-message type="is-danger" v-if="loginFailed">
-      Hmm... Looks like that password was wrong. <a href="#">Reset Password?</a>
-    </b-message>
-    <b-message type="is-danger" v-if="isInvalid">
-      Please enter a valid email.
-    </b-message>
-    <b-message type="is-danger" v-if="noUser">
-      No account with the email. Try again or <router-link :to="{ name: 'Signup', params: {} }">Sign Up</router-link>
-    </b-message>
     <form>
       <b-field>
         <b-input type="email" icon="email" v-model="email"
@@ -44,29 +35,80 @@ export default {
     return {
       email: '',
       password: '',
-      displayName: '',
-      authenticating: false,
-      loginFailed: false,
-      isInvalid: false,
-      noUser: false,
-      accountExists: false
+      authenticating: false
     }
   },
   methods: {
+    resetPassword: function () {
+      let toast = this.$toast
+      this.$dialog.prompt({
+        message: `What's your email address?`,
+        inputPlaceholder: 'e.g. jsmith@example.org',
+        onConfirm: (value) => {
+          Firebase.auth().sendPasswordResetEmail(value).then(function () {
+            toast.open('Email sent')
+          }).catch(function (error) {
+            if (error.code === 'auth/user-not-found') {
+              toast.open({
+                message: 'No user with that email exists',
+                type: 'is-danger'
+              })
+            } else if (error.code === 'auth/invalid-email') {
+              toast.open({
+                message: 'Email address bad. Please try again',
+                type: 'is-warning'
+              })
+            } else {
+              toast.open({
+                message: 'An error occured. Please try again',
+                type: 'is-danger'
+              })
+            }
+            console.log(error)
+          })
+        }
+      })
+    },
     login: function () {
       this.authenticating = true
-      this.isInvalid = false
-      this.accountExists = false
+      let snackbar = this.$snackbar
+      let router = this.$router
+      // let resetPassword = this.resetPassword()
+
       Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .catch((error, authData) => {
         if (error) {
           console.log('Login Failed!', error)
           if (error.code === 'auth/user-not-found') {
-            this.noUser = true
+            snackbar.open({
+              duration: 5000,
+              message: 'No user found with that email address',
+              type: 'is-danger',
+              position: 'is-bottom-left',
+              actionText: 'signup',
+              onAction: () => {
+                router.replace({ name: 'Signup' })
+              }
+            })
           } else if (error.code === 'auth/invalid-email') {
-            this.isInvalid = true
+            snackbar.open({
+              duration: 5000,
+              message: 'Please enter a valid email',
+              type: 'is-danger',
+              position: 'is-bottom-left',
+              actionText: 'dismiss'
+            })
           } else {
-            this.loginFailed = true
+            snackbar.open({
+              duration: 5000,
+              message: 'Hmm... Looks like that password was wrong',
+              type: 'is-danger',
+              position: 'is-bottom-left',
+              actionText: 'reset password',
+              onAction: () => {
+                this.resetPassword()
+              }
+            })
           }
         } else {
           console.log('Authenticated successfully with payload:', authData)

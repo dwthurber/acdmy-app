@@ -2,12 +2,6 @@
   <div key="signup" class="box">
     <h2 class="title"><strong>Welcome.</strong></h2>
     <p class="subtitle">Please setup your profile or <router-link class="has-text-primary" :to="{ name: 'Login', params: {} }">login</router-link></small></p></p>
-    <b-message type="is-danger" v-if="accountExists">
-        An account with that email already exists. <a href="#">Login</a>
-    </b-message>
-    <b-message type="is-danger" v-if="isInvalid">
-        Please fill out all fields
-    </b-message>
     <form>
       <p class="subtitle has-text-primary is-5">Profile Picture</p>
       <b-field v-if="!profile_picture">
@@ -49,13 +43,7 @@
       <b-field>
           <b-input icon="person" placeholder="Full Name" v-model="displayName" @keyup.enter="signUp"></b-input>
       </b-field>
-      <p class="subtitle has-text-primary is-5">Password</p>
-      <b-message type="is-danger" v-if="passwordMismatch">
-          Passwords do not match
-      </b-message>
-      <b-message type="is-danger" v-if="weakPassword">
-          Password should be at least 6 characters
-      </b-message>
+      <!-- <p class="subtitle has-text-primary is-5">Password</p> -->
       <b-field>
           <b-input type="password" icon="lock" v-model="password"
               placeholder="Password"
@@ -96,14 +84,9 @@ export default {
       passwordVerification: '',
       displayName: '',
       authenticating: false,
-      loginFailed: false,
-      isInvalid: false,
-      accountExists: false,
       profile: false,
       profile_picture: null,
-      roomId: '',
-      passwordMismatch: false,
-      weakPassword: false
+      roomId: ''
     }
   },
   methods: {
@@ -112,10 +95,9 @@ export default {
     },
     signUp: function () {
       this.authenticating = true
-      this.isInvalid = false
-      this.passwordMismatch = false
-      this.weakPassword = false
-      let profilePicture = this.profile_picture[0]
+      let snackbar = this.$snackbar
+      let router = this.$router
+      let profilePicture = this.profile_picture
       // let roomId = this.roomId
       // if (this.route.query.room) {
       //   roomId = this.route.query.room
@@ -161,11 +143,32 @@ export default {
             if (error) {
               console.log('Signup Failed!', error)
               if (error.code === 'auth/invalid-email') {
-                this.isInvalid = true
+                snackbar.open({
+                  duration: 5000,
+                  message: 'Account with that email already exists',
+                  type: 'is-danger',
+                  position: 'is-bottom-left',
+                  actionText: 'dismiss'
+                })
               } else if (error.code === 'auth/weak-password') {
-                this.weakPassword = true
+                snackbar.open({
+                  duration: 5000,
+                  message: 'Password should be at least 6 characters',
+                  type: 'is-danger',
+                  position: 'is-bottom-left',
+                  actionText: 'dismiss'
+                })
               } else {
-                this.accountExists = true
+                snackbar.open({
+                  duration: 5000,
+                  message: 'An account with that email already exists',
+                  type: 'is-danger',
+                  position: 'is-bottom-left',
+                  actionText: 'login',
+                  onAction: () => {
+                    router.replace({ name: 'Login' })
+                  }
+                })
               }
             } else {
               console.log('Authenticated successfully with payload:', authData)
@@ -173,12 +176,24 @@ export default {
             this.authenticating = false
           })
         } else {
-          this.passwordMismatch = true
           this.authenticating = false
+          snackbar.open({
+            duration: 5000,
+            message: 'Passwords do not match',
+            type: 'is-danger',
+            position: 'is-bottom-left',
+            actionText: 'dismiss'
+          })
         }
       } else {
-        this.isInvalid = true
         this.authenticating = false
+        snackbar.open({
+          duration: 5000,
+          message: 'Please fill out all fields',
+          type: 'is-danger',
+          position: 'is-bottom-left',
+          actionText: 'dismiss'
+        })
       }
     }
   }

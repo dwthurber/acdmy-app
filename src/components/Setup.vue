@@ -12,7 +12,7 @@
               <router-link v-else :to="{ name: 'Signup', params: {} }">Sign Up</router-link>
               |
               <a v-if="$route.path == '/signup'" href="#">Need Help?</a>
-              <a v-else href="#">Forgot Password</a>
+              <a v-else @click="resetPassword()">Forgot Password</a>
               |
               <a>Privacy Policy</a>
             </p>
@@ -37,8 +37,6 @@
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
 
-const google = new Firebase.auth.GoogleAuthProvider()
-
 export default {
   name: 'login',
   computed: {
@@ -46,44 +44,37 @@ export default {
   },
   data () {
     return {
-      email: '',
-      password: '',
-      displayName: '',
-      authenticating: false,
-      loginFailed: false,
-      isInvalid: false,
-      noUser: false,
-      accountExists: false
     }
   },
   methods: {
-    login: function () {
-      this.authenticating = true
-      this.isInvalid = false
-      this.accountExists = false
-      Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .catch((error, authData) => {
-        if (error) {
-          console.log('Login Failed!', error)
-          if (error.code === 'auth/user-not-found') {
-            this.noUser = true
-          } else if (error.code === 'auth/invalid-email') {
-            this.isInvalid = true
-          } else {
-            this.loginFailed = true
-          }
-        } else {
-          console.log('Authenticated successfully with payload:', authData)
+    resetPassword: function () {
+      let toast = this.$toast
+      this.$dialog.prompt({
+        message: `What's your email address?`,
+        inputPlaceholder: 'e.g. jsmith@example.org',
+        onConfirm: (value) => {
+          Firebase.auth().sendPasswordResetEmail(value).then(function () {
+            toast.open('Email sent')
+          }).catch(function (error) {
+            if (error.code === 'auth/user-not-found') {
+              toast.open({
+                message: 'No user with that email exists',
+                type: 'is-danger'
+              })
+            } else if (error.code === 'auth/invalid-email') {
+              toast.open({
+                message: 'Email address bad. Please try again',
+                type: 'is-warning'
+              })
+            } else {
+              toast.open({
+                message: 'An error occured. Please try again',
+                type: 'is-danger'
+              })
+            }
+            console.log(error)
+          })
         }
-        this.authenticating = false
-      })
-    },
-    googleLogin: function () {
-      Firebase.auth().signInWithPopup(google)
-      .then((result) => {
-        console.log('Authenticated successfully with payload:', result)
-      }).catch((error) => {
-        console.log('Login Failed!', error)
       })
     }
   }
@@ -97,7 +88,7 @@ export default {
 }
 .is-background {
   background-color: #F62459;
-  background-image: linear-gradient(rgba(200, 200, 200, 0.6),rgba(200, 200, 200, 0.9)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url('../assets/bg.jpg');
+  background-image: linear-gradient(rgba(162, 191, 213, 0.7),rgba(244, 249, 252, 0.8)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url('../assets/bg.jpg');
   background-position: center;
 }
 .brand {
