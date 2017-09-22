@@ -12,15 +12,15 @@
           </div>
         </div>
       </div>
-      <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="(room, index) in userRooms" :key="room.id">
-        <div class="card">
-          <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room.id} }" tag="div" class="card-hover"></router-link>
+      <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="roomid in userRooms" :key="roomid['.key']">
+        <div class="card" v-for="(room, index) in allRooms" v-if="room['.key'] == roomid['.key']">
+          <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
           <div class="card-text-hover">
             <!-- <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
             <small class="status is-uppercase has-text-warning" v-else>Inactive</small> -->
-            <button v-if="room.owner == user.uid" class="button is-danger is-outlined remove is-small" @click="deleteRoom(room.id)"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+            <button v-if="room.owner == user.uid" class="button is-danger is-outlined remove is-small" @click="deleteRoom(room['.key'])"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
           </div>
-          <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room.id} }" tag="div" class="card-content has-text-centered has-text-white">
+          <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
             <div class="content">
               <p class="is-size-5">{{room.name}}</p>
               <b-icon v-if="!room.students && !room.sessions" icon="widgets"></b-icon>
@@ -41,11 +41,20 @@ import { db, usersRef, roomsRef, peopleRef, sessionsRef } from '@/firebase'
 export default {
   name: 'rooms',
   computed: {
-    ...mapState(['user', 'userRooms', 'route', 'room'])
+    ...mapState([
+      'user',
+      'userRooms',
+      'route',
+      'room',
+      'allRooms'
+    ])
   },
   filters: {
     limit: function (arr, limit) {
       return arr.slice(0, limit)
+    },
+    user: function (obj) {
+      return !obj.users
     }
   },
   created () {
@@ -73,18 +82,20 @@ export default {
       }
     },
     setUserRooms () {
-      const uid = this.user.uid
-      let store = this.$store
-      usersRef.child(uid).child('rooms').on('child_added', function (user) {
-        roomsRef.once('value', function (classroom) {
-          store.commit('SET_USER_ROOMS', classroom.val())
-        })
-      })
-      usersRef.child(uid).child('rooms').on('child_removed', function (user) {
-        roomsRef.once('value', function (classroom) {
-          store.commit('SET_USER_ROOMS', classroom.val())
-        })
-      })
+      this.$store.dispatch('setAllRoomsRef', roomsRef)
+      this.$store.dispatch('setUserRoomsRef', usersRef.child(this.user.uid).child('rooms'))
+      // const uid = this.user.uid
+      // let store = this.$store
+      // usersRef.child(uid).child('rooms').on('child_added', function (user) {
+      //   roomsRef.once('value', function (classroom) {
+      //     store.commit('SET_USER_ROOMS', classroom.val())
+      //   })
+      // })
+      // usersRef.child(uid).child('rooms').on('child_removed', function (user) {
+      //   roomsRef.once('value', function (classroom) {
+      //     store.commit('SET_USER_ROOMS', classroom.val())
+      //   })
+      // })
     },
     createRoom () {
       let toast = this.$toast

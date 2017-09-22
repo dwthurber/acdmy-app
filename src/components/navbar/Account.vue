@@ -97,7 +97,7 @@ export default {
           online: false
         })
       }
-      this.$store.commit('SET_USER_ROOMS', null)
+      this.$store.commit('SET_USER_ROOMS', [])
       Firebase.auth().signOut().then((response) => {
       }).catch((error) => {
         console.error('Sign Out Error', error)
