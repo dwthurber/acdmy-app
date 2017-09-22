@@ -4,9 +4,6 @@
       <section class="modal-card-body">
         <p class="subtitle is-3">Schedule New Session</p>
         <hr>
-        <b-message type="is-danger" v-if="isInvalid">
-          Please complete all fields
-        </b-message>
         <b-field>
           <b-input icon="view_list" placeholder="Session Name" v-model="sessionName"></b-input>
         </b-field>
@@ -205,8 +202,7 @@ export default {
       endDate: new Date(),
       endTime: null,
       layout: 1,
-      saving: false,
-      isInvalid: false
+      saving: false
     }
   },
   created () {
@@ -216,8 +212,8 @@ export default {
   },
   methods: {
     scheduleSession () {
+      let snackbar = this.$snackbar
       this.isInvalid = false
-      this.saving = true
       let roomKey = this.route.params.roomid
       let newSessionKey = sessionsRef.push().key
 
@@ -244,7 +240,13 @@ export default {
         this.$parent.close()
         this.$toast.open('Session scheduled')
       } else {
-        this.isInvalid = true
+        snackbar.open({
+          duration: 5000,
+          message: 'Please complete all fields',
+          type: 'is-danger',
+          position: 'is-bottom-left',
+          actionText: 'dismiss'
+        })
       }
       this.saving = false
     }

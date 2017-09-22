@@ -2,9 +2,12 @@
   <form action="">
     <div class="modal-card" @click.stop>
       <section class="modal-card-body">
-        <p class="subtitle is-3">{{user.displayName}}</p>
         <div class="columns is-mobile">
           <div class="column is-8">
+            <p class="title is-3">{{user.displayName}}</p>
+            <p class="subtitle is-5">{{user.email}}</p>
+            <hr>
+            <p class="subtitle has-text-primary is-5">Update Account Details</p>
             <b-field>
               <b-input icon="person" :placeholder="user.displayName" v-model="displayName"></b-input>
             </b-field>
