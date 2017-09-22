@@ -16,6 +16,9 @@ const mutations = {
   SET_CURRENT_SESSION (state, value) {
     state.session = value
   },
+  SET_ALL_ROOMS (state, value) {
+    state.allRooms = value
+  },
   ...firebaseMutations
 }
 

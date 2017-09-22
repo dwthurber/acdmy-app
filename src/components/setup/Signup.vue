@@ -145,6 +145,11 @@ export default {
 
               let updates = {}
               updates['/people/' + roomKey + '/' + user.uid] = userDetails
+              if (this.room.students.length) {
+                updates['/rooms/' + roomKey + '/students'] = this.room.students.length + 1
+              } else {
+                updates['/rooms/' + roomKey + '/students'] = 1
+              }
               db.ref().update(updates)
 
               let indexes = {}

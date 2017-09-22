@@ -98,6 +98,7 @@ export default {
         })
       }
       this.$store.commit('SET_USER_ROOMS', [])
+      this.$store.commit('SET_ALL_ROOMS', [])
       Firebase.auth().signOut().then((response) => {
       }).catch((error) => {
         console.error('Sign Out Error', error)

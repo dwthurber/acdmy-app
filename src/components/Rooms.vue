@@ -24,7 +24,7 @@
             <div class="content">
               <p class="is-size-5">{{room.name}}</p>
               <b-icon v-if="!room.students && !room.sessions" icon="widgets"></b-icon>
-              <small v-if="room.students"><b-icon icon="people" size="is-small" class="re-align"></b-icon> {{room.students}} people</small>
+              <small v-if="room.students"><b-icon icon="people" size="is-small" class="re-align"></b-icon> {{room.students}} student<span v-if="room.students > 1">s</span></small>
               <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> {{room.sessions}} session<span v-if="room.sessions > 1">s</span></small>
             </div>
           </router-link>
