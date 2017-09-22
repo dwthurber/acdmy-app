@@ -33,7 +33,8 @@
 
             <template scope="props">
               <b-table-column field="profile_picture" label="" width="60" centered>
-                <img class="is-circle-image image is-32x32" :src="props.row.profile_picture">
+                <img v-if="props.row.profile_picture" class="is-circle-image image is-32x32" :src="props.row.profile_picture">
+                <img v-else class="is-circle-image image is-32x32" src="../../assets/user-placeholder.png" alt="Profile Image">
               </b-table-column>
               <b-table-column field="name" label="Name" sortable>
                 {{ props.row.name }}

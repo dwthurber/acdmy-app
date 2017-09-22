@@ -81,7 +81,7 @@ export default {
     ModalAccount
   },
   computed: {
-    ...mapState(['user', 'currentRoom'])
+    ...mapState(['user', 'room', 'route'])
   },
   data () {
     return {
@@ -92,11 +92,12 @@ export default {
   },
   methods: {
     logout: function () {
-      if (this.currentRoom) {
-        peopleRef.child(this.currentRoom['.key']).child(this.user.uid).update({
+      if (this.route.params.roomid) {
+        peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
           online: false
         })
       }
+      this.$store.commit('SET_USER_ROOMS', null)
       Firebase.auth().signOut().then((response) => {
       }).catch((error) => {
         console.error('Sign Out Error', error)

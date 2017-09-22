@@ -15,7 +15,7 @@
         <a class="is-size-7"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a>
       </li>
       <li>
-        <a class="is-size-7"><b-icon icon="view_quilt" size="is-small"></b-icon> Layout</a>
+        <a class="is-size-7"><b-icon icon="view_quilt" size="is-small"></b-icon> Session</a>
       </li>
       <li>
         <a class="is-size-7"><b-icon icon="more" size="is-small"></b-icon> More</a>

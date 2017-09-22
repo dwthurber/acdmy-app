@@ -18,6 +18,9 @@ const actions = {
   }),
   setCurrentRoom: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('data', ref)
+  }),
+  setCurrentUserRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('user', ref)
   })
 }
 
@@ -27,14 +30,21 @@ const mutations = {
   },
   SET_PEOPLE (state, value) {
     state.people = value
+  },
+  SET_CURRENT_USER (state, value) {
+    state.user = value
+  },
+  SET_SESSIONS (state, value) {
+    state.sessions = value
   }
 }
 
 const state = {
-  data: {},
+  data: null,
   sessions: [],
   people: [],
-  assets: []
+  assets: [],
+  user: null
 }
 
 export default {

@@ -18,7 +18,7 @@
           <div class="card-text-hover">
             <!-- <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
             <small class="status is-uppercase has-text-warning" v-else>Inactive</small> -->
-            <button class="button is-danger is-outlined remove is-small" @click="deleteRoom(room.id)"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+            <button v-if="room.owner == user.uid" class="button is-danger is-outlined remove is-small" @click="deleteRoom(room.id)"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
           </div>
           <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room.id} }" tag="div" class="card-content has-text-centered has-text-white">
             <div class="content">
@@ -63,8 +63,13 @@ export default {
   methods: {
     unbindRefs () {
       if (this.room.data) {
+        peopleRef.child(this.room.data['.key']).child(this.user.uid).update({
+          online: false
+        })
         this.$store.commit('SET_CURRENT_ROOM', null)
         this.$store.commit('SET_PEOPLE', [])
+        this.$store.commit('SET_CURRENT_USER', null)
+        this.$store.commit('SET_SESSIONS', [])
       }
     },
     setUserRooms () {
@@ -96,7 +101,8 @@ export default {
           }
           const newRoom = {
             name: value,
-            id: newRoomKey
+            id: newRoomKey,
+            owner: this.user.uid
           }
 
           let updates = {}

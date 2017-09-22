@@ -77,6 +77,7 @@ export default {
         this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
         this.$store.dispatch('setPeopleRef', peopleRef.child(this.route.params.roomid))
         this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.route.params.roomid))
+        this.$store.dispatch('setCurrentUserRef', peopleRef.child(this.route.params.roomid).child(this.user.uid))
       }
     },
     setOnlineStatus () {
