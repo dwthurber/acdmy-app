@@ -6,7 +6,7 @@
           Manage People
         </h2>
       </div>
-      <div class="level-right">
+      <div class="level-right" v-if="room.user.role == 'Instructor'">
         <button class="button level-item is-primary is-outlined" @click="prompt"><b-icon icon="person_add" size="is-small"></b-icon> &nbsp; Add People</button>
       </div>
     </nav>
@@ -107,7 +107,7 @@ export default {
       this.$dialog.prompt({
         message: `Copy this link and send to anyone to invite them`,
         inputType: 'url',
-        inputModel: url,
+        inputPlaceholder: url,
         onConfirm: () => {
         }
       })

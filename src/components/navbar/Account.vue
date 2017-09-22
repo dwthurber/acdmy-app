@@ -81,7 +81,7 @@ export default {
     ModalAccount
   },
   computed: {
-    ...mapState(['user', 'room', 'route'])
+    ...mapState(['user', 'route'])
   },
   data () {
     return {

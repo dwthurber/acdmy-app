@@ -69,7 +69,7 @@
 
 <script>
 import Firebase from 'firebase'
-import { storageRef, usersRef } from '@/firebase'
+import { db, storageRef, usersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -98,6 +98,7 @@ export default {
       let snackbar = this.$snackbar
       let router = this.$router
       let profilePicture = this.profile_picture
+      let roomKey = this.route.query.room
       // let roomId = this.roomId
       // if (this.route.query.room) {
       //   roomId = this.route.query.room
@@ -133,6 +134,25 @@ export default {
             }
             usersRef.child(user.uid).set(profile)
 
+            // add user to room if defined by url
+            if (roomKey) {
+              console.log('Add to room ' + roomKey)
+              const userDetails = {
+                name: this.displayName,
+                // profile_picture: user.photoURL,
+                role: 'Student'
+              }
+
+              let updates = {}
+              updates['/people/' + roomKey + '/' + user.uid] = userDetails
+              db.ref().update(updates)
+
+              let indexes = {}
+              indexes['/users/' + user.uid + '/rooms/' + roomKey] = true
+              indexes['/rooms/' + roomKey + '/users/' + user.uid] = true
+              db.ref().update(indexes)
+            }
+
             user.sendEmailVerification()
               .then((response) => {
                 console.log('Email Sent')
@@ -145,7 +165,7 @@ export default {
               if (error.code === 'auth/invalid-email') {
                 snackbar.open({
                   duration: 5000,
-                  message: 'Account with that email already exists',
+                  message: 'Email provided is not valid',
                   type: 'is-danger',
                   position: 'is-bottom-left',
                   actionText: 'dismiss'
@@ -158,7 +178,7 @@ export default {
                   position: 'is-bottom-left',
                   actionText: 'dismiss'
                 })
-              } else {
+              } else if (error.code === 'auth/email-already-in-use') {
                 snackbar.open({
                   duration: 5000,
                   message: 'An account with that email already exists',

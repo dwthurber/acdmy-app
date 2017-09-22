@@ -35,7 +35,7 @@
                 </a>
               </router-link>
             </b-tooltip><br />
-            <b-tooltip label="Settings" position="is-right">
+            <b-tooltip label="Settings" position="is-right" v-if="room.user.role == 'Instructor'">
               <router-link :to="{name: 'Dashboard-Settings'}" tag="li" append exact>
                 <a><b-icon class="re-align" icon="settings" />
                   <!-- <span class="is-hidden-touch"> Settings</span> -->

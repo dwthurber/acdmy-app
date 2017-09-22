@@ -25,8 +25,5 @@ export default {
 </script>
 
 <style scoped>
-.is-close {
-  padding-left: 8px!important;
-  padding-right: 8px!important;
-}
+
 </style>
