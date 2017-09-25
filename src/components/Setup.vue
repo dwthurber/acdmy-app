@@ -1,5 +1,5 @@
 <template>
-  <div class="hero is-fullheight is-background">
+  <div class="hero is-fullheight">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
@@ -82,10 +82,6 @@ export default {
 </script>
 
 <style scoped>
-.is-social {
-  width: 100%;
-  margin: 4px 0;
-}
 .is-background {
   background-color: #F62459;
   background-image: linear-gradient(rgba(162, 191, 213, 0.7),rgba(244, 249, 252, 0.8)),linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)), url('../assets/bg.jpg');
@@ -95,11 +91,10 @@ export default {
   height: 60px;
   margin-bottom: 16px;
 }
-.is-vcentered {
-  align-items: center;
-  justify-content: center;
-}
 .hero {
   overflow-y: auto;
+}
+.container {
+  margin-top: -18px;
 }
 </style>

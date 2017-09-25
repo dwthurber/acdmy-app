@@ -97,7 +97,7 @@ export default {
       this.authenticating = true
       let snackbar = this.$snackbar
       let router = this.$router
-      let profilePicture = this.profile_picture
+      let profilePicture = this.profile_picture[0]
       let roomKey = this.route.query.room
       // let roomId = this.roomId
       // if (this.route.query.room) {
@@ -224,22 +224,6 @@ export default {
 </script>
 
 <style scoped>
-.is-social {
-  width: 100%;
-  margin: 4px 0;
-}
-.brand {
-  height: 60px;
-  margin: -32px auto 24px auto;
-}
-.is-bottom {
-  position: absolute;
-  bottom: 8px;
-  margin: 0 auto;
-}
-.upload {
-  border-radius: 50%;
-}
 .subtitle.is-5 {
   margin: 20px 0 12px 0;
 }

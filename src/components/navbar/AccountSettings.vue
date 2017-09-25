@@ -56,7 +56,7 @@
 
 <script>
 import Firebase from 'firebase'
-import { storageRef } from '@/firebase'
+import { storageRef, usersRef, db } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -114,7 +114,7 @@ export default {
       let snackbar = this.$snackbar
       let displayName = this.displayName
       let email = this.email
-      let profilePicture = this.dropFiles
+      let profilePicture = this.dropFiles[0]
       let user = Firebase.auth().currentUser
 
       if (user) {
@@ -122,8 +122,25 @@ export default {
           user.updateProfile({
             displayName: displayName
           }).then(function () {
+            // update db user ref
+            let updates = {}
+            updates['/users/' + user.uid + '/displayName'] = displayName
+            db.ref().update(updates)
+            usersRef.child(user.uid).child('rooms').once('value', function (snap) {
+              snap.forEach(function (childSnapshot) {
+                const roomKey = childSnapshot.key
+                let updates = {}
+                updates['/people/' + roomKey + '/' + user.uid + '/name'] = displayName
+                db.ref().update(updates)
+                // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
+              })
+            })
+
             user.updateEmail(email).then(function () {
-              // Update successful.
+              // Update db user ref
+              let updates = {}
+              updates['/users/' + user.uid + '/email'] = email
+              db.ref().update(updates)
             }).catch(function (error) {
               console.log(error)
               if (error.code === 'auth/email-already-in-use') {
@@ -145,17 +162,27 @@ export default {
               }
             })
             if (profilePicture) {
-              storageRef.child(profilePicture.name).put(profilePicture).then(function (snapshot) {
+              storageRef.child('profile_pictures').child(profilePicture.name).put(profilePicture).then(function (snapshot) {
                 console.log('success' + snapshot.downloadURL)
                 user.updateProfile({
                   photoURL: snapshot.downloadURL
                 }).then(function () {
                   // Update successful.
+                  usersRef.child(user.uid).child('rooms').once('value', function (snap) {
+                    snap.forEach(function (childSnapshot) {
+                      const roomKey = childSnapshot.key
+                      let updates = {}
+                      updates['/people/' + roomKey + '/' + user.uid + '/profile_picture'] = snapshot.downloadURL
+                      db.ref().update(updates)
+                      // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
+                    })
+                  })
                 }).catch(function (error) {
                   console.log(error)
                 })
               })
             }
+            this.$store.commit('SET_USER', user)
             toast.open({
               message: 'Profile updated!'
             })

@@ -16,10 +16,7 @@
                 <small class="has-text-danger" v-if="!user.emailVerified && !emailsent && !isSending"><a class="has-text-danger"  @click.prevent="verifyEmail">Please verify email</a></small>
                 <small class="has-text-grey" v-if="isSending">Sending email...</small>
               </p>
-              <p><small><a @click="isAccountModalActive = true" >Account</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
-              <b-modal :active.sync="isAccountModalActive" has-modal-card canCancel>
-                  <modal-account></modal-account>
-              </b-modal>
+              <p><small><a @click="isAccountModalActive = true">Account</a></small> | <small><a  @click.self.prevent="logout">Logout</a></small></p>
             </p>
           </div>
         </div>
@@ -66,6 +63,9 @@
         </div>
       </div>
     </b-dropdown-option> -->
+    <b-modal :active.sync="isAccountModalActive" has-modal-card canCancel>
+      <modal-account></modal-account>
+    </b-modal>
   </b-dropdown>
 </template>
 

@@ -60,6 +60,9 @@ export default {
 .navbar-end {
   z-index: 20;
 }
+.navbar-brand > .navbar-item {
+  z-index: 21;
+}
 .navbar-center {
   margin: 0 auto;
 }

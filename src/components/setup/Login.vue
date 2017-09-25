@@ -121,13 +121,5 @@ export default {
 </script>
 
 <style scoped>
-.brand {
-  height: 60px;
-  margin: -32px auto 24px auto;
-}
-.is-bottom {
-  position: absolute;
-  bottom: 8px;
-  margin: 0 auto;
-}
+
 </style>
