@@ -84,18 +84,6 @@ export default {
     setUserRooms () {
       this.$store.dispatch('setAllRoomsRef', roomsRef)
       this.$store.dispatch('setUserRoomsRef', usersRef.child(this.user.uid).child('rooms'))
-      // const uid = this.user.uid
-      // let store = this.$store
-      // usersRef.child(uid).child('rooms').on('child_added', function (user) {
-      //   roomsRef.once('value', function (classroom) {
-      //     store.commit('SET_USER_ROOMS', classroom.val())
-      //   })
-      // })
-      // usersRef.child(uid).child('rooms').on('child_removed', function (user) {
-      //   roomsRef.once('value', function (classroom) {
-      //     store.commit('SET_USER_ROOMS', classroom.val())
-      //   })
-      // })
     },
     createRoom () {
       let toast = this.$toast

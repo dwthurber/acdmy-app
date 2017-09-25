@@ -7,8 +7,8 @@
         </h2>
       </div>
       <div class="level-right" v-if="room.user.role == 'Instructor'">
-        <button class="button level-item is-primary is-outlined" @click="isModalActive = true"><b-icon icon="playlist_add" size="is-small"></b-icon> &nbsp; Schedule Session</button>
-        <button class="button level-item is-primary" @click="confirm"><b-icon icon="add_circle_outline" size="is-small"></b-icon> &nbsp; Start New Session</button>
+        <button class="button level-item is-primary is-outlined" @click="confirm"><b-icon icon="add_circle_outline" size="is-small"></b-icon> &nbsp; Start New Session</button>
+        <button class="button level-item is-primary" @click="isModalActive = true"><b-icon icon="add_to_queue" size="is-small"></b-icon> &nbsp; Schedule Session</button>
       </div>
     </nav>
     <b-modal :active.sync="isModalActive" has-modal-card canCancel>
@@ -67,10 +67,12 @@
             {{ props.row.endDate | formatDate }} at {{ props.row.endTime }}
           </b-table-column> -->
           <b-table-column field="" label="" width="85"  v-if="room.user.role == 'Instructor'">
-            <button class="button is-danger is-outlined is-small" @click="deleteSession(props.row['.key'])"><b-icon icon="delete" size="is-small"></b-icon></button>
             <router-link class="button is-primary is-outlined is-small" :to="{name: 'Session', params: {sessionid: props.row['.key']}}" append exact>
-              <b-icon icon="remove_red_eye" size="is-small"></b-icon>
+              Start Session
             </router-link>
+          </b-table-column>
+          <b-table-column field="" label="" width="85"  v-if="room.user.role == 'Instructor'">
+            <a @click="deleteSession(props.row['.key'])"><b-icon icon="delete" size="is-small" type="is-danger"></b-icon></a>
           </b-table-column>
         </template>
         <div slot="empty" class="has-text-centered">
@@ -115,7 +117,8 @@ export default {
       hasMobileCards: true,
       isPaginated: false,
       isPaginationSimple: true,
-      perPage: 10
+      perPage: 10,
+      now: new Date()
     }
   },
   created () {

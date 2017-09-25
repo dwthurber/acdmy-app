@@ -6,35 +6,11 @@
 
 <script>
 import { mapState } from 'vuex'
-import { usersRef } from '@/firebase'
 
 export default {
   name: 'main',
   computed: {
     ...mapState(['user'])
-  },
-  created () {
-    this.setUserProfile()
-  },
-  data () {
-    return {
-    }
-  },
-  methods: {
-    setUserProfile () {
-      const uid = this.user.uid
-      this.$store.dispatch('setUserProfileRef', usersRef.child(uid))
-      // define default profile setup used to create first time user
-      // const profile = {
-      //   isAdmin: false,
-      //   email: this.user.email
-      // }
-      // usersRef.child(uid).once('value', function (snapshot) {
-      //   if (!snapshot.val()) {
-      //     usersRef.child(uid).set(profile)
-      //   }
-      // })
-    }
   }
 }
 </script>

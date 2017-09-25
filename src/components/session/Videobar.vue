@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-mobile videobar is-gapless is-multiline is-marginless">
-    <VideoContainer v-for="(user, index) in room.people" :user="user" :key="user['.key']"></VideoContainer>
+    <VideoContainer v-for="(user, index) in room.people" :user="user" :key="user['.key']" v-if="user.online"></VideoContainer>
   </div>
 </template>
 

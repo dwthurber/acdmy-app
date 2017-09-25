@@ -1,8 +1,10 @@
 <template>
   <div id="videobar" class="is-maxheight">
     <Videobar />
-    <section class="content">
-      <Block />
+    <section class="content columns is-mobile is-gapless">
+      <div class="column">
+        <Block />
+      </div>
     </section>
   </div>
 </template>

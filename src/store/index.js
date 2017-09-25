@@ -26,9 +26,6 @@ const actions = {
   setCurrentSessionRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('session', ref)
   }),
-  setUserProfileRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
-    bindFirebaseRef('userProfile', ref)
-  }),
   setAllRoomsRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('allRooms', ref)
   }),
@@ -39,7 +36,6 @@ const actions = {
 
 const state = {
   user: null,
-  userProfile: null,
   allRooms: [],
   userRooms: [],
   session: null,
