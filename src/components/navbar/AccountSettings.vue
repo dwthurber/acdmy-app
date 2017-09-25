@@ -1,41 +1,62 @@
 <template>
-  <form action="">
-    <div class="modal-card" @click.stop>
-      <section class="modal-card-body">
-        <div class="columns is-mobile">
-          <div class="column is-8">
-            <p class="title is-3">{{user.displayName}}</p>
-            <p class="subtitle is-5">{{user.email}}</p>
-            <hr>
-            <p class="subtitle has-text-primary is-5">Update Account Details</p>
-            <b-field>
-              <b-input icon="person" :placeholder="user.displayName" v-model="displayName"></b-input>
-            </b-field>
-            <b-field>
-              <b-input type="email" icon="email"
-                :placeholder="user.email" v-model="email">
-              </b-input>
-            </b-field>
-            <br>
-            <button class="button is-danger is-outlined" @click="resetPassword()">Reset Password</button>
-          </div>
-          <div class="column has-text-right">
-            <p class="image is-96x96">
-              <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
-              <img v-else class="is-circle-image" src="../../assets/user-placeholder.png" alt="User Profile Image">
-            </p>
-          </div>
-        </div>
-        <hr>
-        <a class="button is-primary">Save changes</a>
-        <a class="button" @click="$parent.close()">Cancel</a>
-      </section>
-    </div>
-  </form>
+  <div class="modal-card" @click.stop>
+    <section class="modal-card-body">
+      <b-field class="has-text-centered">
+        <b-upload v-model="dropFiles">
+          <section class="section" >
+            <div class="content has-text-centered">
+              <a>
+                <figure class="image is-128x128">
+                  <div class="hover">
+                    <b-icon icon="file_upload" size="is-medium" class="is-light" />
+                  </div>
+                  <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
+                  <img v-else c src="../../assets/user-placeholder.png" alt="User Profile Image">
+                </figure>
+              </a>
+            </div>
+          </section>
+        </b-upload>
+      </b-field>
+      <div class="tags">
+        <span v-for="(file, index) in dropFiles"
+          :key="index"
+          class="tag is-primary" >
+          {{file.name}}
+          <button class="delete is-small"
+            type="button"
+            @click="deleteDropFile(index)">
+          </button>
+        </span>
+      </div>
+
+      <p class="subtitle has-text-primary is-5">Display Name</p>
+      <b-field>
+        <b-input icon="person" v-model="displayName"></b-input>
+      </b-field>
+      <p class="subtitle has-text-primary is-5">Email</p>
+      <b-field>
+        <b-input type="email" icon="email"
+          v-model="email">
+        </b-input>
+      </b-field>
+      <p class="subtitle has-text-primary is-5">Password</p>
+      <b-field>
+        <b-input placeholder="•••••••••••" disabled expanded></b-input>
+        <p class="control">
+          <button class="button" @click="resetPassword()">Reset Password</button>
+        </p>
+      </b-field>
+      <hr>
+      <a class="button is-primary" @click="updateProfile()">Save changes</a>
+      <a class="button" @click="$parent.close()">Cancel</a>
+    </section>
+  </div>
 </template>
 
 <script>
 import Firebase from 'firebase'
+import { storageRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
@@ -47,16 +68,25 @@ export default {
     return {
       saving: false,
       displayName: null,
-      email: null
+      email: null,
+      dropFiles: null
     }
   },
+  created () {
+    this.displayName = this.user.displayName
+    this.email = this.user.email
+  },
   methods: {
+    deleteDropFile (index) {
+      this.dropFiles.splice(index, 1)
+    },
     resetPassword: function () {
       let toast = this.$toast
+      let parent = this.$parent
       Firebase.auth().sendPasswordResetEmail(this.user.email).then(function () {
+        parent.close()
         toast.open({
-          message: 'Email sent',
-          type: 'is-success'
+          message: 'Email sent'
         })
       }).catch(function (error) {
         if (error.code === 'auth/user-not-found') {
@@ -77,19 +107,122 @@ export default {
         }
         console.log(error)
       })
+    },
+    updateProfile () {
+      let toast = this.$toast
+      let parent = this.$parent
+      let snackbar = this.$snackbar
+      let displayName = this.displayName
+      let email = this.email
+      let profilePicture = this.dropFiles
+      let user = Firebase.auth().currentUser
+
+      if (user) {
+        if (displayName) {
+          user.updateProfile({
+            displayName: displayName
+          }).then(function () {
+            user.updateEmail(email).then(function () {
+              // Update successful.
+            }).catch(function (error) {
+              console.log(error)
+              if (error.code === 'auth/email-already-in-use') {
+                snackbar.open({
+                  duration: 5000,
+                  message: 'Email already is use by another account',
+                  type: 'is-danger',
+                  position: 'is-bottom-left',
+                  actionText: 'dismiss'
+                })
+              } else if (error.code === 'auth/invalid-email') {
+                snackbar.open({
+                  duration: 5000,
+                  message: 'Email provided is not valid',
+                  type: 'is-danger',
+                  position: 'is-bottom-left',
+                  actionText: 'dismiss'
+                })
+              }
+            })
+            if (profilePicture) {
+              storageRef.child(profilePicture.name).put(profilePicture).then(function (snapshot) {
+                console.log('success' + snapshot.downloadURL)
+                user.updateProfile({
+                  photoURL: snapshot.downloadURL
+                }).then(function () {
+                  // Update successful.
+                }).catch(function (error) {
+                  console.log(error)
+                })
+              })
+            }
+            toast.open({
+              message: 'Profile updated!'
+            })
+            parent.close()
+          }).catch(function (error) {
+            console.log(error)
+          })
+        } else {
+          snackbar.open({
+            duration: 5000,
+            message: 'Display name cannot be empty',
+            type: 'is-danger',
+            position: 'is-bottom-left',
+            actionText: 'dismiss'
+          })
+        }
+      } else {
+        console.log('error retrieving user')
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-.is-96x96 img {
+.is-128x128 img {
   max-height: initial;
-  height: 96px;
+  height: 128px;
   width: auto;
   overflow: hidden;
 }
-.image {
+.is-centered {
+  margin: 0 auto;
+  width: 96px;
+}
+.subtitle.is-5 {
+  margin: 16px 0 8px 0;
+}
+.section {
+  padding: 0;
+}
+figure {
+  position: relative;
+}
+.hover {
+  position: absolute;
+  z-index: 50;
+  top: 0;
+  left: 0;
+  display: none;
+  border: 2px dashed white;
+  width: 97%;
+  height: 97%;
+  margin: 1.5%;
+  border-radius: 50%;
+}
+.hover .icon {
+  line-height: 128px;
+  display: inline;
+}
+figure:hover .hover {
   display: inline-block;
+}
+.content a {
+  display: inline-block;
+}
+.content figure {
+  margin: 0.5em;
 }
 </style>

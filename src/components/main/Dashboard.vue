@@ -67,9 +67,9 @@ export default {
   },
   created () {
     this.setOnlineStatus()
+    this.bindRefs()
   },
   mounted () {
-    this.bindRefs()
   },
   methods: {
     bindRefs () {

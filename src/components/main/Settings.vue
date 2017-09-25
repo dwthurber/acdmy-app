@@ -38,7 +38,7 @@
         </b-select>
       </b-field>
       <hr>
-      <a class="button is-primary" @click="scheduleSession" :class="{'is-loading': saving}">Save Settings</a>
+      <a class="button is-primary" :class="{'is-loading': saving}">Save Settings</a>
     </div>
   </div>
 </template>
@@ -53,6 +53,7 @@ export default {
   },
   data () {
     return {
+      saving: false,
       isActive: false,
       layout: 1,
       roomName: ''

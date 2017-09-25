@@ -111,13 +111,11 @@ export default {
             user.updateProfile({
               displayName: this.displayName
             }).then(function () {
-              console.log(profilePicture)
               storageRef.child(profilePicture.name).put(profilePicture).then(function (snapshot) {
-                console.log('success' + snapshot.downloadURL)
                 user.updateProfile({
                   photoURL: snapshot.downloadURL
                 }).then(function () {
-                  // Update successful.
+
                 }).catch(function (error) {
                   console.log(error)
                 })

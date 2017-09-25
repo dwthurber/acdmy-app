@@ -27,21 +27,12 @@ export default {
         this.$router.replace({ name: 'Main' })
       }
     })
-  },
-  data () {
-    return {
-    }
   }
 }
 </script>
 
 <style lang="scss">
 @import "~bulma/sass/utilities/_all";
-
-$google: #dd4b39;
-$google-invert: findColorInvert($google);
-$facebook: #3b5998;
-$facebook-invert: findColorInvert($facebook);
 
 $primary: hsl(205, 36%, 43%);
 $primary-invert: findColorInvert($primary);
@@ -71,14 +62,12 @@ $colors: (
     "success": ($success, $success-invert),
     "warning": ($warning, $warning-invert),
     "danger": ($danger, $danger-invert),
-    "google": ($google, $google-invert),
-    "facebook": ($facebook, $facebook-invert),
 );
 
 // Links
 $link: $primary;
 $link-invert: $primary-invert;
-$link-focus-border: $primary;
+$link-focus-border: $info;
 
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
