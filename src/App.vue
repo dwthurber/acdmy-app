@@ -69,6 +69,9 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $info;
 
+$title-weight: $weight-normal;
+$subtitle-weight: $weight-light;
+
 @import "~bulma";
 @import "~buefy/src/scss/buefy";
 

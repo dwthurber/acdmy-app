@@ -22,7 +22,7 @@
       </li>
     </ul>
     <tab-dropdown :isActive="isPeopleActive">
-      <p>People</p>
+      <people-dropdown />
     </tab-dropdown>
     <tab-dropdown :isActive="isChatActive">
       <p>Chat</p>
@@ -36,10 +36,11 @@
 <script>
 import { mapState } from 'vuex'
 import tabDropdown from '@/components/navbar/TabDropdown'
+import peopleDropdown from '@/components/navbar/PeopleDropdown'
 
 export default {
   name: 'tabs',
-  components: { tabDropdown },
+  components: { tabDropdown, peopleDropdown },
   computed: {
     ...mapState(['room', 'route'])
   },
