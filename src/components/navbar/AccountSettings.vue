@@ -111,10 +111,11 @@ export default {
     updateProfile () {
       let toast = this.$toast
       let parent = this.$parent
+      let store = this.$store
       let snackbar = this.$snackbar
       let displayName = this.displayName
       let email = this.email
-      let profilePicture = this.dropFiles[0]
+      let profilePicture = this.dropFiles
       let user = Firebase.auth().currentUser
 
       if (user) {
@@ -162,7 +163,7 @@ export default {
               }
             })
             if (profilePicture) {
-              storageRef.child('profile_pictures').child(profilePicture.name).put(profilePicture).then(function (snapshot) {
+              storageRef.child('profile_pictures').child(profilePicture[0].name).put(profilePicture[0]).then(function (snapshot) {
                 console.log('success' + snapshot.downloadURL)
                 user.updateProfile({
                   photoURL: snapshot.downloadURL
@@ -182,7 +183,7 @@ export default {
                 })
               })
             }
-            this.$store.commit('SET_USER', user)
+            store.commit('SET_USER', user)
             toast.open({
               message: 'Profile updated!'
             })

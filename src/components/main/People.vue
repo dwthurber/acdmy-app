@@ -27,7 +27,6 @@
             :per-page="perPage"
             :pagination-simple="isPaginationSimple"
             default-sort="name"
-            :selected.sync="selected"
             :isDetailed="isDetailed"
             :checked-rows.sync="checkedRows">
 

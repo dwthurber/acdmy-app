@@ -28,18 +28,7 @@
       </section>
     </div>
     <div class="box">
-      <nav class="level">
-        <div class="level-left">
-          <p class="subtitle is-uppercase is-7 has-text-grey">All Sessions</p>
-        </div>
-        <div class="level-right">
-          <button class="button field is-info is-pulled-right is-small" @click="selected = {}"
-            :disabled="!Object.keys(selected).length">
-            <b-icon icon="clear"></b-icon>
-            <span>Clear selected</span>
-          </button>
-        </div>
-      </nav>
+      <p class="subtitle is-uppercase is-7 has-text-grey">All Sessions</p>
       <b-table
         :data="room.sessions"
         :bordered="isBordered"
@@ -52,7 +41,6 @@
         :per-page="perPage"
         :pagination-simple="isPaginationSimple"
         default-sort="startDate"
-        :selected.sync="selected"
         :isDetailed="isDetailed"
         :checked-rows.sync="checkedRows">
 
@@ -66,12 +54,12 @@
           <!-- <b-table-column field="endDate" label="End" sortable>
             {{ props.row.endDate | formatDate }} at {{ props.row.endTime }}
           </b-table-column> -->
-          <b-table-column field="" label="" width="85"  v-if="room.user.role == 'Instructor'">
+          <b-table-column field="" label="" v-if="room.user.role == 'Instructor'" centered>
             <router-link class="button is-primary is-outlined is-small" :to="{name: 'Session', params: {sessionid: props.row['.key']}}" append exact>
               Start Session
             </router-link>
           </b-table-column>
-          <b-table-column field="" label="" width="85"  v-if="room.user.role == 'Instructor'">
+          <b-table-column field="" label="More" width="50" v-if="room.user.role == 'Instructor'" centered>
             <a @click="deleteSession(props.row['.key'])"><b-icon icon="delete" size="is-small" type="is-danger"></b-icon></a>
           </b-table-column>
         </template>

@@ -9,7 +9,7 @@
       <div class="level-right">
         <div class="field level-item">
           <b-switch size="is-medium" v-model="isActive">
-            <span v-if="room.active">ACTIVE</span>
+            <span v-if="room.data.active">ACTIVE</span>
             <span v-else>INACTIVE</span>
           </b-switch>
         </div>
@@ -18,7 +18,7 @@
     <div class="box">
       <p class="subtitle has-text-primary is-5">Room Settings</p>
       <b-field label="Room Name">
-        <b-input icon="view_list" :placeholder="room.data.name" v-model="roomName"></b-input>
+        <b-input icon="view_list" v-model="roomName"></b-input>
       </b-field>
       <br>
       <span class="subtitle has-text-primary is-5">Default Session Settings </span><a class="has-text-warning" href="#"><b-icon icon="help_outline" size="is-small"/></a>
@@ -60,7 +60,8 @@ export default {
     }
   },
   mounted () {
-    this.isActive = this.room.active
+    this.isActive = this.room.data.active
+    this.roomName = this.room.data.name
   },
   methods: {
     updateStatus () {

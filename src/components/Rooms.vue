@@ -16,8 +16,8 @@
         <div class="card" v-for="(room, index) in allRooms" v-if="room['.key'] == roomid['.key']">
           <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
           <div class="card-text-hover">
-            <!-- <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
-            <small class="status is-uppercase has-text-warning" v-else>Inactive</small> -->
+            <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
+            <small class="status is-uppercase has-text-warning" v-else>Inactive</small>
             <button v-if="room.owner == user.uid" class="button is-danger is-outlined remove is-small" @click="deleteRoom(room['.key'])"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
           </div>
           <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">

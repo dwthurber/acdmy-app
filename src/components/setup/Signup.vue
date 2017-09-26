@@ -97,7 +97,8 @@ export default {
       this.authenticating = true
       let snackbar = this.$snackbar
       let router = this.$router
-      let profilePicture = this.profile_picture[0]
+      let store = this.$store
+      let profilePicture = this.profile_picture
       let roomKey = this.route.query.room
       // let roomId = this.roomId
       // if (this.route.query.room) {
@@ -111,7 +112,7 @@ export default {
             user.updateProfile({
               displayName: this.displayName
             }).then(function () {
-              storageRef.child(profilePicture.name).put(profilePicture).then(function (snapshot) {
+              storageRef.child(profilePicture[0].name).put(profilePicture[0]).then(function (snapshot) {
                 user.updateProfile({
                   photoURL: snapshot.downloadURL
                 }).then(function () {
@@ -162,6 +163,7 @@ export default {
               }).catch((error) => {
                 console.error('Email Error', error)
               })
+            store.commit('SET_USER', user)
           }).catch((error, authData) => {
             if (error) {
               console.log('Signup Failed!', error)
