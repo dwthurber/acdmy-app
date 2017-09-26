@@ -9,31 +9,62 @@
     </ul>
     <ul v-else-if="route.params.sessionid">
       <li>
-        <a class="is-size-7"><b-icon icon="people" size="is-small"></b-icon> People</a>
+        <a class="is-size-7" @click="peopleDropdown()" :class="{'active' : isPeopleActive}"><b-icon icon="people" size="is-small"></b-icon> People</a>
       </li>
       <li>
-        <a class="is-size-7"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a>
+        <a class="is-size-7" @click="chatDropdown()" :class="{'active' : isChatActive}"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a>
       </li>
       <li>
-        <a class="is-size-7"><b-icon icon="view_quilt" size="is-small"></b-icon> Session</a>
+        <a class="is-size-7" @click="sessionDropdown()" :class="{'active' : isSessionActive}"><b-icon icon="view_quilt" size="is-small"></b-icon> Session</a>
       </li>
       <li>
         <a class="is-size-7"><b-icon icon="more" size="is-small"></b-icon> More</a>
       </li>
     </ul>
+    <tab-dropdown :isActive="isPeopleActive">
+      <p>People</p>
+    </tab-dropdown>
+    <tab-dropdown :isActive="isChatActive">
+      <p>Chat</p>
+    </tab-dropdown>
+    <tab-dropdown :isActive="isSessionActive">
+      <p>Session</p>
+    </tab-dropdown>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
+import tabDropdown from '@/components/navbar/TabDropdown'
 
 export default {
   name: 'tabs',
+  components: { tabDropdown },
   computed: {
     ...mapState(['room', 'route'])
   },
   data () {
     return {
+      isPeopleActive: false,
+      isChatActive: false,
+      isSessionActive: false
+    }
+  },
+  methods: {
+    peopleDropdown () {
+      this.isChatActive = false
+      this.isSessionActive = false
+      this.isPeopleActive = !this.isPeopleActive
+    },
+    chatDropdown () {
+      this.isPeopleActive = false
+      this.isSessionActive = false
+      this.isChatActive = !this.isChatActive
+    },
+    sessionDropdown () {
+      this.isChatActive = false
+      this.isPeopleActive = false
+      this.isSessionActive = !this.isSessionActive
     }
   }
 }
@@ -62,7 +93,8 @@ export default {
   font-size: 0.7rem;
 }
 .tabs a:hover,
-.router-link-active a {
+.router-link-active a,
+.tabs a.active {
   color: hsl(205, 36%, 43%);
   border-bottom-color: hsl(205, 36%, 43%);
 }
