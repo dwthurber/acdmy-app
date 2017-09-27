@@ -4,32 +4,7 @@
     <p class="subtitle">Please setup your profile or <router-link class="has-text-primary" :to="{ name: 'Login', params: {} }">login</router-link></small></p></p>
     <form>
       <p class="subtitle has-text-primary is-5">Profile Picture</p>
-      <!-- <uploadcare :url.sync="photoUrl" crop="200x200" shrink="600x600"></uploadcare> -->
-      <a @click="upload()">Upload</a>
-      <!-- <b-field v-if="!profile_picture">
-        <b-upload v-model="profile_picture" drag-drop>
-          <section class="section">
-            <div class="content has-text-centered">
-              <p>
-                <b-icon
-                  icon="file_upload"
-                  size="is-large">
-                </b-icon>
-              </p>
-              <p>Drop your file here or click to upload</p>
-            </div>
-          </section>
-        </b-upload>
-      </b-field> -->
-      <!-- <div v-else>
-        <span class="tag is-primary">
-          {{ profile_picture[0].name }}
-          <button class="delete is-small"
-            type="button"
-            @click="deleteDropFile(index)">
-          </button>
-        </span>
-      </div> -->
+      <uploadcare :url.sync="photoUrl" imageOnly crop="128x128" shrink="300x300"></uploadcare>
       <p class="subtitle has-text-primary is-5">Account</p>
       <b-field>
         <b-input type="email" icon="email" v-model="email"
@@ -64,20 +39,18 @@
         <router-link :to="{ name: 'Login', params: {} }" class="button is-default">Cancel</router-link>
       </p>
     </form>
-    <!-- <hr> -->
-    <!-- <button class="button is-google is-social" @click.self.prevent="googleLogin">Or, Signup with Google</button> -->
   </div>
 </template>
 
 <script>
 import Firebase from 'firebase'
-import { client } from '@/filestack'
-import { db, storageRef, usersRef } from '@/firebase'
+import uploadcare from '@/components/Uploadcare'
+import { db, usersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'signup',
-  // components: { uploadcare },
+  components: { uploadcare },
   computed: {
     ...mapState(['user', 'route'])
   },
@@ -89,42 +62,16 @@ export default {
       displayName: '',
       authenticating: false,
       profile: false,
-      profile_picture: null,
       roomId: '',
       photoUrl: ''
     }
   },
   methods: {
-    upload () {
-      client.pick({
-        maxFiles: 1,
-        accept: 'image/*',
-        maxSize: 1024 * 1024,
-        imageMax: [600, 600],
-        imageMin: [200, 200],
-        transformations: {
-          crop: {
-            force: true,
-            aspectRatio: 1 / 1
-          }
-        },
-        uploadInBackground: false,
-        onOpen: () => console.log('opened!')
-      })
-      .then((res) => {
-        console.log(res.filesUploaded)
-        console.log(res.filesFailed)
-      })
-    },
-    deleteDropFile: function () {
-      this.profile_picture = null
-    },
     signUp: function () {
       this.authenticating = true
       let snackbar = this.$snackbar
       let router = this.$router
       let store = this.$store
-      let profilePicture = this.profile_picture
       let roomKey = this.route.query.room
       // let roomId = this.roomId
       // if (this.route.query.room) {
@@ -136,17 +83,10 @@ export default {
           Firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
           .then((user) => {
             user.updateProfile({
-              displayName: this.displayName
+              displayName: this.displayName,
+              photoURL: this.photoUrl
             }).then(function () {
-              storageRef.child(profilePicture[0].name).put(profilePicture[0]).then(function (snapshot) {
-                user.updateProfile({
-                  photoURL: snapshot.downloadURL
-                }).then(function () {
 
-                }).catch(function (error) {
-                  console.log(error)
-                })
-              })
             }).catch(function (error) {
               console.log(error)
             })

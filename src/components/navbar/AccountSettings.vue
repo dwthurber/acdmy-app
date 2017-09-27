@@ -1,33 +1,16 @@
 <template>
   <div class="modal-card" @click.stop>
     <section class="modal-card-body">
-      <b-field class="has-text-centered">
-        <b-upload v-model="dropFiles">
-          <section class="section" >
-            <div class="content has-text-centered">
-              <a>
-                <figure class="image is-128x128">
-                  <div class="hover">
-                    <b-icon icon="file_upload" size="is-medium" class="is-light" />
-                  </div>
-                  <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="User Profile Image">
-                  <img v-else c src="../../assets/user-placeholder.png" alt="User Profile Image">
-                </figure>
-              </a>
+      <div class="content has-text-centered">
+        <a @click="upload()">
+          <figure class="image is-128x128">
+            <div class="hover">
+              <b-icon icon="file_upload" size="is-medium" class="is-light" />
             </div>
-          </section>
-        </b-upload>
-      </b-field>
-      <div class="tags">
-        <span v-for="(file, index) in dropFiles"
-          :key="index"
-          class="tag is-primary" >
-          {{file.name}}
-          <button class="delete is-small"
-            type="button"
-            @click="deleteDropFile(index)">
-          </button>
-        </span>
+            <img v-if="photoUrl" class="is-circle-image" :src="photoUrl" alt="User Profile Image">
+            <img v-else c src="../../assets/user-placeholder.png" alt="User Profile Image">
+          </figure>
+        </a>
       </div>
 
       <p class="subtitle has-text-primary is-5">Display Name</p>
@@ -56,8 +39,9 @@
 
 <script>
 import Firebase from 'firebase'
-import { storageRef, usersRef, db } from '@/firebase'
+import { usersRef, db } from '@/firebase'
 import { mapState } from 'vuex'
+import uploadcare from 'uploadcare-widget'
 
 export default {
   name: 'modal-account',
@@ -69,16 +53,49 @@ export default {
       saving: false,
       displayName: null,
       email: null,
-      dropFiles: null
+      photoUrl: ''
     }
   },
   created () {
     this.displayName = this.user.displayName
     this.email = this.user.email
+    this.photoUrl = this.user.photoURL
   },
   methods: {
-    deleteDropFile (index) {
-      this.dropFiles.splice(index, 1)
+    upload () {
+      let user = Firebase.auth().currentUser
+      let store = this.$store
+      let toast = this.$toast
+      this.$parent.close()
+
+      uploadcare.openDialog(null, {
+        imagesOnly: true,
+        crop: '128x128',
+        imageShrink: '300x300'
+      }).done(function (file) {
+        file.promise().done(function (fileInfo) {
+          user.updateProfile({
+            photoURL: fileInfo.cdnUrl
+          }).then(function () {
+            usersRef.child(user.uid).child('rooms').once('value', function (snap) {
+              snap.forEach(function (childSnapshot) {
+                const roomKey = childSnapshot.key
+                let updates = {}
+                updates['/people/' + roomKey + '/' + user.uid + '/profile_picture'] = fileInfo.cdnUrl
+                db.ref().update(updates)
+                // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
+              })
+            })
+            store.commit('SET_USER', Firebase.auth().currentUser)
+            toast.open({
+              message: 'Profile updated!'
+            })
+          }).catch(function (error) {
+            console.log(error)
+          })
+          // console.log(fileInfo.cdnUrl)
+        })
+      })
     },
     resetPassword: function () {
       let toast = this.$toast
@@ -115,7 +132,6 @@ export default {
       let snackbar = this.$snackbar
       let displayName = this.displayName
       let email = this.email
-      let profilePicture = this.dropFiles
       let user = Firebase.auth().currentUser
 
       if (user) {
@@ -162,28 +178,7 @@ export default {
                 })
               }
             })
-            if (profilePicture) {
-              storageRef.child('profile_pictures').child(profilePicture[0].name).put(profilePicture[0]).then(function (snapshot) {
-                console.log('success' + snapshot.downloadURL)
-                user.updateProfile({
-                  photoURL: snapshot.downloadURL
-                }).then(function () {
-                  // Update successful.
-                  usersRef.child(user.uid).child('rooms').once('value', function (snap) {
-                    snap.forEach(function (childSnapshot) {
-                      const roomKey = childSnapshot.key
-                      let updates = {}
-                      updates['/people/' + roomKey + '/' + user.uid + '/profile_picture'] = snapshot.downloadURL
-                      db.ref().update(updates)
-                      // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
-                    })
-                  })
-                }).catch(function (error) {
-                  console.log(error)
-                })
-              })
-            }
-            store.commit('SET_USER', user)
+            store.commit('SET_USER', Firebase.auth().currentUser)
             toast.open({
               message: 'Profile updated!'
             })
