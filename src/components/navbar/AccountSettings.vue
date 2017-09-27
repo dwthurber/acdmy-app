@@ -7,7 +7,7 @@
             <div class="hover">
               <b-icon icon="file_upload" size="is-medium" class="is-light" />
             </div>
-            <img v-if="photoUrl" class="is-circle-image" :src="photoUrl" alt="User Profile Image">
+            <img v-if="photoUrl" class="is-circle-image" :src="photoUrl" :alt="user.displayName">
             <img v-else c src="../../assets/user-placeholder.png" alt="User Profile Image">
           </figure>
         </a>

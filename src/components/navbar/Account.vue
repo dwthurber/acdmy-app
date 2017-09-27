@@ -22,7 +22,7 @@
         </div>
         <figure class="media-right">
           <p class="image is-64x64">
-            <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" alt="Profile Image">
+            <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" :alt="user.displayName">
             <img v-else class="is-circle-image" src="../../assets/user-placeholder.png" alt="Profile Image">
           </p>
         </figure>
