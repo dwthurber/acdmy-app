@@ -4,7 +4,9 @@
     <p class="subtitle">Please setup your profile or <router-link class="has-text-primary" :to="{ name: 'Login', params: {} }">login</router-link></small></p></p>
     <form>
       <p class="subtitle has-text-primary is-5">Profile Picture</p>
-      <b-field v-if="!profile_picture">
+      <!-- <uploadcare :url.sync="photoUrl" crop="200x200" shrink="600x600"></uploadcare> -->
+      <a @click="upload()">Upload</a>
+      <!-- <b-field v-if="!profile_picture">
         <b-upload v-model="profile_picture" drag-drop>
           <section class="section">
             <div class="content has-text-centered">
@@ -18,8 +20,8 @@
             </div>
           </section>
         </b-upload>
-      </b-field>
-      <div v-else>
+      </b-field> -->
+      <!-- <div v-else>
         <span class="tag is-primary">
           {{ profile_picture[0].name }}
           <button class="delete is-small"
@@ -27,7 +29,7 @@
             @click="deleteDropFile(index)">
           </button>
         </span>
-      </div>
+      </div> -->
       <p class="subtitle has-text-primary is-5">Account</p>
       <b-field>
         <b-input type="email" icon="email" v-model="email"
@@ -69,11 +71,13 @@
 
 <script>
 import Firebase from 'firebase'
+import { client } from '@/filestack'
 import { db, storageRef, usersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'signup',
+  // components: { uploadcare },
   computed: {
     ...mapState(['user', 'route'])
   },
@@ -86,10 +90,32 @@ export default {
       authenticating: false,
       profile: false,
       profile_picture: null,
-      roomId: ''
+      roomId: '',
+      photoUrl: ''
     }
   },
   methods: {
+    upload () {
+      client.pick({
+        maxFiles: 1,
+        accept: 'image/*',
+        maxSize: 1024 * 1024,
+        imageMax: [600, 600],
+        imageMin: [200, 200],
+        transformations: {
+          crop: {
+            force: true,
+            aspectRatio: 1 / 1
+          }
+        },
+        uploadInBackground: false,
+        onOpen: () => console.log('opened!')
+      })
+      .then((res) => {
+        console.log(res.filesUploaded)
+        console.log(res.filesFailed)
+      })
+    },
     deleteDropFile: function () {
       this.profile_picture = null
     },

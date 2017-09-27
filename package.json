@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "buefy": "^0.5.2",
+    "filestack-js": "^0.9.4",
     "firebase": "^4.2.0",
     "konva": "^1.6.7",
     "moment": "^2.18.1",
