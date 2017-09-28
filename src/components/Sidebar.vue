@@ -1,39 +1,52 @@
 <template>
-  <nav class="sidebar has-text-centered" :class="{'expanded':expanded}">
+  <nav class="sidebar" :class="{'expanded':expanded}">
     <div class="sidebar-start">
-      <a class="" title="toggle mute" @click="expand()">
-        <img v-if="user.photoURL" class="is-circle-image image is-32x32" :src="user.photoURL" alt="Profile Image">
-        <img v-else class="is-circle-image image is-32x32" src="../assets/user-placeholder.png" alt="Profile Image">
+      <transition name="fade">
+      <a class="profile-image" title="toggle mute" @click="expand('profile')" v-if="!expanded || option == 'profile'">
+        <img v-if="user.photoURL" class="is-circle-image image is-38x38" :src="user.photoURL" alt="Profile Image">
+        <img v-else class="is-circle-image image is-38x38" src="../assets/user-placeholder.png" alt="Profile Image">
       </a>
-      <a class="navbar-item is-close" title="toggle mute">
-        <b-icon class="is-primary is-circle" icon="mic"></b-icon>
-      </a>
-      <a class="navbar-item" title="toggle mute">
+      </transition>
+      <transition name="fade">
+        <a class="navbar-item" title="toggle mute" v-if="!expanded">
+          <b-icon class="is-success" icon="mic"></b-icon>
+        </a>
+      </transition>
+      <!-- <a class="navbar-item" title="toggle mute">
         <b-icon size="is-small" class="is-grey" icon="notifications"></b-icon>
-      </a>
-    </div>
-    <div class="sidebar-center">
-      <div class="center">
-      <a class="navbar-item" title="toggle mute">
-        <b-icon class="" icon="people"></b-icon>
-      </a>
-      </div>
-      <a class="navbar-item" title="toggle mute">
-        <b-icon class="" icon="group_work"></b-icon>
-      </a>
-      <a class="navbar-item" title="toggle mute">
-        <b-icon class="" icon="view_quilt"></b-icon>
-      </a>
-      <a class="navbar-item" title="toggle mute">
-        <b-icon class="" icon="more"></b-icon>
-      </a>
+      </a> -->
+      <transition name="fade">
+        <a class="navbar-item" title="toggle mute" @click="expand('people')" v-if="!expanded || option == 'people'">
+          <b-icon class="" icon="people"></b-icon>
+        </a>
+      </transition>
+      <transition name="fade">
+        <a class="navbar-item" title="toggle mute" v-if="!expanded">
+          <b-icon class="" icon="group_work"></b-icon>
+        </a>
+      </transition>
+      <transition name="fade">
+        <a class="navbar-item" title="toggle mute" v-if="!expanded">
+          <b-icon class="" icon="question_answer"></b-icon>
+        </a>
+      </transition>
+      <transition name="fade">
+        <a class="navbar-item" title="toggle mute" v-if="!expanded">
+          <b-icon class="" icon="view_quilt"></b-icon>
+        </a>
+      </transition>
+      <transition name="fade">
+        <a class="navbar-item" title="toggle mute" v-if="!expanded">
+          <b-icon class="" icon="more"></b-icon>
+        </a>
+      </transition>
     </div>
     <div class="sidebar-end">
 
     </div>
     <div class="sidebar-help">
-      <a class="navbar-item" title="toggle mute">
-        <b-icon class="" icon="help"></b-icon>
+      <a class="navbar-item" title="toggle mute" v-if="!expanded">
+        <b-icon type="is-grey" icon="help"></b-icon>
       </a>
     </div>
   </nav>
@@ -69,7 +82,7 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 70px;
+  width: 63px;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -77,21 +90,27 @@ export default {
   background-color: rgba(240,240,240,.95);
   position: relative;
   z-index: 25;
-  align-items: center;
-  justify-content: center;
+  /*align-items: center;*/
+  /*justify-content: center;*/
   transition: width 1s;
 }
 .expanded {
   width: 250px;
+  align-items: flex-start;
 }
 .sidebar-start,
 .sidebar-end {
   flex-grow: 1;
 }
-.sidebar-start img {
-  display: inline-block;
-}
 .sidebar-center {
   padding: 50% 0;
+}
+.image.is-38x38 {
+  width: 38px;
+  height: 38px;
+}
+.profile-image {
+  display: inline-block;
+  padding: 0 0.5rem;
 }
 </style>
