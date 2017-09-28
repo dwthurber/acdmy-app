@@ -1,7 +1,7 @@
 <template>
   <b-dropdown class="is-marginless" position="is-bottom-left">
     <a class="navbar-item is-close" slot="trigger" title="help">
-      <b-icon icon="help" size="is-small"></b-icon>
+      <b-icon icon="help" size="is-small" type="is-grey"></b-icon>
     </a>
 
       <a class="dropdown-item"><b-icon icon="book"></b-icon> Search Guides</a>

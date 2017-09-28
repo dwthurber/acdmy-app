@@ -1,18 +1,15 @@
 <template>
   <div id="app">
-    <Navbar v-if="user" />
-    <router-view v-if="user !== null"></router-view>
+    <router-view v-if="user"></router-view>
   </div>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'app',
-  components: {Navbar},
   computed: {
     ...mapState(['user', 'route'])
   },
@@ -49,6 +46,9 @@ $info-invert: findColorInvert($info);
 $danger: hsl(3, 74, 65%);
 $danger-invert: findColorInvert($danger);
 
+$grey: hsl(0, 0%, 71%);
+$grey-invert: findColorInvert($grey);
+
 $family-sans-serif: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // Setup $colors to use as bulma classes
@@ -62,6 +62,7 @@ $colors: (
     "success": ($success, $success-invert),
     "warning": ($warning, $warning-invert),
     "danger": ($danger, $danger-invert),
+    "grey": ($grey, $grey-invert),
 );
 
 // Links

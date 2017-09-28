@@ -7,9 +7,6 @@
       <div class="navbar-end navbar-item is-hidden-desktop">
         <Help />
         <Notifications />
-        <a class="navbar-item is-close" title="toggle mute" v-if="$route.params.sessionid">
-          <b-icon class="is-primary is-circle" icon="mic"></b-icon>
-        </a>
         <Account />
       </div>
     </div>
@@ -19,9 +16,6 @@
       <div class="navbar-end is-marginless">
         <Help />
         <Notifications />
-        <a class="navbar-item is-close" title="toggle mute" v-if="$route.params.sessionid">
-          <b-icon class="is-primary is-circle" icon="mic"></b-icon>
-        </a>
         <Account />
       </div>
     </div>

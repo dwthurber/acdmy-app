@@ -77,6 +77,6 @@ export default {
   display: flex
 }
 a.has-text-grey:hover {
-  color: hsl(205, 36%, 43%)!important;
+  color: hsl(0, 0%, 71%)!important;
 }
 </style>

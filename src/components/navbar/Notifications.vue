@@ -1,7 +1,7 @@
 <template>
   <b-dropdown class="is-marginless" position="is-bottom-left">
     <a class="navbar-item is-close" slot="trigger" title="notifications">
-      <b-icon icon="notifications" size="is-small"></b-icon>
+      <b-icon icon="notifications" size="is-small" type="is-grey"></b-icon>
     </a>
 
       <div custom class="dropdown-item has-text-centered" v-if="!notifications">All up to date!</div>

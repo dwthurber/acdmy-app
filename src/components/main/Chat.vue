@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { roomsRef, peopleRef } from '@/firebase'
+import { peopleRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {

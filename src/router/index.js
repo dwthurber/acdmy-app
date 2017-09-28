@@ -7,12 +7,13 @@ import Setup from '@/components/Setup'
 import Main from '@/components/Main'
 import Dashboard from '@/components/main/Dashboard'
 import ManageSessions from '@/components/main/ManageSessions'
-// import Classroom from '@/components/main/Classroom'
-// import Chat from '@/components/main/Chat'
+import Classroom from '@/components/main/Classroom'
+import Chat from '@/components/main/Chat'
 import Assets from '@/components/main/Assets'
 import People from '@/components/main/People'
 import Settings from '@/components/main/Settings'
 import Rooms from '@/components/rooms'
+import VideobarLayout from '@/components/session/VideobarLayout'
 
 Vue.use(Router)
 
@@ -27,18 +28,18 @@ export default new Router({
           component: Rooms,
           name: 'Main'
         },
-        // {
-        //   path: '/r/:roomid/',
-        //   component: Classroom,
-        //   name: 'Main-Classroom'
-        // },
-        // {
-        //   path: '/r/:roomid/chat',
-        //   component: Chat,
-        //   name: 'Main-Chat'
-        // },
         {
-          path: '/r/:roomid',
+          path: '/r/:roomid/class',
+          component: Classroom,
+          name: 'Main-Classroom'
+        },
+        {
+          path: '/r/:roomid/chat',
+          component: Chat,
+          name: 'Main-Chat'
+        },
+        {
+          path: '/r/:roomid/dashboard',
           component: Dashboard,
           children: [
             {
@@ -67,8 +68,15 @@ export default new Router({
     },
     {
       path: '/r/:roomid/s/:sessionid',
+      component: Session,
       name: 'Session',
-      component: Session
+      children: [
+        {
+          path: '/r/:roomid/s/:sessionid/videobar',
+          component: VideobarLayout,
+          name: 'Videobar'
+        }
+      ]
     },
     {
       path: '/login',

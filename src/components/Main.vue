@@ -1,14 +1,17 @@
 <template>
   <div class="main">
+    <Navbar v-if="user" />
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Navbar from '@/components/Navbar'
 import { mapState } from 'vuex'
 
 export default {
   name: 'main',
+  components: {Navbar},
   computed: {
     ...mapState(['user'])
   }

@@ -25,7 +25,6 @@ export default {
 
 <style scoped>
 .modal {
-  z-index: 0;
   top: 53px;
 }
 .modal-background {
@@ -34,13 +33,13 @@ export default {
 .modal-card {
   position: absolute;
   top: 0;
-  border-radius: 0;
+  border-radius: 0 0 5px 5px;
   box-shadow: 1px 1px 5px 1px #bbb;
   height: 350px;
   text-align: left;
 }
 .modal-card-body {
-  padding: 0;
+  /*padding: 0;*/
 }
 @media screen and (min-width: 769px) {
   .modal-card {

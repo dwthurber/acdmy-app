@@ -1,17 +1,23 @@
 <template>
-  <div id="session" v-if="user !== false">
-    <router-view v-if="$route.params.sessionid"></router-view>
-    <VideobarLayout v-if="session.layout == 1"/>
+  <div id="session" class="columns is-mobile is-gapless" v-if="user">
+    <div class="column is-narrow">
+      <Sidebar />
+    </div>
+    <div class="column">
+      <router-view></router-view>
+    </div>
+    <!-- <VideobarLayout v-if="session.layout == 1"/> -->
   </div>
 </template>
 
 <script>
-import VideobarLayout from '@/components/session/VideobarLayout'
+// import VideobarLayout from '@/components/session/VideobarLayout'
+import Sidebar from '@/components/Sidebar'
 import { mapState } from 'vuex'
 import { roomsRef, peopleRef, sessionsRef } from '@/firebase'
 
 export default {
-  components: { VideobarLayout },
+  components: { Sidebar },
   name: 'session',
   computed: {
     ...mapState(['user', 'route', 'session', 'room'])
@@ -29,6 +35,9 @@ export default {
   methods: {
     bindRefs () {
       this.$store.dispatch('setCurrentSessionRef', sessionsRef.child(this.route.params.roomid).child(this.route.params.sessionid))
+      if (this.session.layout === 1) {
+        this.$router.replace({ name: 'Videobar' })
+      }
       if (!this.room.data) {
         this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
         this.$store.dispatch('setPeopleRef', peopleRef.child(this.route.params.roomid))

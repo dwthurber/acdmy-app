@@ -1,5 +1,65 @@
 <template>
-  <div class="columns is-gapless is-marginless is-mobile">
+  <!-- <div class="box"> -->
+
+    <b-tabs v-model="activeTab">
+      <b-tab-item label="People">
+        <br>
+        <b-table
+          :data="room.people"
+          :bordered="isBordered"
+          :striped="isStriped"
+          :narrowed="isNarrowed"
+          :checkable="isCheckable"
+          :loading="isLoading"
+          :mobile-cards="hasMobileCards"
+          :paginated="isPaginated"
+          :per-page="perPage"
+          :pagination-simple="isPaginationSimple"
+          default-sort="name"
+          :isDetailed="isDetailed"
+          :checked-rows.sync="checkedRows">
+
+          <template scope="props">
+            <b-table-column field="profile_picture" label="" width="60" centered>
+              <img v-if="props.row.profile_picture" class="is-circle-image image is-32x32" :src="props.row.profile_picture">
+              <img v-else class="is-circle-image image is-32x32" src="../../assets/user-placeholder.png" alt="Profile Image">
+            </b-table-column>
+            <b-table-column field="name" label="Name" sortable>
+              {{ props.row.name }}
+            </b-table-column>
+            <b-table-column field="role" label="Role" sortable>
+              {{ props.row.role }}
+            </b-table-column>
+            <b-table-column field="online" label="Status" width="90" sortable>
+              <span class="tag is-success" v-if="props.row.online">
+                Online
+              </span>
+              <span class="tag is-grey" v-else>
+                Offline
+              </span>
+            </b-table-column>
+          </template>
+
+          <div slot="empty" class="has-text-centered">
+            Loading...
+          </div>
+        </b-table>
+      </b-tab-item>
+
+      <b-tab-item label="Groups">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Pellentesque vestibulum dui vel molestie egestas.
+        Nulla vulputate elementum diam quis consectetur.
+        Integer pulvinar laoreet nibh non faucibus.
+        Suspendisse ut cursus lectus. Donec consectetur turpis at leo ultricies rhoncus.
+        Cras consequat aliquet eros nec porta.
+        Nullam sit amet mollis turpis.
+        Aenean vitae tortor et velit sodales faucibus.
+      </b-tab-item>
+
+    </b-tabs>
+  </div>
+  <!-- <div class="columns is-mobile">
     <div class="column is-3 vertical-scroll">
       <div v-if="people == 'students'">
         <p class="uppercase">Students</p>
@@ -92,7 +152,7 @@
         </b-tab-item>
       </b-tabs>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>
@@ -116,7 +176,7 @@ export default {
 
 <style scoped>
 .column {
-  padding: 4px 12px!important;
+  /*padding: 4px 12px!important;*/
 }
 .is-controls {
   border-left: 1px solid hsl(205, 40%, 73%);
