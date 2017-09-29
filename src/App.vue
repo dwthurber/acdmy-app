@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view v-if="user"></router-view>
+    <router-view v-if="user != null"></router-view>
   </div>
 </template>
 

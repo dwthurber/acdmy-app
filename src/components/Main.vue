@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <Navbar v-if="user" />
-    <router-view></router-view>
+    <router-view v-if="user"></router-view>
   </div>
 </template>
 
