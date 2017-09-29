@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-mobile videobar is-gapless is-multiline is-marginless">
+  <div class="columns is-mobile videobar is-gapless is-marginless is-multiline is-paddingless box">
     <VideoContainer v-for="(user, index) in room.people" :user="user" :key="user['.key']" v-if="user.online"></VideoContainer>
   </div>
 </template>
@@ -24,6 +24,5 @@ export default {
 <style scoped>
 .videobar {
   border-bottom: 1px solid #cfcfcf;
-  min-height: 101px;
 }
 </style>

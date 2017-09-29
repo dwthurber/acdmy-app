@@ -6,8 +6,8 @@
           Manage Sessions
         </h2>
       </div>
-      <div class="level-right" v-if="room.user.role == 'Instructor'">
-        <button class="button level-item is-info is-outlined" @click="confirm"><b-icon icon="add_circle_outline" size="is-small"></b-icon> &nbsp; Start New Session</button>
+      <div class="level-right" v-show="room.user.role == 'Instructor'">
+        <button class="button level-item is-primary is-outlined" @click="confirm"><b-icon icon="add_circle_outline" size="is-small"></b-icon> &nbsp; Start New Session</button>
         <button class="button level-item is-primary" @click="isModalActive = true"><b-icon icon="add_to_queue" size="is-small"></b-icon> &nbsp; Schedule Session</button>
       </div>
     </nav>

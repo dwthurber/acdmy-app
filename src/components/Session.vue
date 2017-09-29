@@ -54,9 +54,6 @@ export default {
 </script>
 
 <style scoped>
-.videobar {
-  border-bottom: 1px solid #cfcfcf;
-}
 #session {
   /*overflow: hidden;*/
   flex: 1;
