@@ -1,9 +1,9 @@
 <template>
   <div>
     <nav class="panel">
-      <p class="panel-heading">
+      <!-- <p class="panel-heading">
         People
-      </p>
+      </p> -->
       <!-- <div class="panel-block">
         <p class="control has-icons-left">
           <input class="input is-small" type="text" placeholder="search">

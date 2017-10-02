@@ -7,29 +7,6 @@
       <router-link :to="{ name: 'Main-Chat' }" tag="li"><a class="is-size-7"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a></router-link>
       <router-link :to="{ name: 'Dashboard-Sessions' }" tag="li"><a class="is-size-7"><b-icon icon="dashboard" size="is-small"></b-icon> Dashboard</a></router-link>
     </ul>
-    <!-- <ul v-else-if="route.params.sessionid">
-      <li>
-        <a class="is-size-7" @click="peopleDropdown()" :class="{'active' : isPeopleActive}"><b-icon icon="people" size="is-small"></b-icon> People</a>
-      </li>
-      <li>
-        <a class="is-size-7" @click="chatDropdown()" :class="{'active' : isChatActive}"><b-icon icon="question_answer" size="is-small"></b-icon> Chat</a>
-      </li>
-      <li>
-        <a class="is-size-7" @click="sessionDropdown()" :class="{'active' : isSessionActive}"><b-icon icon="view_quilt" size="is-small"></b-icon> Session</a>
-      </li>
-      <li>
-        <a class="is-size-7"><b-icon icon="more" size="is-small"></b-icon> More</a>
-      </li>
-    </ul>
-    <tab-dropdown :isActive="isPeopleActive">
-      <people-dropdown />
-    </tab-dropdown>
-    <tab-dropdown :isActive="isChatActive">
-      <p>Chat</p>
-    </tab-dropdown>
-    <tab-dropdown :isActive="isSessionActive">
-      <p>Session</p>
-    </tab-dropdown> -->
   </div>
 </template>
 
@@ -46,27 +23,9 @@ export default {
   },
   data () {
     return {
-      isPeopleActive: false,
-      isChatActive: false,
-      isSessionActive: false
     }
   },
   methods: {
-    peopleDropdown () {
-      this.isChatActive = false
-      this.isSessionActive = false
-      this.isPeopleActive = !this.isPeopleActive
-    },
-    chatDropdown () {
-      this.isPeopleActive = false
-      this.isSessionActive = false
-      this.isChatActive = !this.isChatActive
-    },
-    sessionDropdown () {
-      this.isChatActive = false
-      this.isPeopleActive = false
-      this.isSessionActive = !this.isSessionActive
-    }
   }
 }
 </script>

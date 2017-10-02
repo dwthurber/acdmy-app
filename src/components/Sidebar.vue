@@ -35,11 +35,11 @@
           <b-icon class="" icon="people"></b-icon>
         </a>
       </b-tooltip><br />
-      <b-tooltip label="Groups" position="is-right">
+      <!-- <b-tooltip label="Groups" position="is-right">
         <a class="navbar-item">
           <b-icon class="" icon="group_work"></b-icon>
         </a>
-      </b-tooltip><br />
+      </b-tooltip><br /> -->
       <b-tooltip label="Chat" position="is-right">
         <a class="navbar-item">
           <b-icon class="" icon="question_answer"></b-icon>
@@ -63,11 +63,11 @@
       <b-modal :active.sync="help" canCancel :width="300">
         <div class="card box is-paddingless">
           <div class="card-content">
-          <a><b-icon icon="book"></b-icon> Search Guides</a>
+          <a class="has-text-dark is-size-5"><b-icon icon="book" size="is-medium"></b-icon> Search Guides</a>
           <hr>
-          <a><b-icon icon="question_answer"></b-icon> Chat with Support</a>
+          <a class="has-text-dark is-size-5"><b-icon icon="question_answer" size="is-medium"></b-icon> Chat with Support</a>
           <hr>
-          <a href="https://app.craft.io/share/ECB3A0152305843009665528183" target="_blank"><b-icon icon="feedback"></b-icon> Send feedback</a>
+          <a class="has-text-dark is-size-5" href="https://app.craft.io/share/ECB3A0152305843009665528183" target="_blank"><b-icon icon="feedback" size="is-medium"></b-icon> Send feedback</a>
         </div>
         </div>
       </b-modal>

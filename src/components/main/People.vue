@@ -7,7 +7,8 @@
         </h2>
       </div>
       <div class="level-right" v-show="room.user.role == 'Instructor'">
-        <button class="button level-item is-primary is-outlined" @click="prompt"><b-icon icon="person_add" size="is-small"></b-icon> &nbsp; Add People</button>
+        <button class="button level-item is-primary is-outlined"><b-icon icon="group_add" size="is-small"></b-icon> &nbsp; Add Group Set</button>
+        <button class="button level-item is-primary" @click="prompt"><b-icon icon="person_add" size="is-small"></b-icon> &nbsp; Add People</button>
       </div>
     </nav>
     <div class="box">
