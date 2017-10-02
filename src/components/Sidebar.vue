@@ -1,10 +1,14 @@
 <template>
   <nav class="sidebar" :class="{'expanded':expanded}">
-    <div class="sidebar-details" :class="{'delay':option == 'profile'}" v-if="expanded && option == 'profile'">
+    <div class="sidebar-details" id="slide" v-if="expanded">
       <nav class="level">
         <div class="level-left">
-          <img class="level-item image is-circle-image is-38x38" :src="user.photoURL">
-          <p class="level-item">{{ user.displayName }}</p>
+          <img class="level-item image is-circle-image is-38x38" :src="user.photoURL" v-if="option == 'profile'">
+          <b-icon class="level-item" icon="people" size="is-medium" v-else-if="option == 'people'"></b-icon>
+          <p class="level-item subtitle is-5">
+            <span v-if="option == 'profile'">{{ user.displayName }}</span>
+            <span v-if="option == 'people'">People</span>
+          </p>
         </div>
         <div class="level-right">
           <a class="level-item" @click="expand(null)">
@@ -12,27 +16,9 @@
           </a>
         </div>
       </nav>
-      <hr>
-      <b-field>
-        <b-select placeholder="Video Source" icon="videocam" expanded>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-        </b-select>
-      </b-field>
-      <b-field>
-        <b-select placeholder="Audio Input Source" icon="mic" expanded>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-        </b-select>
-      </b-field>
-      <b-field>
-        <b-select placeholder="Audio Output Source" icon="volume_up" expanded>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-        </b-select>
-      </b-field>
-      <hr>
-      <button class="button is-danger is-wide">End Session</button>
+      <!-- <hr> -->
+      <sidebar-account v-if="option == 'profile'"/>
+      <sidebar-people v-if="option == 'people'"/>
     </div>
     <div class="sidebar-start" v-if="!expanded">
       <a class="profile-image" title="Account" @click="expand('profile')" >
@@ -91,13 +77,17 @@
 
 <script>
 import { mapState } from 'vuex'
+import sidebarAccount from '@/components/sidebar/Account'
+import sidebarPeople from '@/components/sidebar/People'
 
 export default {
   name: 'sidebar',
   components: {
+    sidebarAccount,
+    sidebarPeople
   },
   computed: {
-    ...mapState(['user', 'route'])
+    ...mapState(['user', 'route', 'room'])
   },
   data () {
     return {
@@ -125,11 +115,8 @@ export default {
   flex-direction: column;
   height: 100%;
   padding: 1.25rem 0.25rem;
-  /*background-color: rgba(240,240,240,.95);*/
   position: relative;
   z-index: 25;
-  /*align-items: center;*/
-  /*justify-content: center;*/
   transition: width 0.8s;
 }
 .expanded {
@@ -149,9 +136,16 @@ export default {
 }
 .sidebar-details {
   padding: 0 0.5rem;
-  width: 100%;
+  width: 240px;
 }
-.is-wide {
-  width: 100%;
+#slide {
+  position: absolute;
+  left: -250px;
+  animation: slide 0.8s forwards;
+}
+@keyframes slide {
+  100% {
+    left: 0;
+  }
 }
 </style>
