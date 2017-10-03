@@ -11,13 +11,14 @@
       </div>
     </nav>
     <div class="box">
+      <div type="filepicker-preview" data-fp-url="https://www.filestackapi.com/api/preview/e8le3rbQwGE0jh3kdWiw" style="width:75%; height:500px"> </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import uploadcare from 'uploadcare-widget'
+import { client } from '@/filestack'
 
 export default {
   name: 'Dashboard-Assets',
@@ -30,13 +31,11 @@ export default {
   },
   methods: {
     upload () {
-      uploadcare.openDialog(null, {
-        imagesOnly: false,
-        multiple: true
-      }).done(function (file) {
-        file.promise().done(function (fileInfo) {
-          console.log(fileInfo.cdnUrl)
-        })
+      client.pick({
+        maxFiles: 5,
+        imageMax: [1024, 1024]
+      }).then(function (result) {
+        console.log(JSON.stringify(result.filesUploaded))
       })
     }
   }
