@@ -3,7 +3,7 @@
     <Videobar />
     <section class="content columns is-mobile is-gapless">
       <div class="column">
-        <Block />
+        <Block :full="session.blockOne" />
       </div>
     </section>
   </div>
@@ -18,7 +18,7 @@ export default {
   components: { Videobar, Block },
   name: 'videobar',
   computed: {
-    ...mapState(['user', 'room'])
+    ...mapState(['user', 'room', 'session'])
   },
   data () {
     return {
@@ -34,8 +34,9 @@ export default {
   flex-direction: column;
 }
 .videobar {
+  height: 15%;
   border-bottom: 1px solid #cfcfcf;
-  min-height: 101px;
+  min-height: 96px;
 }
 .content {
   flex: 1;

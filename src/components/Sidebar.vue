@@ -136,11 +136,11 @@ export default {
 }
 .sidebar-details {
   padding: 0 0.5rem;
-  width: 240px;
+  width: 248px;
 }
 #slide {
   position: absolute;
-  left: -250px;
+  left: -185px;
   animation: slide 0.8s forwards;
 }
 @keyframes slide {
