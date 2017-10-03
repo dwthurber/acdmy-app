@@ -11,7 +11,6 @@
       </div>
     </nav>
     <div class="box">
-      <div type="filepicker-preview" data-fp-url="https://www.filestackapi.com/api/preview/e8le3rbQwGE0jh3kdWiw" style="width:75%; height:500px"> </div>
     </div>
   </div>
 </template>

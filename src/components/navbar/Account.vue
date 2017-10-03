@@ -91,7 +91,7 @@ export default {
     }
   },
   methods: {
-    logout: function () {
+    logout () {
       if (this.route.params.roomid) {
         peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
           online: false
@@ -104,7 +104,7 @@ export default {
         console.error('Sign Out Error', error)
       })
     },
-    verifyEmail: function () {
+    verifyEmail () {
       this.isSending = true
       this.user.sendEmailVerification()
         .then((response) => {
@@ -115,9 +115,6 @@ export default {
           console.error('Email Error', error)
           this.isSending = false
         })
-    },
-    close: function () {
-      this.isAccountModalActive = false
     }
   }
 }
