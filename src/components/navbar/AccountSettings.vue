@@ -39,6 +39,7 @@
 
 <script>
 import Firebase from 'firebase'
+import { client } from '@/filestack'
 import { usersRef, db } from '@/firebase'
 import { mapState } from 'vuex'
 
@@ -62,10 +63,24 @@ export default {
   },
   methods: {
     upload () {
-    //   let user = Firebase.auth().currentUser
-    //   let store = this.$store
-    //   let toast = this.$toast
-    //   this.$parent.close()
+      // let user = Firebase.auth().currentUser
+      // let store = this.$store
+      // let toast = this.$toast
+      this.$parent.close()
+
+      client.pick({
+        accept: 'image/*',
+        maxFiles: 1,
+        imageMax: [1024, 1024],
+        transformations: {
+          crop: {
+            force: true,
+            aspectRatio: 1 / 1
+          }
+        }
+      }).then(function (result) {
+        console.log(JSON.stringify(result.filesUploaded))
+      })
 
       // uploadcare.openDialog(null, {
       //   imagesOnly: true,

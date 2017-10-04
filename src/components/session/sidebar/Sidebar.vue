@@ -119,10 +119,12 @@ export default {
 }
 .sidebar-details {
   padding: 0 0.5rem;
-  width: 248px;
+  width: 240px;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 #slide {
-  position: absolute;
+  position: relative;
   left: -185px;
   animation: slide 0.6s forwards;
 }

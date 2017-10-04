@@ -4,6 +4,7 @@
     <p class="subtitle">Please setup your profile or <router-link class="has-text-primary" :to="{ name: 'Login', params: {} }">login</router-link></small></p></p>
     <form>
       <p class="subtitle has-text-primary is-5">Profile Picture</p>
+      <button class="button" @click="upload()">Upload</button>
       <p class="subtitle has-text-primary is-5">Account</p>
       <b-field>
         <b-input type="email" icon="email" v-model="email"
@@ -43,6 +44,7 @@
 
 <script>
 import Firebase from 'firebase'
+import { client } from '@/filestack'
 import { db, usersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
@@ -64,6 +66,25 @@ export default {
     }
   },
   methods: {
+    upload () {
+      let self = this
+
+      client.pick({
+        accept: 'image/*',
+        maxFiles: 1,
+        imageMax: [1024, 1024],
+        transformations: {
+          crop: {
+            force: true,
+            aspectRatio: 1 / 1
+          }
+        }
+      }).then(function (result) {
+        console.log(JSON.stringify(result.filesUploaded))
+        var url = JSON.stringify(result.filesUploaded[0].url)
+        self.photoUrl = url
+      })
+    },
     signUp: function () {
       this.authenticating = true
       let snackbar = this.$snackbar

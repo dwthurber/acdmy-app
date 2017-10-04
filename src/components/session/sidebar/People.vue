@@ -8,7 +8,7 @@
         </p>
       </div>
     </nav>
-    <b-tabs size="is-small" type="is-toggle" expanded v-model="activeTab">
+    <b-tabs size="is-small" type="is-toggle" expanded>
       <b-tab-item label="People">
         <article class="media" v-for="person in room.people">
           <figure class="media-left">
@@ -56,43 +56,9 @@
         <p>Lorem ipsum dolar sit amet</p>
         <p>Lorem ipsum dolar sit amet</p>
         <p>Lorem ipsum dolar sit amet</p>
-        <p>Lorem ipsum dolar sit amet</p>
+        <p>End</p>
       </b-tab-item>
     </b-tabs>
-    <!-- <nav class="panel">
-      <p class="panel-heading">
-        People
-      </p>
-      <div class="panel-block">
-        <p class="control has-icons-left">
-          <input class="input is-small" type="text" placeholder="search">
-          <span class="icon is-small is-left">
-            <i class="fa fa-search"></i>
-          </span>
-        </p>
-      </div>
-      <p class="panel-tabs">
-        <a class="is-active">People</a>
-        <a>Groups</a>
-      </p>
-
-      <div class="panel-block" v-for="person in room.people">
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-24x24">
-              <img class="is-circle-image" :src="person.profile_picture">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                {{person.name}}
-              </p>
-            </div>
-          </div>
-        </article>
-      </div>
-    </nav> -->
   </div>
 </template>
 
@@ -106,7 +72,6 @@ export default {
   },
   data () {
     return {
-      activeTab: 0
     }
   }
 }
