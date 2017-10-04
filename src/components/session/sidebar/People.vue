@@ -1,5 +1,13 @@
 <template>
   <div>
+    <nav class="level">
+      <div class="level-left">
+        <b-icon class="level-item" icon="people" size="is-medium"></b-icon>
+        <p class="level-item subtitle is-5">
+          <span>People</span>
+        </p>
+      </div>
+    </nav>
     <nav class="panel">
       <!-- <p class="panel-heading">
         People

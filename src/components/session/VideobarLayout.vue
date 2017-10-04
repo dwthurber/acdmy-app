@@ -1,5 +1,5 @@
 <template>
-  <div id="videobar" class="is-maxheight">
+  <div id="videobar">
     <Videobar />
     <section class="content columns is-mobile is-gapless">
       <div class="column">
@@ -36,7 +36,7 @@ export default {
 .videobar {
   height: 15%;
   border-bottom: 1px solid #cfcfcf;
-  min-height: 96px;
+  min-height: 72px;
 }
 .content {
   flex: 1;

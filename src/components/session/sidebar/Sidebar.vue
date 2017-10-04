@@ -1,36 +1,20 @@
 <template>
   <nav class="sidebar" :class="{'expanded':expanded}">
     <div class="sidebar-details" id="slide" v-if="expanded">
-      <nav class="level">
-        <div class="level-left">
-          <img class="level-item image is-circle-image is-38x38" :src="user.photoURL" v-if="option == 'profile'">
-          <b-icon class="level-item" icon="people" size="is-medium" v-else-if="option == 'people'"></b-icon>
-          <p class="level-item subtitle is-5">
-            <span v-if="option == 'profile'">{{ user.displayName }}</span>
-            <span v-if="option == 'people'">People</span>
-          </p>
-        </div>
-        <div class="level-right">
-          <a class="level-item" @click="expand(null)">
-            <b-icon icon="close" />
-          </a>
-        </div>
-      </nav>
-      <!-- <hr> -->
       <sidebar-account v-if="option == 'profile'"/>
       <sidebar-people v-if="option == 'people'"/>
     </div>
     <div class="sidebar-start" v-if="!expanded">
       <a class="profile-image" title="Account" @click="expand('profile')" >
         <img v-if="user.photoURL" class="is-circle-image image is-38x38" :src="user.photoURL" alt="Profile Image">
-        <img v-else class="is-circle-image image is-38x38" src="../assets/user-placeholder.png" alt="Profile Image">
+        <img v-else class="is-circle-image image is-38x38" src="../../../assets/user-placeholder.png" alt="Profile Image">
       </a><br />
       <b-tooltip label="Mute/Unmute" position="is-right">
         <a class="navbar-item">
           <b-icon class="is-success" icon="mic"></b-icon>
         </a>
       </b-tooltip><br />
-      <b-tooltip label="People" position="is-right">
+      <b-tooltip label="People/Groups" position="is-right">
         <a class="navbar-item" @click="expand('people')">
           <b-icon class="" icon="people"></b-icon>
         </a>
@@ -77,29 +61,28 @@
 
 <script>
 import { mapState } from 'vuex'
-import sidebarAccount from '@/components/sidebar/Account'
-import sidebarPeople from '@/components/sidebar/People'
+import sidebarAccount from '@/components/session/sidebar/Account'
+import sidebarPeople from '@/components/session/sidebar/People'
 
 export default {
   name: 'sidebar',
+  props: ['option', 'expanded'],
   components: {
     sidebarAccount,
     sidebarPeople
   },
   computed: {
-    ...mapState(['user', 'route', 'room'])
+    ...mapState(['user', 'room'])
   },
   data () {
     return {
-      expanded: false,
-      option: null,
       help: false
     }
   },
   methods: {
     expand (value) {
-      this.expanded = !this.expanded
-      this.option = value
+      this.$emit('update:option', value)
+      this.$emit('update:expanded', !this.expanded)
     }
   }
 }
@@ -117,7 +100,7 @@ export default {
   padding: 1.25rem 0.25rem;
   position: relative;
   z-index: 25;
-  transition: width 0.8s;
+  transition: width 0.6s;
 }
 .expanded {
   width: 250px;
@@ -141,7 +124,7 @@ export default {
 #slide {
   position: absolute;
   left: -185px;
-  animation: slide 0.8s forwards;
+  animation: slide 0.6s forwards;
 }
 @keyframes slide {
   100% {

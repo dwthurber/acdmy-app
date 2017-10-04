@@ -53,5 +53,6 @@ img {
   border-radius: 0 0 4px 4px;
   opacity: 0.9;
   z-index: 10;
+  overflow: ellipse;
 }
 </style>
