@@ -20,7 +20,6 @@
     "konva": "^1.6.7",
     "moment": "^2.18.1",
     "twilio-video": "^1.4.0",
-    "uploadcare-widget": "^3.1.4",
     "vue": "^2.4.4",
     "vue-router": "^2.6.0",
     "vue-style-loader": "^3.0.3",

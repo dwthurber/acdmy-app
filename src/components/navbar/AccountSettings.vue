@@ -41,7 +41,6 @@
 import Firebase from 'firebase'
 import { usersRef, db } from '@/firebase'
 import { mapState } from 'vuex'
-import uploadcare from 'uploadcare-widget'
 
 export default {
   name: 'modal-account',
@@ -63,39 +62,39 @@ export default {
   },
   methods: {
     upload () {
-      let user = Firebase.auth().currentUser
-      let store = this.$store
-      let toast = this.$toast
-      this.$parent.close()
+    //   let user = Firebase.auth().currentUser
+    //   let store = this.$store
+    //   let toast = this.$toast
+    //   this.$parent.close()
 
-      uploadcare.openDialog(null, {
-        imagesOnly: true,
-        crop: '128x128',
-        imageShrink: '300x300'
-      }).done(function (file) {
-        file.promise().done(function (fileInfo) {
-          user.updateProfile({
-            photoURL: fileInfo.cdnUrl
-          }).then(function () {
-            usersRef.child(user.uid).child('rooms').once('value', function (snap) {
-              snap.forEach(function (childSnapshot) {
-                const roomKey = childSnapshot.key
-                let updates = {}
-                updates['/people/' + roomKey + '/' + user.uid + '/profile_picture'] = fileInfo.cdnUrl
-                db.ref().update(updates)
-                // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
-              })
-            })
-            store.commit('SET_USER', Firebase.auth().currentUser)
-            toast.open({
-              message: 'Profile updated!'
-            })
-          }).catch(function (error) {
-            console.log(error)
-          })
+      // uploadcare.openDialog(null, {
+      //   imagesOnly: true,
+      //   crop: '128x128',
+      //   imageShrink: '300x300'
+      // }).done(function (file) {
+      //   file.promise().done(function (fileInfo) {
+      //     user.updateProfile({
+      //       photoURL: fileInfo.cdnUrl
+      //     }).then(function () {
+      //       usersRef.child(user.uid).child('rooms').once('value', function (snap) {
+      //         snap.forEach(function (childSnapshot) {
+      //           const roomKey = childSnapshot.key
+      //           let updates = {}
+      //           updates['/people/' + roomKey + '/' + user.uid + '/profile_picture'] = fileInfo.cdnUrl
+      //           db.ref().update(updates)
+      //           // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
+      //         })
+      //       })
+      //       store.commit('SET_USER', Firebase.auth().currentUser)
+      //       toast.open({
+      //         message: 'Profile updated!'
+      //       })
+      //     }).catch(function (error) {
+      //       console.log(error)
+      //     })
           // console.log(fileInfo.cdnUrl)
-        })
-      })
+        // })
+      // })
     },
     resetPassword: function () {
       let toast = this.$toast

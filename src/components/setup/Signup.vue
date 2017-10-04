@@ -4,7 +4,6 @@
     <p class="subtitle">Please setup your profile or <router-link class="has-text-primary" :to="{ name: 'Login', params: {} }">login</router-link></small></p></p>
     <form>
       <p class="subtitle has-text-primary is-5">Profile Picture</p>
-      <uploadcare :url.sync="photoUrl" imageOnly crop="128x128" shrink="300x300"></uploadcare>
       <p class="subtitle has-text-primary is-5">Account</p>
       <b-field>
         <b-input type="email" icon="email" v-model="email"
@@ -44,13 +43,11 @@
 
 <script>
 import Firebase from 'firebase'
-import uploadcare from '@/components/Uploadcare'
 import { db, usersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'signup',
-  components: { uploadcare },
   computed: {
     ...mapState(['user', 'route'])
   },
