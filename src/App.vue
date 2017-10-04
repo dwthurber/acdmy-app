@@ -110,4 +110,10 @@ body, html {
   padding-left: 8px!important;
   padding-right: 8px!important;
 }
+.b-tabs, .tabs {
+  margin-bottom: 16px!important;
+}
+.b-tabs .tab-content {
+  overflow-y: auto!important;
+}
 </style>

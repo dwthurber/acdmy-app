@@ -57,10 +57,8 @@ export default {
 
 <style scoped>
 #session {
-  /*overflow: hidden;*/
   flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 .vertical {
   flex-direction: column;

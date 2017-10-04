@@ -8,18 +8,69 @@
         </p>
       </div>
     </nav>
-    <nav class="panel">
-      <!-- <p class="panel-heading">
+    <b-tabs size="is-small" type="is-toggle" expanded v-model="activeTab">
+      <b-tab-item label="People">
+        <article class="media" v-for="person in room.people">
+          <figure class="media-left">
+            <p class="image is-24x24">
+              <img class="is-circle-image" :src="person.profile_picture">
+            </p>
+          </figure>
+          <div class="media-content">
+            {{person.name}}
+          </div>
+          <div class="media-right">
+            <b-icon icon="cloud" size="is-small" type="is-light" :class="{'is-success': person.online}" />
+          </div>
+        </article>
+      </b-tab-item>
+      <b-tab-item label="Groups">
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+        <p>Lorem ipsum dolar sit amet</p>
+      </b-tab-item>
+    </b-tabs>
+    <!-- <nav class="panel">
+      <p class="panel-heading">
         People
-      </p> -->
-      <!-- <div class="panel-block">
+      </p>
+      <div class="panel-block">
         <p class="control has-icons-left">
           <input class="input is-small" type="text" placeholder="search">
           <span class="icon is-small is-left">
             <i class="fa fa-search"></i>
           </span>
         </p>
-      </div> -->
+      </div>
       <p class="panel-tabs">
         <a class="is-active">People</a>
         <a>Groups</a>
@@ -41,7 +92,7 @@
           </div>
         </article>
       </div>
-    </nav>
+    </nav> -->
   </div>
 </template>
 

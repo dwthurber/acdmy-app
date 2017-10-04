@@ -15,7 +15,6 @@
 
       <b-tabs v-model="activeTab">
         <b-tab-item label="People">
-          <br>
           <b-table
             :data="room.people"
             :bordered="isBordered"
