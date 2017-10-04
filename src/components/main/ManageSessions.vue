@@ -26,6 +26,12 @@
           </h2>
         </div>
       </section>
+      <section v-else class="hero">
+        <div class="hero-body" v-for="session in room.sessions" v-if="session.start > new Date()">
+          <p class="title">{{ session.name }}</p>
+          <p class="subtitle">{{ session.start | formatFromNow }}</p>
+        </div>
+      </section>
     </div>
     <div class="box">
       <p class="subtitle is-uppercase is-7 has-text-grey">All Sessions</p>
@@ -40,7 +46,8 @@
         :paginated="isPaginated"
         :per-page="perPage"
         :pagination-simple="isPaginationSimple"
-        default-sort="startDate"
+        default-sort="start"
+        :default-sort-direction="defaultSortDirection"
         :isDetailed="isDetailed"
         :checked-rows.sync="checkedRows">
 
@@ -48,18 +55,18 @@
           <b-table-column field="name" label="Name" sortable>
             {{ props.row.name }}
           </b-table-column>
-          <b-table-column field="startDate" label="When" sortable>
-            {{ props.row.startDate | formatDate }}
+          <b-table-column field="start" label="When" sortable>
+            {{ props.row.start | formatDate }}
           </b-table-column>
           <!-- <b-table-column field="endDate" label="End" sortable>
             {{ props.row.endDate | formatDate }} at {{ props.row.endTime }}
           </b-table-column> -->
           <b-table-column field="" label="" v-if="room.user.role == 'Instructor'" centered>
-            <router-link class="button is-primary is-outlined is-small" :to="{name: 'Session', params: {sessionid: props.row['.key']}}" append exact>
+            <router-link class="button is-success is-outlined is-small" :to="{name: 'Session', params: {sessionid: props.row['.key']}}" append exact>
               Start Session
             </router-link>
           </b-table-column>
-          <b-table-column field="" label="More" width="50" v-if="room.user.role == 'Instructor'" centered>
+          <b-table-column field="" label="" width="50" v-if="room.user.role == 'Instructor'" centered>
             <a @click="deleteSession(props.row['.key'])"><b-icon icon="delete" size="is-small" type="is-danger"></b-icon></a>
           </b-table-column>
         </template>
@@ -88,6 +95,11 @@ export default {
       if (value) {
         return moment(String(value)).calendar()
       }
+    },
+    formatFromNow: function (value) {
+      if (value) {
+        return moment(String(value)).fromNow()
+      }
     }
   },
   data () {
@@ -105,6 +117,7 @@ export default {
       hasMobileCards: true,
       isPaginated: false,
       isPaginationSimple: true,
+      defaultSortDirection: 'desc',
       perPage: 10,
       now: new Date()
     }

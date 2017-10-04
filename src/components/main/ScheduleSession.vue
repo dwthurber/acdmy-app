@@ -19,7 +19,8 @@
             :min-date="minDate"
             v-model="startDate"
             placeholder="Click to select..."
-            icon="today">
+            icon="today"
+            :readonly="false">
 
             <button class="button is-primary"
               @click="date = new Date()">
@@ -28,60 +29,36 @@
             </button>
 
             <button class="button is-danger"
-              @click="date = null">
+              @click="startDate = null">
               <b-icon icon="clear"></b-icon>
               <span>Clear</span>
             </button>
           </b-datepicker>
           <b-select placeholder="Time" v-model="startTime">
-            <option>12:00 am</option>
-            <option>12:30 am</option>
-            <option>1:00 am</option>
-            <option>1:30 am</option>
-            <option>2:00 am</option>
-            <option>2:30 am</option>
-            <option>3:00 am</option>
-            <option>3:30 am</option>
-            <option>4:00 am</option>
-            <option>4:30 am</option>
-            <option>5:00 am</option>
-            <option>5:30 am</option>
-            <option>6:00 am</option>
-            <option>6:30 am</option>
-            <option>7:00 am</option>
-            <option>7:30 am</option>
-            <option>8:00 am</option>
-            <option>8:30 am</option>
-            <option>9:00 am</option>
-            <option>9:30 am</option>
-            <option>10:00 am</option>
-            <option>10:30 am</option>
-            <option>11:00 am</option>
-            <option>11:30 am</option>
-            <option>12:00 pm</option>
-            <option>12:30 pm</option>
-            <option>1:00 pm</option>
-            <option>1:30 pm</option>
-            <option>2:00 pm</option>
-            <option>2:30 pm</option>
-            <option>3:00 pm</option>
-            <option>3:30 pm</option>
-            <option>4:00 pm</option>
-            <option>4:30 pm</option>
-            <option>5:00 pm</option>
-            <option>5:30 pm</option>
-            <option>6:00 pm</option>
-            <option>6:30 pm</option>
-            <option>7:00 pm</option>
-            <option>7:30 pm</option>
-            <option>8:00 pm</option>
-            <option>8:30 pm</option>
-            <option>9:00 pm</option>
-            <option>9:30 pm</option>
-            <option>10:00 pm</option>
-            <option>10:30 pm</option>
-            <option>11:00 pm</option>
-            <option>11:30 pm</option>
+            <option value="0">12:00 am</option>
+            <option value="1">1:00 am</option>
+            <option value="2">2:00 am</option>
+            <option value="3">3:00 am</option>
+            <option value="4">4:00 am</option>
+            <option value="5">5:00 am</option>
+            <option value="6">6:00 am</option>
+            <option value="7">7:00 am</option>
+            <option value="8">8:00 am</option>
+            <option value="9">9:00 am</option>
+            <option value="10">10:00 am</option>
+            <option value="11">11:00 am</option>
+            <option value="12">12:00 pm</option>
+            <option value="13">1:00 pm</option>
+            <option value="14">2:00 pm</option>
+            <option value="15">3:00 pm</option>
+            <option value="16">4:00 pm</option>
+            <option value="17">5:00 pm</option>
+            <option value="18">6:00 pm</option>
+            <option value="19">7:00 pm</option>
+            <option value="20">8:00 pm</option>
+            <option value="21">9:00 pm</option>
+            <option value="22">10:00 pm</option>
+            <option value="23">11:00 pm</option>
           </b-select>
         </b-field>
         <b-field>
@@ -91,72 +68,43 @@
             </a>
           </p>
           <b-datepicker
-            :min-date="minDate"
+            :min-date="startDate"
             v-model="endDate"
             placeholder="Click to select..."
-            icon="today">
-
-            <button class="button is-primary"
-              @click="date = new Date()">
-              <b-icon icon="today"></b-icon>
-              <span>Today</span>
-            </button>
+            icon="today"
+            :readonly="false">
 
             <button class="button is-danger"
-              @click="date = null">
+              @click="endDate = null">
               <b-icon icon="clear"></b-icon>
               <span>Clear</span>
             </button>
           </b-datepicker>
           <b-select placeholder="Time" v-model="endTime">
-            <option>12:00 am</option>
-            <option>12:30 am</option>
-            <option>1:00 am</option>
-            <option>1:30 am</option>
-            <option>2:00 am</option>
-            <option>2:30 am</option>
-            <option>3:00 am</option>
-            <option>3:30 am</option>
-            <option>4:00 am</option>
-            <option>4:30 am</option>
-            <option>5:00 am</option>
-            <option>5:30 am</option>
-            <option>6:00 am</option>
-            <option>6:30 am</option>
-            <option>7:00 am</option>
-            <option>7:30 am</option>
-            <option>8:00 am</option>
-            <option>8:30 am</option>
-            <option>9:00 am</option>
-            <option>9:30 am</option>
-            <option>10:00 am</option>
-            <option>10:30 am</option>
-            <option>11:00 am</option>
-            <option>11:30 am</option>
-            <option>12:00 pm</option>
-            <option>12:30 pm</option>
-            <option>1:00 pm</option>
-            <option>1:30 pm</option>
-            <option>2:00 pm</option>
-            <option>2:30 pm</option>
-            <option>3:00 pm</option>
-            <option>3:30 pm</option>
-            <option>4:00 pm</option>
-            <option>4:30 pm</option>
-            <option>5:00 pm</option>
-            <option>5:30 pm</option>
-            <option>6:00 pm</option>
-            <option>6:30 pm</option>
-            <option>7:00 pm</option>
-            <option>7:30 pm</option>
-            <option>8:00 pm</option>
-            <option>8:30 pm</option>
-            <option>9:00 pm</option>
-            <option>9:30 pm</option>
-            <option>10:00 pm</option>
-            <option>10:30 pm</option>
-            <option>11:00 pm</option>
-            <option>11:30 pm</option>
+            <option value="0">12:00 am</option>
+            <option value="1">1:00 am</option>
+            <option value="2">2:00 am</option>
+            <option value="3">3:00 am</option>
+            <option value="4">4:00 am</option>
+            <option value="5">5:00 am</option>
+            <option value="6">6:00 am</option>
+            <option value="7">7:00 am</option>
+            <option value="8">8:00 am</option>
+            <option value="9">9:00 am</option>
+            <option value="10">10:00 am</option>
+            <option value="11">11:00 am</option>
+            <option value="12">12:00 pm</option>
+            <option value="13">1:00 pm</option>
+            <option value="14">2:00 pm</option>
+            <option value="15">3:00 pm</option>
+            <option value="16">4:00 pm</option>
+            <option value="17">5:00 pm</option>
+            <option value="18">6:00 pm</option>
+            <option value="19">7:00 pm</option>
+            <option value="20">8:00 pm</option>
+            <option value="21">9:00 pm</option>
+            <option value="22">10:00 pm</option>
+            <option value="23">11:00 pm</option>
           </b-select>
         </b-field>
         <br>
@@ -216,33 +164,50 @@ export default {
       this.isInvalid = false
       let roomKey = this.route.params.roomid
       let newSessionKey = sessionsRef.push().key
+      let startDate = this.startDate
+      let endDate = this.endDate
+      let startTime = Number(this.startTime)
+      let endTime = Number(this.endTime)
 
       if (this.sessionName && this.startDate && this.startTime && this.endDate && this.endTime) {
+        var start = startDate
+        start.setHours(startTime + 0, 0, 0)
+        var end = endDate
+        end.setHours(endTime + 0, 0, 0)
+
         const newSession = {
           name: this.sessionName,
-          startDate: this.startDate,
-          startTime: this.startTime,
-          endDate: this.endDate,
-          endTime: this.endTime,
+          start: start,
+          end: end,
           layout: this.layout
         }
 
-        let updates = {}
-        updates['/sessions/' + roomKey + '/' + newSessionKey] = newSession
+        if (end > start) {
+          let updates = {}
+          updates['/sessions/' + roomKey + '/' + newSessionKey] = newSession
 
-        if (this.room.sessions.length) {
-          updates['/rooms/' + roomKey + '/sessions'] = this.room.sessions.length + 1
+          if (this.room.sessions.length) {
+            updates['/rooms/' + roomKey + '/sessions'] = this.room.sessions.length + 1
+          } else {
+            updates['/rooms/' + roomKey + '/sessions'] = 1
+          }
+          db.ref().update(updates)
+
+          this.$parent.close()
+          this.$toast.open('Session scheduled')
         } else {
-          updates['/rooms/' + roomKey + '/sessions'] = 1
+          snackbar.open({
+            duration: 10000,
+            message: 'Cool! Looks like you are trying to time travel! Sadly, we do not know how to time travel with you so sessions cannot end before they start.',
+            type: 'is-danger',
+            position: 'is-bottom-left',
+            actionText: 'dismiss'
+          })
         }
-        db.ref().update(updates)
-
-        this.$parent.close()
-        this.$toast.open('Session scheduled')
       } else {
         snackbar.open({
           duration: 5000,
-          message: 'Please complete all fields',
+          message: 'Our computer brain has not learned to read minds (YET!) so please fill out all fields.',
           type: 'is-danger',
           position: 'is-bottom-left',
           actionText: 'dismiss'

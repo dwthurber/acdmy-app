@@ -116,7 +116,4 @@ body, html {
 .b-tabs {
   max-height: 100%;
 }
-.b-tabs .tab-content .tab-item {
-  overflow-y: auto;
-}
 </style>
