@@ -6,7 +6,7 @@
         <div class="card is-maxheight is-primary is-outlined" @click="createRoom">
           <div class="card-content has-text-primary">
             <div class="content has-text-centered">
-              <b-icon icon="group_add" size="is-medium"></b-icon>
+              <b-icon icon="library_add" size="is-medium"></b-icon>
               <p class="is-size-5 add-room">New Room</p>
             </div>
           </div>
@@ -88,7 +88,7 @@ export default {
     createRoom () {
       let toast = this.$toast
       this.$dialog.prompt({
-        message: `What is the name of your room?`,
+        message: `What do you want to call your room?`,
         inputMaxlength: 50,
         inputPlaceholder: 'e.g. My Awesome Classroom',
         onConfirm: (value) => {

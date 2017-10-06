@@ -23,10 +23,10 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'topbar',
+  name: 'topbar-account',
   props: ['option', 'expanded'],
   computed: {
-    ...mapState(['session'])
+    ...mapState(['session', 'room'])
   },
   data () {
     return {

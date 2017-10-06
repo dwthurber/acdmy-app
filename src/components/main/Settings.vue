@@ -3,7 +3,7 @@
     <nav class="level">
       <div class="level-left">
         <h2 class="subtitle is-3 level-item">
-          Room Settings
+          Settings
         </h2>
       </div>
       <div class="level-right">
@@ -20,7 +20,10 @@
       <b-field label="Room Name">
         <b-input icon="view_list" v-model="roomName"></b-input>
       </b-field>
-      <br>
+      <hr>
+      <a class="button is-primary" :class="{'is-loading': saving}">Save Room</a>
+    </div>
+    <div class="box">
       <span class="subtitle has-text-primary is-5">Default Session Settings </span><a class="has-text-warning" href="#"><b-icon icon="help_outline" size="is-small"/></a>
       <br>
       <br>
@@ -38,7 +41,7 @@
         </b-select>
       </b-field>
       <hr>
-      <a class="button is-primary" :class="{'is-loading': saving}">Save Settings</a>
+      <a class="button is-primary" :class="{'is-loading': saving}">Save Default Session</a>
     </div>
   </div>
 </template>

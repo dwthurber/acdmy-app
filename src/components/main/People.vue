@@ -3,7 +3,7 @@
     <nav class="level">
       <div class="level-left">
         <h2 class="subtitle is-3 level-item">
-          Manage People
+          People
         </h2>
       </div>
       <div class="level-right" v-show="room.user.role == 'Instructor'">

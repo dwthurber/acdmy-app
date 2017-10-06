@@ -3,7 +3,7 @@
     <nav class="level">
       <div class="level-left">
         <h2 class="subtitle is-3 level-item">
-          Manage Sessions
+          Sessions
         </h2>
       </div>
       <div class="level-right" v-show="room.user.role == 'Instructor'">
@@ -14,7 +14,7 @@
     <b-modal :active.sync="isModalActive" has-modal-card canCancel>
       <ScheduleSession />
     </b-modal>
-    <div class="box">
+    <!-- <div class="box">
       <p class="subtitle is-uppercase is-7 has-text-grey">Upcoming Sessions</p>
       <section class="hero has-text-centered" v-if="room.sessions.length == 0">
         <div class="hero-body">
@@ -32,10 +32,23 @@
           <p class="subtitle">{{ session.start | formatFromNow }}</p>
         </div>
       </section>
-    </div>
+    </div> -->
     <div class="box">
-      <p class="subtitle is-uppercase is-7 has-text-grey">All Sessions</p>
+      <!-- <p class="subtitle is-uppercase is-7 has-text-grey">All Sessions</p> -->
+      <section class="hero has-text-centered" v-if="room.sessions.length == 0">
+        <div class="hero-body">
+          <b-icon icon="remove_from_queue" type="has-text-grey" size="is-large" />
+          <br /><br />
+          <h1 class="title has-text-grey">
+            No Upcoming Sessions
+          </h1>
+          <h2 class="subtitle has-text-grey">
+            Schedule one above
+          </h2>
+        </div>
+      </section>
       <b-table
+        v-else
         :data="room.sessions"
         :bordered="isBordered"
         :striped="isStriped"

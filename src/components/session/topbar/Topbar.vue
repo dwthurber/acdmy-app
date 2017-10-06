@@ -1,19 +1,20 @@
 <template>
   <div class="topbar hero" :class="{'expanded': expanded}">
-    <nav class="level is-marginless animated" v-if="expanded">
+    <nav class="level is-marginless animated is-paddingless" v-if="expanded">
       <!-- Left side -->
       <div class="level-left">
-        <div class="level-item" v-if="option == 'profile'">
-          <p class="title is-5 has-text-primary">
-            {{ session.name }}
+        <div class="level-item">
+          <p class="subtitle is-4 has-text-primary">
+            {{ room.data.name }} &nbsp;
+            <small class="has-text-grey is-size-6">{{ session.name }}</small>
           </p>
         </div>
       </div>
 
       <!-- Right side -->
       <div class="level-right">
-        <p class="level-item" v-if="option == 'profile'"><a class="button is-danger">End Session</a></p>
-        <p class="level-item" v-if="option == 'people'"><a class="button is-primary is-small is-outlined"><b-icon class="" icon="shuffle" size="is-small"></b-icon> &nbsp; Start Random Groups</a></p>
+        <p class="level-item" v-if="option == 'profile'"><router-link class="button is-danger" :to="{name: 'Dashboard-Sessions', params: {roomid: route.params.roomid}}" append exact>End Session</router-link></p>
+        <p class="level-item" v-if="option == 'people'"><a class="button is-primary">Start Groups</a></p>
         <a class="level-item" @click="close()">
           <b-icon icon="close" size="is-medium" />
         </a>
@@ -29,7 +30,7 @@ export default {
   name: 'topbar',
   props: ['option', 'expanded'],
   computed: {
-    ...mapState(['session'])
+    ...mapState(['session', 'room', 'route'])
   },
   data () {
     return {
@@ -50,9 +51,12 @@ export default {
   padding: 0;
   transition: height 0.6s;
 }
+.level {
+  padding: 10px 0!important;
+}
 .expanded {
   /*padding: 20px 12px 20px 0;*/
-  height: 76px;
+  height: 56px;
 }
 .animated {
   padding: 20px 12px 20px 0;

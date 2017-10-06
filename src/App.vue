@@ -116,4 +116,13 @@ body, html {
 .b-tabs {
   max-height: 100%;
 }
+a.has-text-grey:hover {
+  color: hsl(0, 0%, 20%)!important;
+}
+.is-size-8 {
+  line-height: 12px;
+  margin-bottom: 8px;
+  font-weight: 200;
+  font-size: 10px!important;
+}
 </style>

@@ -4,48 +4,49 @@
       <sidebar-account v-if="option == 'profile'"/>
       <sidebar-people v-if="option == 'people'"/>
     </div>
-    <div class="sidebar-start" v-if="!expanded">
+    <transition name="fade">
+    <div class="sidebar-start has-text-centered" v-if="!expanded">
       <a class="profile-image" title="Account" @click="expand('profile')" >
         <img v-if="user.photoURL" class="is-circle-image image is-38x38" :src="user.photoURL" alt="Profile Image">
         <img v-else class="is-circle-image image is-38x38" src="../../../assets/user-placeholder.png" alt="Profile Image">
       </a><br />
-      <b-tooltip label="Mute/Unmute" position="is-right">
-        <a class="navbar-item">
-          <b-icon class="is-success" icon="mic"></b-icon>
-        </a>
-      </b-tooltip><br />
-      <b-tooltip label="People/Groups" position="is-right">
-        <a class="navbar-item" @click="expand('people')">
-          <b-icon class="" icon="people"></b-icon>
-        </a>
-      </b-tooltip><br />
-      <!-- <b-tooltip label="Groups" position="is-right">
-        <a class="navbar-item">
-          <b-icon class="" icon="group_work"></b-icon>
-        </a>
-      </b-tooltip><br /> -->
-      <b-tooltip label="Chat" position="is-right">
-        <a class="navbar-item">
-          <b-icon class="" icon="question_answer"></b-icon>
-        </a>
-      </b-tooltip><br />
-      <b-tooltip label="Session" position="is-right">
-        <a class="navbar-item">
-          <b-icon class="" icon="view_quilt"></b-icon>
-        </a>
-      </b-tooltip><br />
-      <b-tooltip label="More" position="is-right">
-        <a class="navbar-item">
-          <b-icon class="" icon="more"></b-icon>
-        </a>
-      </b-tooltip>
+      <a class="audio">
+        <b-icon class="is-success is-circle" icon="mic"></b-icon>
+        <!-- <p class="is-size-8">Audio</p> -->
+      </a><br />
+      <a class="has-text-grey" v-show="room.user.role == 'Student'">
+        <b-icon class="" icon="pan_tool"></b-icon>
+        <p class="is-size-8 is-uppercase">Hand</p>
+      </a>
+      <a class="has-text-grey" @click="expand('people')" v-show="room.user.role == 'Instructor'">
+        <b-icon class="" icon="people"></b-icon>
+        <p class="is-size-8 is-uppercase">People</p>
+      </a>
+      <a class="has-text-grey">
+        <b-icon class="" icon="question_answer"></b-icon>
+        <p class="is-size-8 is-uppercase">Chat</p>
+      </a>
+      <a class="has-text-grey" v-show="room.user.role == 'Instructor'">
+        <b-icon class="" icon="view_quilt"></b-icon>
+        <p class="is-size-8 is-uppercase">Layout</p>
+      </a>
+      <a class="has-text-grey" v-show="room.user.role == 'Instructor'">
+        <b-icon class="" icon="apps"></b-icon>
+        <p class="is-size-8 is-uppercase">Activities</p>
+      </a>
+      <a class="has-text-grey" v-show="room.user.role == 'Instructor'">
+        <b-icon class="" icon="more"></b-icon>
+        <p class="is-size-8 is-uppercase">More</p>
+      </a>
+
     </div>
-    <div class="sidebar-end" v-if="!expanded">
-      <a class="navbar-item" title="help" @click="help = true">
-        <b-icon type="is-grey" icon="help"></b-icon>
+    </transition>
+    <div class="sidebar-end has-text-centered" v-if="!expanded">
+      <a title="help" @click="help = true">
+        <b-icon class="is-grey" icon="help"></b-icon>
       </a>
       <b-modal :active.sync="help" canCancel :width="300">
-        <div class="card box is-paddingless">
+        <div class="card box is-paddingless has-text-left">
           <div class="card-content">
           <a class="has-text-dark is-size-5"><b-icon icon="book" size="is-medium"></b-icon> Search Guides</a>
           <hr>
@@ -56,6 +57,7 @@
         </div>
       </b-modal>
     </div>
+
   </nav>
 </template>
 
@@ -103,11 +105,19 @@ export default {
   transition: width 0.6s;
 }
 .expanded {
-  width: 250px;
+  width: 230px;
   align-items: flex-start;
 }
 .sidebar-start {
   flex-grow: 1;
+  overflow-y: auto;
+}
+.sidebar-start .is-size-8 {
+  opacity: 0;
+  transition-duration: 0.3s;
+}
+.sidebar-start:hover .is-size-8 {
+  opacity: 1;
 }
 .image.is-38x38 {
   width: 38px;
@@ -117,9 +127,14 @@ export default {
   display: inline-block;
   padding: 0 0.5rem;
 }
+.audio {
+  position: relative;
+  bottom: 4px;
+  line-height: 60px;
+}
 .sidebar-details {
   padding: 0 0.5rem;
-  width: 240px;
+  width: 220px;
   flex-grow: 1;
   overflow-y: auto;
 }

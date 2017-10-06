@@ -198,18 +198,18 @@ export default {
         } else {
           snackbar.open({
             duration: 10000,
-            message: 'Cool! Looks like you are trying to time travel! Sadly, we do not know how to time travel with you so sessions cannot end before they start.',
+            message: 'Cool! Looks like you are trying to time travel! Sadly, our sessions cannot end before they start.',
             type: 'is-danger',
-            position: 'is-bottom-left',
+            position: 'is-bottom-right',
             actionText: 'dismiss'
           })
         }
       } else {
         snackbar.open({
-          duration: 5000,
+          duration: 10000,
           message: 'Our computer brain has not learned to read minds (YET!) so please fill out all fields.',
           type: 'is-danger',
-          position: 'is-bottom-left',
+          position: 'is-bottom-right',
           actionText: 'dismiss'
         })
       }

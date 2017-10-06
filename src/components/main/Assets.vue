@@ -3,11 +3,11 @@
     <nav class="level">
       <div class="level-left">
         <h2 class="subtitle is-3 level-item">
-          Manage Assets
+          Assets
         </h2>
       </div>
       <div class="level-right" v-show="room.user.role == 'Instructor'">
-        <button class="button level-item is-primary is-outlined" @click="upload()"><b-icon icon="library_add" size="is-small"></b-icon> &nbsp; Add Assets</button>
+        <button class="button level-item is-primary" @click="upload()"><b-icon icon="library_add" size="is-small"></b-icon> &nbsp; Add Assets</button>
       </div>
     </nav>
     <div class="box">

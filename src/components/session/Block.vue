@@ -8,45 +8,45 @@
 
         <hr>
         <div class="columns is-centered is-multiline">
-          <div class="column is-4 has-text-centered">
+          <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="edit" size="is-medium"></b-icon>
-              <p class="is-size-7">Document</p>
+              <p class="is-size-7 is-uppercase">Collaboration</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="folder" size="is-medium"></b-icon>
-              <p class="is-size-7">Asset</p>
+              <p class="is-size-7 is-uppercase">Asset</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="question_answer" size="is-medium"></b-icon>
-              <p class="is-size-7">Chat</p>
+              <p class="is-size-7 is-uppercase">Chat</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="poll" size="is-medium"></b-icon>
-              <p class="is-size-7">Poll</p>
+              <p class="is-size-7 is-uppercase">Poll</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="picture_in_picture" size="is-medium"></b-icon>
-              <p class="is-size-7">Whiteboard</p>
+              <p class="is-size-7 is-uppercase">Whiteboard</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="screen_share" size="is-medium"></b-icon>
-              <p class="is-size-7">Screen Share</p>
+              <p class="is-size-7 is-uppercase">Screen Share</p>
             </a>
           </div>
           <!-- <div class="column is-3">
             <b-icon icon="extension" size="is-medium"></b-icon>
-            <p class="is-size-7">Plugin</p>
+            <p class="is-size-8">Plugin</p>
           </div> -->
         </div>
       </div>
@@ -76,7 +76,10 @@ export default {
   align-items: center;
   display: flex
 }
-a.has-text-grey:hover {
-  color: hsl(0, 0%, 40%)!important;
+/*.is-size-8 {
+  opacity: 0;
 }
+.box:hover .is-size-8 {
+  opacity: 1;
+}*/
 </style>
