@@ -1,12 +1,15 @@
 <template>
-  <div id="session" class="columns is-mobile is-gapless is-multiline" v-if="user">
-    <div class="column is-narrow">
-      <Sidebar :option.sync="option" :expanded.sync="expanded" />
+  <div id="session" v-if="user">
+    <div class="columns is-mobile is-gapless is-multiline is-maxheight" v-if="session">
+      <div class="column is-narrow">
+        <Sidebar :option.sync="option" :expanded.sync="expanded" />
+      </div>
+      <div class="column vertical">
+        <Topbar :option.sync="option" :expanded.sync="expanded" />
+        <router-view></router-view>
+      </div>
     </div>
-    <div class="column vertical">
-      <Topbar :option.sync="option" :expanded.sync="expanded" />
-      <router-view></router-view>
-    </div>
+    <b-loading v-else active></b-loading>
   </div>
 </template>
 

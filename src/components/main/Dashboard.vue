@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="columns is-mobile">
+    <div class="columns is-mobile" v-if="room.data && room.sessions && room.user">
       <aside class="column is-narrow">
         <div class="menu">
           <ul class="menu-list">
@@ -49,6 +49,7 @@
         <router-view></router-view>
       </div>
     </div>
+    <b-loading v-else active></b-loading>
   </div>
 </template>
 

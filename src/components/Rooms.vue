@@ -1,7 +1,6 @@
 <template>
   <div class="container">
-    <b-loading :active.sync="isLoading"></b-loading>
-    <div class="columns is-tablet is-multiline">
+    <div class="columns is-tablet is-multiline" v-if="allRooms">
       <div class="column is-3-fullhd is-4-desktop is-6-tablet">
         <div class="card is-maxheight is-primary is-outlined" @click="createRoom">
           <div class="card-content has-text-primary">
@@ -31,6 +30,7 @@
         </div>
       </div>
     </div>
+    <b-loading v-else active></b-loading>
   </div>
 </template>
 
