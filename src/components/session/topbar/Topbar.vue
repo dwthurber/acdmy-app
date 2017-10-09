@@ -52,15 +52,15 @@ export default {
   transition: height 0.6s;
 }
 .level {
-  padding: 10px 12px 10px 0!important;
+  padding: 24px 12px 24px 0!important;
 }
 .expanded {
   /*padding: 20px 12px 20px 0;*/
-  height: 56px;
+  height: 74px;
 }
 .animated {
   position: relative;
-  top: -76px;
+  top: -96px;
   animation: slidein 0.6s forwards;
   /*animation: slideout 0.8s forwards;*/
 }

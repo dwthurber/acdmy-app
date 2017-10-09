@@ -4,8 +4,7 @@
       <sidebar-account v-if="option == 'profile'"/>
       <sidebar-people v-if="option == 'people'"/>
     </div>
-    <transition name="fade">
-    <div class="sidebar-start has-text-centered" v-if="!expanded">
+    <div class="sidebar-start has-text-centered">
       <a class="profile-image" title="Account" @click="expand('profile')" >
         <img v-if="user.photoURL" class="is-circle-image image is-38x38" :src="user.photoURL" alt="Profile Image">
         <img v-else class="is-circle-image image is-38x38" src="../../../assets/user-placeholder.png" alt="Profile Image">
@@ -18,7 +17,7 @@
         <b-icon class="" icon="pan_tool"></b-icon>
         <p class="is-size-8 is-uppercase">Hand</p>
       </a>
-      <a class="has-text-grey" @click="expand('people')" v-show="room.user.role == 'Instructor'">
+      <a class="has-text-grey" :class="{'active': option == 'people'}" @click="expand('people')" v-show="room.user.role == 'Instructor'">
         <b-icon class="" icon="people"></b-icon>
         <p class="is-size-8 is-uppercase">People</p>
       </a>
@@ -40,8 +39,7 @@
       </a>
 
     </div>
-    </transition>
-    <div class="sidebar-end has-text-centered" v-if="!expanded">
+    <div class="sidebar-end has-text-centered">
       <a title="help" @click="help = true">
         <b-icon class="is-grey" icon="help"></b-icon>
       </a>
@@ -83,8 +81,13 @@ export default {
   },
   methods: {
     expand (value) {
-      this.$emit('update:option', value)
-      this.$emit('update:expanded', !this.expanded)
+      if (value === this.option) {
+        this.$emit('update:expanded', false)
+        this.$emit('update:option', null)
+      } else {
+        this.$emit('update:option', value)
+        this.$emit('update:expanded', true)
+      }
     }
   }
 }
@@ -104,19 +107,28 @@ export default {
   z-index: 25;
   transition: width 0.6s;
 }
+.active {
+  color: hsl(205, 36%, 43%)!important;
+}
 .expanded {
-  width: 230px;
+  width: 280px;
   align-items: flex-start;
 }
 .sidebar-start {
   flex-grow: 1;
   overflow-y: auto;
+  position: absolute;
+}
+.sidebar-end {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
 }
 .sidebar-start .is-size-8 {
   opacity: 0;
   transition-duration: 0.3s;
 }
-.sidebar-start:hover .is-size-8 {
+.sidebar:hover .is-size-8 {
   opacity: 1;
 }
 .image.is-38x38 {
@@ -133,14 +145,14 @@ export default {
   line-height: 60px;
 }
 .sidebar-details {
-  padding: 0 0.5rem;
-  width: 220px;
+  padding: 0.25rem 0.5rem 0 4rem;
+  width: 270px;
   flex-grow: 1;
   overflow-y: auto;
 }
 #slide {
   position: relative;
-  left: -185px;
+  left: -210px;
   animation: slide 0.6s forwards;
 }
 @keyframes slide {

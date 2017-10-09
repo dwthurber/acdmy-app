@@ -36,7 +36,7 @@ export default {
 .videobar {
   height: 12%;
   border-bottom: 1px solid #cfcfcf;
-  min-height: 72px;
+  min-height: 80px;
 }
 .content {
   flex: 1;

@@ -1,13 +1,13 @@
 <template>
   <div>
-    <nav class="level">
+    <!-- <nav class="level">
       <div class="level-left">
         <b-icon class="level-item" icon="people" size="is-medium"></b-icon>
-        <p class="level-item subtitle is-5"> 
+        <p class="level-item subtitle is-5">
           <span>People</span>
         </p>
       </div>
-    </nav>
+    </nav> -->
     <b-tabs size="is-small" type="is-toggle" expanded>
       <b-tab-item label="People">
         <article class="media" v-for="person in room.people">

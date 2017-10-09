@@ -2,7 +2,7 @@
   <div>
     <nav class="level">
       <div class="level-left">
-        <img class="level-item image is-circle-image is-38x38" :src="user.photoURL">
+        <!-- <img class="level-item image is-circle-image is-38x38" :src="user.photoURL"> -->
         <p class="level-item subtitle is-5">
           <span>{{ user.displayName }}</span>
         </p>
@@ -47,8 +47,5 @@ export default {
 </script>
 
 <style scoped>
-.image.is-38x38 {
-  width: 38px;
-  height: 38px;
-}
+
 </style>
