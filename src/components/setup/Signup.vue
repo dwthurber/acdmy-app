@@ -2,13 +2,19 @@
   <div key="signup" class="box">
     <h2 class="title"><strong>Welcome.</strong></h2>
     <p class="subtitle">Please setup your profile or <router-link class="has-text-primary" :to="{ name: 'Login', params: {} }">login</router-link></small></p></p>
+    <b-field>
+      <button class="is-primary is-outlined button" @click.prevent="upload()"><b-icon icon="photo" /> &nbsp; Click to Add Profile Picture</button>
+      <div v-if="file">
+        <span class="file-name">
+          {{ file.filename }}
+        </span>
+      </div>
+    </b-field>
     <form>
-      <p class="subtitle has-text-primary is-5">Profile Picture</p>
-      <button class="button" @click="upload()">Upload</button>
-      <p class="subtitle has-text-primary is-5">Account</p>
+      <hr />
       <b-field>
         <b-input type="email" icon="email" v-model="email"
-          placeholder="jsmith@example.org" @keyup.enter="signUp">
+          placeholder="jsmith@example.org" @keyup.enter.prevent="signUp">
         </b-input>
       </b-field>
       <b-field type="is-success" v-if="route.query.room">
@@ -62,7 +68,7 @@ export default {
       authenticating: false,
       profile: false,
       roomId: '',
-      photoUrl: ''
+      file: null
     }
   },
   methods: {
@@ -72,17 +78,20 @@ export default {
       client.pick({
         accept: 'image/*',
         maxFiles: 1,
-        imageMax: [1024, 1024],
+        uploadInBackground: false,
+        fromSources: ['local_file_system', 'webcam', 'url', 'imagesearch', 'facebook', 'instagram', 'googledrive', 'dropbox', 'box', 'onedrive'],
+        imageDim: [800, 800],
         transformations: {
           crop: {
             force: true,
             aspectRatio: 1 / 1
-          }
+          },
+          rotate: true
         }
       }).then(function (result) {
-        console.log(JSON.stringify(result.filesUploaded))
-        var url = JSON.stringify(result.filesUploaded[0].url)
-        self.photoUrl = url
+        console.log(result.filesUploaded)
+        // var url = JSON.stringify(result.filesUploaded[0].url)
+        self.file = result.filesUploaded[0]
       })
     },
     signUp: function () {
@@ -102,7 +111,7 @@ export default {
           .then((user) => {
             user.updateProfile({
               displayName: this.displayName,
-              photoURL: this.photoUrl
+              photoURL: this.file.url
             }).then(function () {
 
             }).catch(function (error) {
@@ -122,7 +131,6 @@ export default {
               console.log('Add to room ' + roomKey)
               const userDetails = {
                 name: this.displayName,
-                // profile_picture: user.photoURL,
                 role: 'Student'
               }
 

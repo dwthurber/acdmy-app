@@ -63,23 +63,45 @@ export default {
   },
   methods: {
     upload () {
-      // let user = Firebase.auth().currentUser
-      // let store = this.$store
-      // let toast = this.$toast
-      this.$parent.close()
+      let user = Firebase.auth().currentUser
+      let store = this.$store
+      let toast = this.$toast
+      // this.$parent.close()
 
       client.pick({
         accept: 'image/*',
         maxFiles: 1,
-        imageMax: [1024, 1024],
+        uploadInBackground: false,
+        fromSources: ['local_file_system', 'webcam', 'url', 'imagesearch', 'facebook', 'instagram', 'googledrive', 'dropbox', 'box', 'onedrive'],
+        imageDim: [800, 800],
         transformations: {
           crop: {
             force: true,
             aspectRatio: 1 / 1
-          }
+          },
+          rotate: true
         }
       }).then(function (result) {
-        console.log(JSON.stringify(result.filesUploaded))
+        console.log(result.filesUploaded)
+        user.updateProfile({
+          photoURL: result.filesUploaded[0].url
+        }).then(function () {
+          usersRef.child(user.uid).child('rooms').once('value', function (snap) {
+            snap.forEach(function (childSnapshot) {
+              const roomKey = childSnapshot.key
+              let updates = {}
+              updates['/people/' + roomKey + '/' + user.uid + '/profile_picture'] = result.filesUploaded[0].url
+              db.ref().update(updates)
+              // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
+            })
+          })
+          store.commit('SET_USER', Firebase.auth().currentUser)
+          toast.open({
+            message: 'Profile updated!'
+          })
+        }).catch(function (error) {
+          console.log(error)
+        })
       })
 
       // uploadcare.openDialog(null, {
