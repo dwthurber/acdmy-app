@@ -13,7 +13,7 @@
 
       <!-- Right side -->
       <div class="level-right">
-        <p class="level-item" v-if="option == 'profile'"><router-link class="button is-danger" :to="{name: 'Dashboard-Sessions', params: {roomid: route.params.roomid}}" append exact>End Session</router-link></p>
+        <p class="level-item" v-if="option == 'profile'"><router-link class="button is-danger" :to="{name: 'Dashboard-Sessions', params: {roomid: route.params.roomid}}" append exact><b-icon icon="exit_to_app" /> &nbsp; Leave Session</router-link></p>
         <p class="level-item" v-if="option == 'people'"><a class="button is-primary">Start Groups</a></p>
         <a class="level-item" @click="close()">
           <b-icon icon="close" size="is-medium" />
@@ -52,14 +52,13 @@ export default {
   transition: height 0.6s;
 }
 .level {
-  padding: 10px 0!important;
+  padding: 10px 12px 10px 0!important;
 }
 .expanded {
   /*padding: 20px 12px 20px 0;*/
   height: 56px;
 }
 .animated {
-  padding: 20px 12px 20px 0;
   position: relative;
   top: -76px;
   animation: slidein 0.6s forwards;

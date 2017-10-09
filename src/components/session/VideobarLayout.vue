@@ -34,7 +34,7 @@ export default {
   flex-direction: column;
 }
 .videobar {
-  height: 15%;
+  height: 12%;
   border-bottom: 1px solid #cfcfcf;
   min-height: 72px;
 }
