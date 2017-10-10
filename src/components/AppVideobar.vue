@@ -1,18 +1,24 @@
 <template>
   <div class="columns is-mobile videobar is-gapless is-marginless is-multiline is-paddingless box">
-    <VideoContainer v-for="(user, index) in room.people" :user="user" :key="user['.key']" v-if="user.online"></VideoContainer>
+    <AppVideoContainer
+      v-for="(user, index) in room.people"
+      :user="user"
+      :key="user['.key']"
+      v-if="user.online" />
   </div>
 </template>
 
 <script>
-import VideoContainer from '@/components/session/VideoContainer'
+import AppVideoContainer from '@/components/AppVideoContainer'
 import { mapState } from 'vuex'
 
 export default {
-  components: { VideoContainer },
-  name: 'videobar',
+  name: 'AppVideobar',
+  components: { AppVideoContainer },
   computed: {
-    ...mapState(['room'])
+    ...mapState([
+      'room'
+    ])
   },
   data () {
     return {

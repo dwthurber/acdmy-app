@@ -11,7 +11,9 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'main',
-  components: {Navbar},
+  components: {
+    Navbar
+  },
   computed: {
     ...mapState(['user'])
   }

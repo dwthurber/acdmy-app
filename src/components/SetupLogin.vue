@@ -1,22 +1,46 @@
 <template>
   <div key="login" class="box">
-    <h2 class="title"><strong>Welcome.</strong></h2>
-    <p class="subtitle">Please login <small> or <router-link class="has-text-primary" :to="{ name: 'Signup', params: {} }">sign up</router-link></small></p>
+    <h2 class="title">
+      <strong>Welcome.</strong>
+    </h2>
+    <p class="subtitle">
+      Please login
+      <small> or
+        <router-link
+          class="has-text-primary"
+          :to="{ name: 'Signup', params: {} }">
+          sign up
+        </router-link>
+      </small>
+    </p>
     <form>
       <b-field>
-        <b-input type="email" icon="email" v-model="email"
-          placeholder="jsmith@example.org" @keyup.enter="login">
+        <b-input
+          type="email"
+          icon="email"
+          v-model="email"
+          placeholder="jsmith@example.org"
+          @keyup.enter="login">
         </b-input>
       </b-field>
       <b-field>
-        <b-input type="password" icon="lock" @keyup.enter="login"
-            placeholder="Password" v-model="password"
-            password-reveal>
+        <b-input
+          type="password"
+          icon="lock"
+          @keyup.enter="login"
+          placeholder="Password"
+          v-model="password"
+          password-reveal>
         </b-input>
       </b-field>
       <hr>
       <p class="control">
-        <button class="button is-primary" :class="{'is-loading': authenticating}" @click.self.prevent="login">Login</button>
+        <button
+          class="button is-primary"
+          :class="{'is-loading': authenticating}"
+          @click.self.prevent="login">
+          Login
+        </button>
       </p>
     </form>
   </div>
@@ -27,9 +51,11 @@ import Firebase from 'firebase'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'login',
+  name: 'SetupLogin',
   computed: {
-    ...mapState(['user'])
+    ...mapState([
+      'user'
+    ])
   },
   data () {
     return {

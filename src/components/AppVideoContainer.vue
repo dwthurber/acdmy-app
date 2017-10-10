@@ -1,7 +1,14 @@
 <template>
   <div class="column is-1-desktop is-2-tablet is-4-mobile">
-    <div class="box is-paddingless is-maxheight" :id="'video' + user['.key']">
-      <b-icon title="feature user" class="is-info is-hand" icon="pan_tool" v-if="user.hand"></b-icon>
+    <div
+      class="box is-paddingless is-maxheight"
+      :id="'video' + user['.key']">
+      <b-icon
+        title="feature user"
+        class="is-info is-hand"
+        icon="pan_tool"
+        v-if="user.hand">
+      </b-icon>
       <span class="tag is-primary">{{user.name}}</span>
       <img :src="user.profile_picture">
     </div>
@@ -10,8 +17,10 @@
 
 <script>
 export default {
-  name: 'videocontainer',
-  props: ['user'],
+  name: 'AppVideoContainer',
+  props: {
+    user: Object
+  },
   data () {
     return {
       msg: ''

@@ -8,28 +8,32 @@
             <!-- <p class="subtitle">Classroom of the Future</p> -->
             <router-view></router-view>
             <p class="has-text-centered has-text-grey">
-              <router-link v-if="$route.path == '/signup'" :to="{ name: 'Login', params: {} }">Login</router-link>
-              <router-link v-else :to="{ name: 'Signup', params: {} }">Sign Up</router-link>
+              <router-link
+                v-if="$route.path == '/signup'"
+                :to="{ name: 'SetupLogin', params: {} }">
+                Login
+              </router-link>
+              <router-link
+                v-else
+                :to="{ name: 'SetupSignup', params: {} }">
+                Sign Up
+              </router-link>
               |
-              <a v-if="$route.path == '/signup'" href="#">Need Help?</a>
-              <a v-else @click="resetPassword()">Forgot Password</a>
+              <a v-if="$route.path == '/signup'" href="#">
+                Need Help?
+              </a>
+              <a v-else @click="resetPassword()">
+                Forgot Password
+              </a>
               |
-              <a>Privacy Policy</a>
+              <a>
+                Privacy Policy
+              </a>
             </p>
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="column is-8-widescreen is-7-desktop is-half-tablet is-hidden-mobile">
-      <section class="hero is-fullheight is-background is-dark">
-        <div class="hero-body">
-          <div class="container">
-
-          </div>
-        </div>
-
-      </section>
-    </div> -->
   </div>
 </template>
 
@@ -38,9 +42,11 @@ import Firebase from 'firebase'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'login',
+  name: 'Setup',
   computed: {
-    ...mapState(['user'])
+    ...mapState([
+      'user'
+    ])
   },
   data () {
     return {

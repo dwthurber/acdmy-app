@@ -1,6 +1,5 @@
 <template>
   <section class="hero is-small">
-
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
@@ -11,7 +10,6 @@
         </h2>
       </div>
     </div>
-
   </section>
 </template>
 
@@ -20,13 +18,16 @@ import { peopleRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Chat',
+  name: 'MainChat',
   data () {
     return {
     }
   },
   computed: {
-    ...mapState(['user', 'route'])
+    ...mapState([
+      'user',
+      'route'
+    ])
   },
   created () {
     this.setActiveRoom()

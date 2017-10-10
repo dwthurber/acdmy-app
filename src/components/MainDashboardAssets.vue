@@ -6,8 +6,15 @@
           Assets
         </h2>
       </div>
-      <div class="level-right" v-show="room.user.role == 'Instructor'">
-        <button class="button level-item is-primary" @click="upload()"><b-icon icon="library_add" size="is-small"></b-icon> &nbsp; Add Assets</button>
+      <div
+        class="level-right"
+        v-show="room.user.role == 'Instructor'" >
+        <button
+          class="button level-item is-primary"
+          @click="upload()" >
+          <b-icon icon="library_add" size="is-small" />
+          &nbsp; Add Assets
+        </button>
       </div>
     </nav>
     <div class="box">
@@ -20,9 +27,11 @@ import { mapState } from 'vuex'
 import { client } from '@/filestack'
 
 export default {
-  name: 'Dashboard-Assets',
+  name: 'MainDashboardAssets',
   computed: {
-    ...mapState(['room'])
+    ...mapState([
+      'room'
+    ])
   },
   data () {
     return {

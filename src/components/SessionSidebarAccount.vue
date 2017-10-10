@@ -9,19 +9,28 @@
       </div>
     </nav>
     <b-field>
-      <b-select placeholder="Video Source" icon="videocam" expanded>
+      <b-select
+        placeholder="Video Source"
+        icon="videocam"
+        expanded>
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
       </b-select>
     </b-field>
     <b-field>
-      <b-select placeholder="Audio Input Source" icon="mic" expanded>
+      <b-select
+        placeholder="Audio Input Source"
+        icon="mic"
+        expanded>
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
       </b-select>
     </b-field>
     <b-field>
-      <b-select placeholder="Audio Output Source" icon="volume_up" expanded>
+      <b-select
+        placeholder="Audio Output Source"
+        icon="volume_up"
+        expanded>
         <option value="1">Option 1</option>
         <option value="2">Option 2</option>
       </b-select>
@@ -33,15 +42,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'sidebar-account',
-  components: {
-  },
+  name: 'SessionSidebarAccount',
   computed: {
-    ...mapState(['user'])
-  },
-  data () {
-    return {
-    }
+    ...mapState([
+      'user'
+    ])
   }
 }
 </script>

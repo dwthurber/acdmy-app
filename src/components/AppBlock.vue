@@ -10,44 +10,40 @@
         <div class="columns is-centered is-multiline">
           <div class="column is-4">
             <a class="has-text-grey">
-              <b-icon icon="edit" size="is-medium"></b-icon>
+              <b-icon icon="edit" size="is-medium" />
               <p class="is-size-7 is-uppercase">Collaboration</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
-              <b-icon icon="folder" size="is-medium"></b-icon>
+              <b-icon icon="folder" size="is-medium" />
               <p class="is-size-7 is-uppercase">Asset</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
-              <b-icon icon="question_answer" size="is-medium"></b-icon>
+              <b-icon icon="question_answer" size="is-medium" />
               <p class="is-size-7 is-uppercase">Chat</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
-              <b-icon icon="poll" size="is-medium"></b-icon>
+              <b-icon icon="poll" size="is-medium" />
               <p class="is-size-7 is-uppercase">Poll</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
-              <b-icon icon="picture_in_picture" size="is-medium"></b-icon>
+              <b-icon icon="picture_in_picture" size="is-medium" />
               <p class="is-size-7 is-uppercase">Whiteboard</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
-              <b-icon icon="screen_share" size="is-medium"></b-icon>
+              <b-icon icon="screen_share" size="is-medium" />
               <p class="is-size-7 is-uppercase">Screen Share</p>
             </a>
           </div>
-          <!-- <div class="column is-3">
-            <b-icon icon="extension" size="is-medium"></b-icon>
-            <p class="is-size-8">Plugin</p>
-          </div> -->
         </div>
       </div>
     </div>
@@ -56,7 +52,7 @@
 
 <script>
 export default {
-  name: 'block',
+  name: 'AppBlock',
   props: {
     full: Boolean
   },
@@ -76,10 +72,4 @@ export default {
   align-items: center;
   display: flex
 }
-/*.is-size-8 {
-  opacity: 0;
-}
-.box:hover .is-size-8 {
-  opacity: 1;
-}*/
 </style>

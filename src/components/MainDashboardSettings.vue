@@ -8,7 +8,9 @@
       </div>
       <div class="level-right">
         <div class="field level-item">
-          <b-switch size="is-medium" v-model="isActive">
+          <b-switch
+            size="is-medium"
+            v-model="isActive">
             <span v-if="room.data.active">ACTIVE</span>
             <span v-else>INACTIVE</span>
           </b-switch>
@@ -16,24 +18,34 @@
       </div>
     </nav>
     <div class="box">
-      <p class="subtitle has-text-primary is-5">Room Settings</p>
+      <p class="subtitle has-text-primary is-5">
+        Room Settings
+      </p>
       <b-field label="Room Name">
         <b-input icon="view_list" v-model="roomName"></b-input>
       </b-field>
       <hr>
-      <a class="button is-primary" :class="{'is-loading': saving}">Save Room</a>
+      <a class="button is-primary" :class="{'is-loading': saving}">
+        Save Room
+      </a>
     </div>
     <div class="box">
-      <span class="subtitle has-text-primary is-5">Default Session Settings </span><a class="has-text-warning" href="#"><b-icon icon="help_outline" size="is-small"/></a>
-      <br>
-      <br>
+      <span class="subtitle has-text-primary is-5">Default Session Settings </span>
+      <a class="has-text-warning" href="#">
+        <b-icon icon="help_outline" size="is-small" />
+      </a>
+      <br />
+      <br />
       <b-field>
         <p class="control">
           <a class="button is-static">
             Starting Layout
           </a>
         </p>
-        <b-select placeholder="Layout" icon="view_compact" v-model="layout">
+        <b-select
+          placeholder="Layout"
+          icon="view_compact"
+          v-model="layout">
           <option value="1">Video Bar</option>
           <option value="2">Full Screen</option>
           <option value="3">Split Screen</option>
@@ -41,7 +53,9 @@
         </b-select>
       </b-field>
       <hr>
-      <a class="button is-primary" :class="{'is-loading': saving}">Save Default Session</a>
+      <a class="button is-primary" :class="{'is-loading': saving}">
+        Save Default Session
+      </a>
     </div>
   </div>
 </template>
@@ -50,9 +64,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Dashboard-Settings',
+  name: 'MainDashboardSettings',
   computed: {
-    ...mapState(['room'])
+    ...mapState([
+      'room'
+    ])
   },
   data () {
     return {

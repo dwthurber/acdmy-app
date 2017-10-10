@@ -1,6 +1,10 @@
 <template>
-  <div class="topbar hero" :class="{'expanded': expanded}">
-    <nav class="level is-marginless animated is-paddingless" v-if="expanded">
+  <div
+    class="topbar hero"
+    :class="{'expanded': expanded}">
+    <nav
+      class="level is-marginless animated is-paddingless"
+      v-if="expanded">
       <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
@@ -13,8 +17,21 @@
 
       <!-- Right side -->
       <div class="level-right">
-        <p class="level-item" v-if="option == 'profile'"><router-link class="button is-danger" :to="{name: 'Dashboard-Sessions', params: {roomid: route.params.roomid}}" append exact><b-icon icon="exit_to_app" /> &nbsp; Leave Session</router-link></p>
-        <p class="level-item" v-if="option == 'people'"><a class="button is-primary">Start Groups</a></p>
+        <p class="level-item" v-if="option == 'profile'">
+          <router-link
+            class="button is-danger"
+            :to="{name: 'MainDashboardSessions', params: {roomid: route.params.roomid}}"
+            append
+            exact>
+            <b-icon icon="exit_to_app" />
+            &nbsp; Leave Session
+          </router-link>
+        </p>
+        <p class="level-item" v-if="option == 'people'">
+          <a class="button is-primary">
+            Start Groups
+          </a>
+        </p>
         <a class="level-item" @click="close()">
           <b-icon icon="close" size="is-medium" />
         </a>
@@ -27,10 +44,17 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'topbar',
-  props: ['option', 'expanded'],
+  name: 'SessionTopbar',
+  props: {
+    option: String,
+    expanded: Boolean
+  },
   computed: {
-    ...mapState(['session', 'room', 'route'])
+    ...mapState([
+      'session',
+      'room',
+      'route'
+    ])
   },
   data () {
     return {

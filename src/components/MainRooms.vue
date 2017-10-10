@@ -11,20 +11,49 @@
           </div>
         </div>
       </div>
-      <div class="column is-3-fullhd is-4-desktop is-6-tablet" v-for="roomid in userRooms" :key="roomid['.key']">
-        <div class="card" v-for="(room, index) in allRooms" v-if="room['.key'] == roomid['.key']">
-          <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-hover"></router-link>
+      <div
+        class="column is-3-fullhd is-4-desktop is-6-tablet"
+        v-for="roomid in userRooms"
+        :key="roomid['.key']">
+        <div class="card"
+          v-for="(room, index) in allRooms"
+          v-if="room['.key'] == roomid['.key']">
+          <router-link
+            :to="{ name: 'MainDashboardSessions', params: {roomid: room['.key']} }"
+            tag="div"
+            class="card-hover">
+          </router-link>
           <div class="card-text-hover">
             <small class="status is-uppercase has-text-success" v-if="room.active">Active</small>
             <small class="status is-uppercase has-text-warning" v-else>Inactive</small>
-            <button v-if="room.owner == user.uid" class="button is-danger is-outlined remove is-small" @click="deleteRoom(room['.key'])"><b-icon icon="delete_forever" size="is-small"></b-icon></button>
+            <button
+              v-if="room.owner == user.uid"
+              class="button is-danger is-outlined remove is-small"
+              @click="deleteRoom(room['.key'])">
+              <b-icon icon="delete_forever" size="is-small" />
+            </button>
           </div>
-          <router-link :to="{ name: 'Dashboard-Sessions', params: {roomid: room['.key']} }" tag="div" class="card-content has-text-centered has-text-white">
+          <router-link
+            :to="{ name: 'MainDashboardSessions', params: {roomid: room['.key']} }"
+            tag="div"
+            class="card-content has-text-centered has-text-white">
             <div class="content">
               <p class="is-size-5">{{room.name}}</p>
-              <b-icon v-if="!room.students && !room.sessions" icon="widgets"></b-icon>
-              <small v-if="room.students"><b-icon icon="people" size="is-small" class="re-align"></b-icon> {{room.students}} student<span v-if="room.students > 1">s</span></small>
-              <small v-if="room.sessions"><b-icon icon="view_list" size="is-small" class="re-align"></b-icon> {{room.sessions}} session<span v-if="room.sessions > 1">s</span></small>
+              <b-icon v-if="!room.students && !room.sessions" icon="widgets" />
+              <small v-if="room.students">
+                <b-icon
+                  icon="people"
+                  size="is-small"
+                  class="re-align" />
+                {{room.students}} student<span v-if="room.students > 1">s</span>
+              </small>
+              <small v-if="room.sessions">
+                <b-icon
+                  icon="view_list"
+                  size="is-small"
+                  class="re-align" />
+                  {{room.sessions}} session<span v-if="room.sessions > 1">s</span>
+              </small>
             </div>
           </router-link>
         </div>
@@ -39,7 +68,7 @@ import { mapState } from 'vuex'
 import { db, usersRef, roomsRef, peopleRef, sessionsRef } from '@/firebase'
 
 export default {
-  name: 'rooms',
+  name: 'MainRooms',
   computed: {
     ...mapState([
       'user',
@@ -49,12 +78,9 @@ export default {
       'allRooms'
     ])
   },
-  filters: {
-    limit: function (arr, limit) {
-      return arr.slice(0, limit)
-    },
-    user: function (obj) {
-      return !obj.users
+  data () {
+    return {
+      isLoading: true
     }
   },
   created () {
@@ -64,9 +90,12 @@ export default {
   updated () {
     this.unbindRefs()
   },
-  data () {
-    return {
-      isLoading: true
+  filters: {
+    limit: function (arr, limit) {
+      return arr.slice(0, limit)
+    },
+    user: function (obj) {
+      return !obj.users
     }
   },
   methods: {

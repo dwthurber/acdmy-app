@@ -6,13 +6,22 @@
           People
         </h2>
       </div>
-      <div class="level-right" v-show="room.user.role == 'Instructor'">
-        <button class="button level-item is-primary is-outlined"><b-icon icon="group_add" size="is-small"></b-icon> &nbsp; Add Group Set</button>
-        <button class="button level-item is-primary" @click="prompt"><b-icon icon="person_add" size="is-small"></b-icon> &nbsp; Add People</button>
+      <div
+        class="level-right"
+        v-show="room.user.role == 'Instructor'" >
+        <button class="button level-item is-primary is-outlined">
+          <b-icon icon="group_add" size="is-small"/>
+          &nbsp; Add Group Set
+        </button>
+        <button
+          class="button level-item is-primary"
+          @click="prompt" >
+          <b-icon icon="person_add" size="is-small"/>
+          &nbsp; Add People
+        </button>
       </div>
     </nav>
     <div class="box">
-
       <b-tabs v-model="activeTab">
         <b-tab-item label="People">
           <b-table
@@ -31,17 +40,32 @@
             :checked-rows.sync="checkedRows">
 
             <template scope="props">
-              <b-table-column field="profile_picture" label="" width="60" centered>
-                <img v-if="props.row.profile_picture" class="is-circle-image image is-32x32" :src="props.row.profile_picture">
-                <img v-else class="is-circle-image image is-32x32" src="../../assets/user-placeholder.png" alt="Profile Image">
+              <b-table-column
+                field="profile_picture"
+                label=""
+                width="60"
+                centered >
+                <AppUserAvatar
+                  :photoURL="props.row.profile_picture"
+                  size="is-32x32" />
               </b-table-column>
-              <b-table-column field="name" label="Name" sortable>
+              <b-table-column
+                field="name"
+                label="Name"
+                sortable >
                 {{ props.row.name }}
               </b-table-column>
-              <b-table-column field="role" label="Role" sortable>
+              <b-table-column
+                field="role"
+                label="Role"
+                sortable>
                 {{ props.row.role }}
               </b-table-column>
-              <b-table-column field="online" label="Status" width="90" sortable>
+              <b-table-column
+                field="online"
+                label="Status"
+                width="90"
+                sortable>
                 <span class="tag is-success" v-if="props.row.online">
                   Online
                 </span>
@@ -50,8 +74,9 @@
                 </span>
               </b-table-column>
             </template>
-
-            <div slot="empty" class="has-text-centered">
+            <div
+              slot="empty"
+              class="has-text-centered">
               Loading...
             </div>
           </b-table>
@@ -77,9 +102,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Dashboard-People',
+  name: 'MainDashboardPeople',
   computed: {
-    ...mapState(['room'])
+    ...mapState([
+      'room'
+    ])
   },
   data () {
     return {
@@ -99,6 +126,9 @@ export default {
       perPage: 10
     }
   },
+  mounted () {
+    this.isLoading = false
+  },
   methods: {
     prompt () {
       let url = 'https://localhost:8080/#/signup?room=' + this.room.data.id
@@ -111,9 +141,6 @@ export default {
         }
       })
     }
-  },
-  mounted () {
-    this.isLoading = false
   }
 }
 </script>

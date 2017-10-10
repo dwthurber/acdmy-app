@@ -1,19 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Session from '@/components/Session'
-import Login from '@/components/setup/Login'
-import Signup from '@/components/setup/Signup'
-import Setup from '@/components/Setup'
 import Main from '@/components/Main'
-import Dashboard from '@/components/main/Dashboard'
-import ManageSessions from '@/components/main/ManageSessions'
-import Classroom from '@/components/main/Classroom'
-import Chat from '@/components/main/Chat'
-import Assets from '@/components/main/Assets'
-import People from '@/components/main/People'
-import Settings from '@/components/main/Settings'
-import Rooms from '@/components/rooms'
-import VideobarLayout from '@/components/session/VideobarLayout'
+import MainChat from '@/components/MainChat'
+import MainClassroom from '@/components/MainClassroom'
+import MainDashboard from '@/components/MainDashboard'
+import MainDashboardAssets from '@/components/MainDashboardAssets'
+import MainDashboardPeople from '@/components/MainDashboardPeople'
+import MainDashboardSessions from '@/components/MainDashboardSessions'
+import MainDashboardSettings from '@/components/MainDashboardSettings'
+import MainRooms from '@/components/MainRooms'
+import Session from '@/components/Session'
+import SessionLayoutVideobar from '@/components/SessionLayoutVideobar'
+import Setup from '@/components/Setup'
+import SetupLogin from '@/components/SetupLogin'
+import SetupSignup from '@/components/SetupSignup'
 
 Vue.use(Router)
 
@@ -25,42 +25,42 @@ export default new Router({
       children: [
         {
           path: '/',
-          component: Rooms,
+          component: MainRooms,
           name: 'Main'
         },
         {
           path: '/r/:roomid/class',
-          component: Classroom,
-          name: 'Main-Classroom'
+          component: MainClassroom,
+          name: 'MainClassroom'
         },
         {
           path: '/r/:roomid/chat',
-          component: Chat,
-          name: 'Main-Chat'
+          component: MainChat,
+          name: 'MainChat'
         },
         {
           path: '/r/:roomid/dashboard',
-          component: Dashboard,
+          component: MainDashboard,
           children: [
             {
               path: '/',
-              component: ManageSessions,
-              name: 'Dashboard-Sessions'
+              component: MainDashboardSessions,
+              name: 'MainDashboardSessions'
             },
             {
               path: '/r/:roomid/dashboard/assets',
-              component: Assets,
-              name: 'Dashboard-Assets'
+              component: MainDashboardAssets,
+              name: 'MainDashboardAssets'
             },
             {
               path: '/r/:roomid/dashboard/people',
-              component: People,
-              name: 'Dashboard-People'
+              component: MainDashboardPeople,
+              name: 'MainDashboardPeople'
             },
             {
               path: '/r/:roomid/dashboard/settings',
-              component: Settings,
-              name: 'Dashboard-Settings'
+              component: MainDashboardSettings,
+              name: 'MainDashboardSettings'
             }
           ]
         }
@@ -73,8 +73,8 @@ export default new Router({
       children: [
         {
           path: '/r/:roomid/s/:sessionid/videobar',
-          component: VideobarLayout,
-          name: 'Videobar'
+          component: SessionLayoutVideobar,
+          name: 'SessionLayoutVideobar'
         }
       ]
     },
@@ -84,13 +84,13 @@ export default new Router({
       children: [
         {
           path: '/',
-          name: 'Login',
-          component: Login
+          name: 'SetupLogin',
+          component: SetupLogin
         },
         {
           path: '/signup',
-          name: 'Signup',
-          component: Signup
+          name: 'SetupSignup',
+          component: SetupSignup
         }
       ]
     },

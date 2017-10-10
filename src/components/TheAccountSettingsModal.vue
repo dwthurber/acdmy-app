@@ -8,26 +8,43 @@
               <b-icon icon="file_upload" size="is-medium" class="is-light" />
             </div>
             <img v-if="photoUrl" class="is-circle-image" :src="photoUrl" :alt="user.displayName">
-            <img v-else c src="../../assets/user-placeholder.png" alt="User Profile Image">
+            <img v-else c src="../assets/user-placeholder.png" alt="User Profile Image">
           </figure>
         </a>
       </div>
 
-      <p class="subtitle has-text-primary is-5">Display Name</p>
+      <p class="subtitle has-text-primary is-5">
+        Display Name
+      </p>
       <b-field>
-        <b-input icon="person" v-model="displayName"></b-input>
+        <b-input
+          icon="person"
+          v-model="displayName">
+        </b-input>
       </b-field>
-      <p class="subtitle has-text-primary is-5">Email</p>
+      <p class="subtitle has-text-primary is-5">
+        Email
+      </p>
       <b-field>
-        <b-input type="email" icon="email"
+        <b-input
+          type="email"
+          icon="email"
           v-model="email">
         </b-input>
       </b-field>
-      <p class="subtitle has-text-primary is-5">Password</p>
+      <p class="subtitle has-text-primary is-5">
+        Password
+      </p>
       <b-field>
-        <b-input placeholder="•••••••••••" disabled expanded></b-input>
+        <b-input
+          placeholder="•••••••••••"
+          disabled
+          expanded>
+        </b-input>
         <p class="control">
-          <button class="button" @click="resetPassword()">Reset Password</button>
+          <button class="button" @click="resetPassword()">
+            Reset Password
+          </button>
         </p>
       </b-field>
       <hr>
@@ -44,9 +61,11 @@ import { usersRef, db } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'modal-account',
+  name: 'AccountSettingsModal',
   computed: {
-    ...mapState(['user'])
+    ...mapState([
+      'user'
+    ])
   },
   data () {
     return {
@@ -103,35 +122,6 @@ export default {
           console.log(error)
         })
       })
-
-      // uploadcare.openDialog(null, {
-      //   imagesOnly: true,
-      //   crop: '128x128',
-      //   imageShrink: '300x300'
-      // }).done(function (file) {
-      //   file.promise().done(function (fileInfo) {
-      //     user.updateProfile({
-      //       photoURL: fileInfo.cdnUrl
-      //     }).then(function () {
-      //       usersRef.child(user.uid).child('rooms').once('value', function (snap) {
-      //         snap.forEach(function (childSnapshot) {
-      //           const roomKey = childSnapshot.key
-      //           let updates = {}
-      //           updates['/people/' + roomKey + '/' + user.uid + '/profile_picture'] = fileInfo.cdnUrl
-      //           db.ref().update(updates)
-      //           // peopleRef.child(roomKey).child(user.uid).child('name').update(displayName)
-      //         })
-      //       })
-      //       store.commit('SET_USER', Firebase.auth().currentUser)
-      //       toast.open({
-      //         message: 'Profile updated!'
-      //       })
-      //     }).catch(function (error) {
-      //       console.log(error)
-      //     })
-          // console.log(fileInfo.cdnUrl)
-        // })
-      // })
     },
     resetPassword: function () {
       let toast = this.$toast

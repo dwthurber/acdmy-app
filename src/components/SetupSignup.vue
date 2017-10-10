@@ -1,9 +1,25 @@
 <template>
   <div key="signup" class="box">
-    <h2 class="title"><strong>Welcome.</strong></h2>
-    <p class="subtitle">Please setup your profile or <router-link class="has-text-primary" :to="{ name: 'Login', params: {} }">login</router-link></small></p></p>
+    <h2 class="title">
+      <strong>Welcome.</strong>
+    </h2>
+    <p class="subtitle">
+      <small>
+        Please setup your profile or
+        <router-link
+          class="has-text-primary"
+          :to="{ name: 'SetupLogin', params: {} }">
+          login
+        </router-link>
+      </small>
+    </p>
     <b-field>
-      <button class="is-primary is-outlined button" @click.prevent="upload()"><b-icon icon="photo" /> &nbsp; Click to Add Profile Picture</button>
+      <button
+        class="is-primary is-outlined button"
+        @click.prevent="upload()">
+        <b-icon icon="photo" />
+        &nbsp; Click to Add Profile Picture
+      </button>
       <div v-if="file">
         <span class="file-name">
           {{ file.filename }}
@@ -13,36 +29,65 @@
     <form>
       <hr />
       <b-field>
-        <b-input type="email" icon="email" v-model="email"
-          placeholder="jsmith@example.org" @keyup.enter.prevent="signUp">
+        <b-input
+          type="email"
+          icon="email"
+          v-model="email"
+          placeholder="jsmith@example.org"
+          @keyup.enter.prevent="signUp">
         </b-input>
       </b-field>
-      <b-field type="is-success" v-if="route.query.room">
-          <b-input icon="widgets" :placeholder="route.query.room" v-model="roomId" disabled></b-input>
-      </b-field>
-      <!-- <b-field label="Room ID" v-else>
-          <b-input icon="widgets" placeholder="Room ID" v-model="roomId"></b-input>
-      </b-field> -->
-      <b-field>
-          <b-input icon="person" placeholder="Full Name" v-model="displayName" @keyup.enter="signUp"></b-input>
-      </b-field>
-      <!-- <p class="subtitle has-text-primary is-5">Password</p> -->
-      <b-field>
-          <b-input type="password" icon="lock" v-model="password"
-              placeholder="Password"
-              password-reveal @keyup.enter="signUp">
-          </b-input>
+      <b-field
+        type="is-success"
+        v-if="route.query.room">
+        <b-input
+          icon="widgets"
+          :placeholder="route.query.room"
+          v-model="roomId"
+          disabled>
+        </b-input>
       </b-field>
       <b-field>
-          <b-input type="password" icon="lock" v-model="passwordVerification"
-              placeholder="Confirm Password"
-              password-reveal @keyup.enter="signUp">
-          </b-input>
+        <b-input
+          icon="person"
+          placeholder="Full Name"
+          v-model="displayName"
+          @keyup.enter="signUp">
+        </b-input>
+      </b-field>
+      <b-field>
+        <b-input
+          type="password"
+          icon="lock"
+          v-model="password"
+          placeholder="Password"
+          password-reveal
+          @keyup.enter="signUp">
+        </b-input>
+      </b-field>
+      <b-field>
+        <b-input
+          type="password"
+          icon="lock"
+          v-model="passwordVerification"
+          placeholder="Confirm Password"
+          password-reveal
+          @keyup.enter="signUp">
+        </b-input>
       </b-field>
       <hr>
       <p class="control">
-        <button class="button is-primary" @click.self.prevent="signUp" :class="{'is-loading': authenticating}">Sign Up</button>
-        <router-link :to="{ name: 'Login', params: {} }" class="button is-default">Cancel</router-link>
+        <button
+          class="button is-primary"
+          @click.self.prevent="signUp"
+          :class="{'is-loading': authenticating}">
+          Sign Up
+        </button>
+        <router-link
+          :to="{ name: 'SetupLogin', params: {} }"
+          class="button is-default">
+          Cancel
+        </router-link>
       </p>
     </form>
   </div>
@@ -55,9 +100,12 @@ import { db, usersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'signup',
+  name: 'SetupSignup',
   computed: {
-    ...mapState(['user', 'route'])
+    ...mapState([
+      'user',
+      'route'
+    ])
   },
   data () {
     return {

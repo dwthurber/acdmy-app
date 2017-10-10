@@ -2,13 +2,21 @@
   <form action="">
     <div class="modal-card" @click.stop>
       <section class="modal-card-body">
-        <p class="subtitle is-3">Schedule New Session</p>
+        <p class="subtitle is-3">
+          Schedule New Session
+        </p>
         <hr>
         <b-field>
-          <b-input icon="view_list" placeholder="Session Name" v-model="sessionName"></b-input>
+          <b-input
+            icon="view_list"
+            placeholder="Session Name"
+            v-model="sessionName">
+          </b-input>
         </b-field>
         <br>
-        <p class="subtitle has-text-primary is-5">Details</p>
+        <p class="subtitle has-text-primary is-5">
+          Details
+        </p>
         <b-field>
           <p class="control">
             <a class="button is-static">
@@ -21,20 +29,22 @@
             placeholder="Click to select..."
             icon="today"
             :readonly="false">
-
-            <button class="button is-primary"
+            <button
+              class="button is-primary"
               @click="date = new Date()">
-              <b-icon icon="today"></b-icon>
+              <b-icon icon="today" />
               <span>Today</span>
             </button>
-
-            <button class="button is-danger"
+            <button
+              class="button is-danger"
               @click="startDate = null">
-              <b-icon icon="clear"></b-icon>
+              <b-icon icon="clear" />
               <span>Clear</span>
             </button>
           </b-datepicker>
-          <b-select placeholder="Time" v-model="startTime">
+          <b-select
+            placeholder="Time"
+            v-model="startTime">
             <option value="0">12:00 am</option>
             <option value="1">1:00 am</option>
             <option value="2">2:00 am</option>
@@ -73,14 +83,15 @@
             placeholder="Click to select..."
             icon="today"
             :readonly="false">
-
             <button class="button is-danger"
               @click="endDate = null">
-              <b-icon icon="clear"></b-icon>
+              <b-icon icon="clear" />
               <span>Clear</span>
             </button>
           </b-datepicker>
-          <b-select placeholder="Time" v-model="endTime">
+          <b-select
+            placeholder="Time"
+            v-model="endTime">
             <option value="0">12:00 am</option>
             <option value="1">1:00 am</option>
             <option value="2">2:00 am</option>
@@ -108,16 +119,24 @@
           </b-select>
         </b-field>
         <br>
-        <span class="subtitle has-text-primary is-5">Options </span><a class="has-text-warning" href="#"><b-icon icon="help_outline" size="is-small"/></a>
-        <br>
-        <br>
+        <span class="subtitle has-text-primary is-5">
+          Options
+        </span>
+        <a class="has-text-warning" href="#">
+          <b-icon icon="help_outline" size="is-small" />
+        </a>
+        <br />
+        <br />
         <b-field>
           <p class="control">
             <a class="button is-static">
               Starting Layout
             </a>
           </p>
-          <b-select placeholder="Layout" icon="view_compact" v-model="layout">
+          <b-select
+            placeholder="Layout"
+            icon="view_compact"
+            v-model="layout">
             <option value="1">Video Bar</option>
             <option value="2">Full Screen</option>
             <option value="3">Split Screen</option>
@@ -125,7 +144,12 @@
           </b-select>
         </b-field>
         <hr>
-        <a class="button is-primary" @click="scheduleSession" :class="{'is-loading': saving}">Schedule Session</a>
+        <a
+          class="button is-primary"
+          @click="scheduleSession"
+          :class="{'is-loading': saving}">
+          Schedule Session
+        </a>
         <a class="button" @click="$parent.close()">Cancel</a>
       </section>
     </div>
@@ -137,9 +161,12 @@ import { db, sessionsRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'ScheduleSession',
+  name: 'ScheduleSessionModal',
   computed: {
-    ...mapState(['route', 'room'])
+    ...mapState([
+      'route',
+      'room'
+    ])
   },
   data () {
     return {

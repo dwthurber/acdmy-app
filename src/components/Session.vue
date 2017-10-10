@@ -2,10 +2,14 @@
   <div id="session" v-if="user">
     <div class="columns is-mobile is-gapless is-multiline is-maxheight" v-if="session">
       <div class="column is-narrow">
-        <Sidebar :option.sync="option" :expanded.sync="expanded" />
+        <SessionSidebar
+          :option.sync="option"
+          :expanded.sync="expanded" />
       </div>
       <div class="column vertical">
-        <Topbar :option.sync="option" :expanded.sync="expanded" />
+        <SessionTopbar
+          :option.sync="option"
+          :expanded.sync="expanded" />
         <router-view></router-view>
       </div>
     </div>
@@ -14,16 +18,24 @@
 </template>
 
 <script>
-import Sidebar from '@/components/session/sidebar/Sidebar'
-import Topbar from '@/components/session/topbar/Topbar'
-import { mapState } from 'vuex'
 import { roomsRef, peopleRef, sessionsRef } from '@/firebase'
+import { mapState } from 'vuex'
+import SessionSidebar from '@/components/SessionSidebar'
+import SessionTopbar from '@/components/SessionTopbar'
 
 export default {
-  components: { Sidebar, Topbar },
-  name: 'session',
+  name: 'Session',
+  components: {
+    SessionSidebar,
+    SessionTopbar
+  },
   computed: {
-    ...mapState(['user', 'route', 'session', 'room'])
+    ...mapState([
+      'user',
+      'route',
+      'session',
+      'room'
+    ])
   },
   data () {
     return {

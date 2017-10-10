@@ -10,12 +10,18 @@ import { peopleRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'Classroom',
-  components: {
-
-  },
+  name: 'MainClassroom',
   computed: {
-    ...mapState(['users', 'user', 'route'])
+    ...mapState([
+      'users',
+      'user',
+      'route'
+    ])
+  },
+  data () {
+    return {
+      offest: null
+    }
   },
   created () {
     this.setActiveRoom()
@@ -152,11 +158,6 @@ export default {
       var xPos = offset.left
       var yPos = offset.top
       console.log(xPos, yPos)
-    }
-  },
-  data () {
-    return {
-      offest: null
     }
   }
 }

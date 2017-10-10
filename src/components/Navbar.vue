@@ -1,41 +1,45 @@
 <template>
   <nav class="navbar is-marginless" id="top">
     <div class="navbar-brand">
-      <router-link :to="{ name: 'Main' }" class="navbar-item"><img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform"></router-link>
+      <router-link
+        :to="{ name: 'Main' }"
+        class="navbar-item">
+        <img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform">
+      </router-link>
       <div class="is-hidden-desktop navbar-center navbar-item is-paddingless">
       </div>
       <div class="navbar-end navbar-item is-hidden-desktop">
-        <Help />
-        <Notifications />
-        <Account />
+        <NavbarHelp />
+        <NavbarNotifications />
+        <NavbarAccount />
       </div>
     </div>
     <div class="navbar-menu">
       <div class="navbar-center navbar-item is-paddingless">
       </div>
       <div class="navbar-end is-marginless">
-        <Help />
-        <Notifications />
-        <Account />
+        <NavbarHelp />
+        <NavbarNotifications />
+        <NavbarAccount />
       </div>
     </div>
-    <Tabs />
+    <NavbarTabs />
   </nav>
 </template>
 
 <script>
-import Help from '@/components/navbar/Help'
-import Notifications from '@/components/navbar/Notifications'
-import Account from '@/components/navbar/Account'
-import Tabs from '@/components/navbar/Tabs'
+import NavbarHelp from '@/components/NavbarHelp'
+import NavbarNotifications from '@/components/NavbarNotifications'
+import NavbarAccount from '@/components/NavbarAccount'
+import NavbarTabs from '@/components/NavbarTabs'
 
 export default {
-  name: 'navbar',
+  name: 'Navbar',
   components: {
-    Help,
-    Notifications,
-    Account,
-    Tabs
+    NavbarHelp,
+    NavbarNotifications,
+    NavbarAccount,
+    NavbarTabs
   },
   data () {
     return {

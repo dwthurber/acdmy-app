@@ -1,24 +1,31 @@
 <template>
   <div id="videobar">
-    <Videobar />
+    <AppVideobar />
     <section class="content columns is-mobile is-gapless">
       <div class="column">
-        <Block :full="session.blockOne" />
+        <AppBlock :full="session.blockOne" />
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import Videobar from '@/components/session/Videobar'
-import Block from '@/components/session/Block'
+import AppVideobar from '@/components/AppVideobar'
+import AppBlock from '@/components/AppBlock'
 import { mapState } from 'vuex'
 
 export default {
-  components: { Videobar, Block },
-  name: 'videobar',
+  name: 'SessionLayoutVideobar',
+  components: {
+    AppVideobar,
+    AppBlock
+  },
   computed: {
-    ...mapState(['user', 'room', 'session'])
+    ...mapState([
+      'user',
+      'room',
+      'session'
+    ])
   },
   data () {
     return {

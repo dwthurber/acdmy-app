@@ -8,9 +8,14 @@
         </p>
       </div>
     </nav> -->
-    <b-tabs size="is-small" type="is-toggle" expanded>
+    <b-tabs
+      size="is-small"
+      type="is-toggle"
+      expanded>
       <b-tab-item label="People">
-        <article class="media" v-for="person in room.people">
+        <article
+          class="media"
+          v-for="person in room.people">
           <figure class="media-left">
             <p class="image is-24x24">
               <img class="is-circle-image" :src="person.profile_picture">
@@ -20,7 +25,11 @@
             {{person.name}}
           </div>
           <div class="media-right">
-            <b-icon icon="cloud" size="is-small" type="is-light" :class="{'is-success': person.online}" />
+            <b-icon
+              icon="cloud"
+              size="is-small"
+              type="is-light"
+              :class="{'is-success': person.online}" />
           </div>
         </article>
       </b-tab-item>
@@ -66,13 +75,11 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'sidebar-people',
+  name: 'SessionSidebarPeople',
   computed: {
-    ...mapState(['room'])
-  },
-  data () {
-    return {
-    }
+    ...mapState([
+      'room'
+    ])
   }
 }
 </script>
