@@ -54,10 +54,10 @@
           </div>
         </div>
         <figure class="media-right">
-          <p class="image is-64x64">
-            <img v-if="user.photoURL" class="is-circle-image" :src="user.photoURL" :alt="user.displayName">
-            <img v-else class="is-circle-image" src="../assets/user-placeholder.png" alt="Profile Image">
-          </p>
+          <AppUserAvatar
+            size="is-64x64"
+            :photoURL="user.photoURL"
+            :displayName="user.displayName" />
         </figure>
       </article>
     </b-dropdown-item>
@@ -76,6 +76,7 @@
 
 <script>
 import AccountSettingsModal from '@/components/TheAccountSettingsModal'
+import AppUserAvatar from '@/components/AppUserAvatar'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
 import { peopleRef } from '@/firebase'
@@ -83,7 +84,8 @@ import { peopleRef } from '@/firebase'
 export default {
   name: 'NavbarAccount',
   components: {
-    AccountSettingsModal
+    AccountSettingsModal,
+    AppUserAvatar
   },
   computed: {
     ...mapState([

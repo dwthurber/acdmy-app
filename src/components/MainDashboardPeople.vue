@@ -39,7 +39,7 @@
             :isDetailed="isDetailed"
             :checked-rows.sync="checkedRows">
 
-            <template scope="props">
+            <template slot-scope="props">
               <b-table-column
                 field="profile_picture"
                 label=""
@@ -100,9 +100,13 @@
 
 <script>
 import { mapState } from 'vuex'
+import AppUserAvatar from '@/components/AppUserAvatar'
 
 export default {
   name: 'MainDashboardPeople',
+  components: {
+    AppUserAvatar
+  },
   computed: {
     ...mapState([
       'room'

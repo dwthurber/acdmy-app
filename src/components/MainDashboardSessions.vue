@@ -61,7 +61,7 @@
         :isDetailed="isDetailed"
         :checked-rows.sync="checkedRows">
 
-        <template scope="props">
+        <template slot-scope="props">
           <b-table-column
             field="name"
             label="Name"

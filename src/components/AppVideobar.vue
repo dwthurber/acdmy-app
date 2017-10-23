@@ -14,7 +14,9 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'AppVideobar',
-  components: { AppVideoContainer },
+  components: {
+    AppVideoContainer
+  },
   computed: {
     ...mapState([
       'room'

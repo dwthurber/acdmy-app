@@ -53,7 +53,7 @@ export default {
     bindRefs () {
       this.$store.dispatch('setCurrentSessionRef', sessionsRef.child(this.route.params.roomid).child(this.route.params.sessionid))
       if (this.session.layout === 1) {
-        this.$router.replace({ name: 'Videobar' })
+        this.$router.replace({ name: 'SessionLayoutVideobar' })
       }
       if (!this.room.data) {
         this.$store.dispatch('setSessionsRef', sessionsRef.child(this.route.params.roomid))
