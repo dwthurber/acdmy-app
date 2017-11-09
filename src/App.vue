@@ -16,11 +16,11 @@ export default {
   beforeCreate () {
     Firebase.auth().onAuthStateChanged((user) => {
       this.$store.commit('SET_USER', user || false)
-      if (!user && this.$route.name !== 'Signup') {
-        this.$router.replace({ name: 'Login' })
-      } else if (user && this.route.name === 'Login') {
+      if (!user && this.route.name !== 'SetupSignup') {
+        this.$router.replace({ name: 'SetupLogin' })
+      } else if (user && this.route.name === 'SetupLogin') {
         this.$router.replace({ name: 'Main' })
-      } else if (user && this.route.name === 'Signup') {
+      } else if (user && this.route.name === 'SetupSignup') {
         this.$router.replace({ name: 'Main' })
       }
     })
@@ -85,6 +85,18 @@ body, html {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.dropdown.is-right-top .dropdown-menu {
+  right: auto;
+  left: 100%;
+  bottom: 0;
+  top: auto;
+}
+.dropdown.is-right-bottom .dropdown-menu {
+  right: auto;
+  left: 100%;
+  top: 0;
+  bottom: auto;
 }
 .menu-label {
   padding-left: 8px;

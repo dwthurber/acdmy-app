@@ -1,9 +1,8 @@
 <template>
   <b-dropdown
-    class="is-marginless"
-    position="is-bottom-left">
+    class="is-marginless has-text-left is-right-top">
     <a
-      class="navbar-item is-close"
+      class="navbar-item"
       slot="trigger"
       title="help">
       <b-icon icon="help" size="is-small" type="is-grey" />
@@ -31,7 +30,7 @@
 
 <script>
 export default {
-  name: 'NavbarHelp'
+  name: 'SidebarHelp'
 }
 </script>
 

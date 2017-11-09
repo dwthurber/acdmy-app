@@ -1,26 +1,25 @@
 <template>
   <nav class="navbar is-marginless" id="top">
     <div class="navbar-brand">
-      <router-link
-        :to="{ name: 'Main' }"
-        class="navbar-item">
-        <img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform">
-      </router-link>
+      <SidebarAccount />
       <div class="is-hidden-desktop navbar-center navbar-item is-paddingless">
       </div>
       <div class="navbar-end navbar-item is-hidden-desktop">
-        <NavbarHelp />
-        <NavbarNotifications />
-        <NavbarAccount />
+        <SidebarHelp />
+        <SidebarNotifications />
       </div>
     </div>
     <div class="navbar-menu">
       <div class="navbar-center navbar-item is-paddingless">
       </div>
       <div class="navbar-end is-marginless">
-        <NavbarHelp />
-        <NavbarNotifications />
-        <NavbarAccount />
+        <SidebarHelp />
+        <SidebarNotifications />
+        <router-link
+          :to="{ name: 'Main' }"
+          class="navbar-item">
+          <img src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform">
+        </router-link>
       </div>
     </div>
     <NavbarTabs />
@@ -28,17 +27,17 @@
 </template>
 
 <script>
-import NavbarHelp from '@/components/NavbarHelp'
-import NavbarNotifications from '@/components/NavbarNotifications'
-import NavbarAccount from '@/components/NavbarAccount'
+import SidebarHelp from '@/components/SidebarHelp'
+import SidebarNotifications from '@/components/SidebarNotifications'
+import SidebarAccount from '@/components/SidebarAccount'
 import NavbarTabs from '@/components/NavbarTabs'
 
 export default {
   name: 'Navbar',
   components: {
-    NavbarHelp,
-    NavbarNotifications,
-    NavbarAccount,
+    SidebarHelp,
+    SidebarNotifications,
+    SidebarAccount,
     NavbarTabs
   },
   data () {
@@ -50,8 +49,8 @@ export default {
 
 <style scoped>
 .navbar {
-  border-bottom: 1px solid #f3f3f3;
-  background-color: #ffffff;
+  /*border-bottom: 1px solid #f3f3f3;
+  background-color: #ffffff;*/
   width: 100%;
 }
 .navbar-brand,

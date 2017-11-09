@@ -1,9 +1,8 @@
 <template>
   <b-dropdown
-    class="is-marginless"
-    position="is-bottom-left">
+    class="is-marginless is-right-top">
     <a
-      class="navbar-item is-close"
+      class="navbar-item"
       slot="trigger"
       title="notifications">
       <b-icon icon="notifications" size="is-small" type="is-grey" />
@@ -22,7 +21,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'NavbarNotifications',
+  name: 'SidebarNotifications',
   computed: {
     ...mapState([])
   },

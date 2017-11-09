@@ -1,6 +1,6 @@
 <template>
   <b-dropdown
-    position="is-bottom-left"
+    class="has-text-left is-right-bottom"
     :hoverable="isAccountModalActive">
     <a
       class="navbar-item"
@@ -82,7 +82,7 @@ import { mapState } from 'vuex'
 import { peopleRef } from '@/firebase'
 
 export default {
-  name: 'NavbarAccount',
+  name: 'SidebarAccount',
   components: {
     AccountSettingsModal,
     AppUserAvatar

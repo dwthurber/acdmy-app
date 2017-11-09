@@ -1,5 +1,6 @@
 <template>
   <div id="session" v-if="user">
+    <Navbar v-if="user" />
     <div class="columns is-mobile is-gapless is-multiline is-maxheight" v-if="session">
       <div class="column is-narrow">
         <SessionSidebar
@@ -20,6 +21,7 @@
 <script>
 import { roomsRef, peopleRef, sessionsRef } from '@/firebase'
 import { mapState } from 'vuex'
+import Navbar from '@/components/Navbar'
 import SessionSidebar from '@/components/SessionSidebar'
 import SessionTopbar from '@/components/SessionTopbar'
 
@@ -27,7 +29,8 @@ export default {
   name: 'Session',
   components: {
     SessionSidebar,
-    SessionTopbar
+    SessionTopbar,
+    Navbar
   },
   computed: {
     ...mapState([

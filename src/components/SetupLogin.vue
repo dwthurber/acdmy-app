@@ -8,7 +8,7 @@
       <small> or
         <router-link
           class="has-text-primary"
-          :to="{ name: 'Signup', params: {} }">
+          :to="{ name: 'SetupSignup', params: {} }">
           sign up
         </router-link>
       </small>

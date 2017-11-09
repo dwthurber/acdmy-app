@@ -8,20 +8,21 @@
       <SessionSidebarPeople v-if="option == 'people'"/>
     </div>
     <div class="sidebar-start has-text-centered">
-      <a
+      <!-- <a
         class="profile-image"
         title="Account"
         @click="expand('profile')" >
-        <img v-if="user.photoURL" class="is-circle-image image is-38x38" :src="user.photoURL" alt="Profile Image">
+        <img v-if="user.photoURL" class="is-circle-image image is-32x32" :src="user.photoURL" alt="Profile Image">
         <img v-else class="is-circle-image image is-38x38" src="../assets/user-placeholder.png" alt="Profile Image">
-      </a>
-      <br />
-      <a
+      </a> -->
+      <!-- <br />
+      <br /> -->
+      <!-- <a
         class="audio"
         title="Mute/Unmute">
         <b-icon class="is-success is-circle" icon="mic" />
       </a>
-      <br />
+      <br /> -->
       <a
         class="has-text-grey"
         v-show="room.user.role == 'Student'">
@@ -35,7 +36,7 @@
         :class="{'active': option == 'people'}"
         @click="expand('people')"
         v-show="room.user.role == 'Instructor'">
-        <b-icon class="" icon="people"/>
+        <b-icon class="" icon="people" />
         <p class="is-size-8 is-uppercase">
           People
         </p>
@@ -152,9 +153,10 @@ export default {
   position: fixed;
   top: 0;
   left: 0;
-  width: 63px;
+  width: 64px;
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100%;
   padding: 1.25rem 0.25rem;
   position: relative;

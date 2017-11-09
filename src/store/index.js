@@ -31,11 +31,15 @@ const actions = {
   }),
   setUserRoomsRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
     bindFirebaseRef('userRooms', ref)
+  }),
+  setUserDetailsRef: firebaseAction(({ bindFirebaseRef }, { ref }) => {
+    bindFirebaseRef('userDetails', ref)
   })
 }
 
 const state = {
   user: null,
+  userDetails: null,
   allRooms: [],
   userRooms: [],
   session: null,
