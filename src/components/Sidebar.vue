@@ -29,8 +29,8 @@
         </p>
       </div>
       <div class="hero-end">
-        <SidebarNotifications /><br />
-        <SidebarHelp /><br />
+        <SidebarNotifications />
+        <SidebarHelp />
         <b-icon class="chat" icon="chat" />
         <p class="is-size-8 is-uppercase">
           Chat

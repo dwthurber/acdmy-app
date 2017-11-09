@@ -42,7 +42,7 @@ const state = {
   userDetails: null,
   allRooms: [],
   userRooms: [],
-  session: null,
+  // session: null,
   route: null
 }
 

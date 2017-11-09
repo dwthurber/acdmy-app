@@ -8,7 +8,7 @@ import MainDashboardAssets from '@/components/MainDashboardAssets'
 import MainDashboardPeople from '@/components/MainDashboardPeople'
 import MainDashboardSessions from '@/components/MainDashboardSessions'
 import MainDashboardSettings from '@/components/MainDashboardSettings'
-// import MainRooms from '@/components/MainRooms'
+import MainRooms from '@/components/MainRooms'
 import Session from '@/components/Session'
 import SessionLayoutVideobar from '@/components/SessionLayoutVideobar'
 import Setup from '@/components/Setup'
@@ -25,8 +25,8 @@ export default new Router({
       children: [
         {
           path: '/',
-          component: SessionLayoutVideobar,
-          name: 'SessionLayoutVideobar'
+          component: MainRooms,
+          name: 'Main'
         },
         {
           path: '/r/:roomid/class',
