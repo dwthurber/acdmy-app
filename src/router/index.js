@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Main from '@/components/Main'
 import MainChat from '@/components/MainChat'
-import MainClassroom from '@/components/MainClassroom'
+// import MainClassroom from '@/components/MainClassroom'
 import MainDashboard from '@/components/MainDashboard'
 import MainDashboardAssets from '@/components/MainDashboardAssets'
 import MainDashboardPeople from '@/components/MainDashboardPeople'
@@ -12,6 +12,7 @@ import MainDashboardSettings from '@/components/MainDashboardSettings'
 import Session from '@/components/Session'
 import LayoutVideobar from '@/components/LayoutVideobar'
 import LayoutFreeform from '@/components/LayoutFreeform'
+import LayoutFullscreen from '@/components/LayoutFullscreen'
 import Setup from '@/components/Setup'
 import SetupLogin from '@/components/SetupLogin'
 import SetupSignup from '@/components/SetupSignup'
@@ -35,9 +36,9 @@ export default new Router({
           name: 'SessionLayoutVideobar'
         },
         {
-          path: '/r/:roomid/class',
-          component: MainClassroom,
-          name: 'MainClassroom'
+          path: '/fullscreen',
+          component: LayoutFullscreen,
+          name: 'LayoutFullscreen'
         },
         {
           path: '/r/:roomid/chat',
