@@ -3,27 +3,27 @@
     <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless">
       <div class="hero-head">
         <SidebarAccount class="avatar" />
-        <b-icon class="" icon="people" />
+        <SidebarPeople />
         <p class="is-size-8 is-uppercase">
           People
         </p>
-        <b-icon class="" icon="group_work" />
+        <SidebarLayout />
         <p class="is-size-8 is-uppercase">
           Layout
         </p>
-        <b-icon class="" icon="apps" />
+        <!-- <SidebarActivities />
         <p class="is-size-8 is-uppercase">
           Activities
-        </p>
-        <b-icon class="" icon="library_books" />
+        </p> -->
+        <!-- <SidebarPlanner />
         <p class="is-size-8 is-uppercase">
           Planner
-        </p>
-        <b-icon class="" icon="dashboard" />
+        </p> -->
+        <!-- <b-icon class="" icon="dashboard" />
         <p class="is-size-8 is-uppercase">
           Menu
-        </p>
-        <b-icon class="" icon="more" />
+        </p> -->
+        <SidebarMore />
         <p class="is-size-8 is-uppercase">
           More
         </p>
@@ -31,10 +31,10 @@
       <div class="hero-end">
         <SidebarNotifications />
         <SidebarHelp />
-        <b-icon class="chat" icon="chat" />
-        <p class="is-size-8 is-uppercase">
+        <SidebarChat />
+        <!-- <p class="is-size-8 is-uppercase">
           Chat
-        </p>
+        </p> -->
       </div>
     </div>
   </div>
@@ -44,6 +44,12 @@
 import SidebarHelp from '@/components/SidebarHelp'
 import SidebarNotifications from '@/components/SidebarNotifications'
 import SidebarAccount from '@/components/SidebarAccount'
+import SidebarPeople from '@/components/SidebarPeople'
+import SidebarLayout from '@/components/SidebarLayout'
+import SidebarActivities from '@/components/SidebarActivities'
+import SidebarMore from '@/components/SidebarMore'
+import SidebarChat from '@/components/SidebarChat'
+import SidebarPlanner from '@/components/SidebarPlanner'
 import { mapState } from 'vuex'
 
 export default {
@@ -51,7 +57,13 @@ export default {
   components: {
     SidebarHelp,
     SidebarNotifications,
-    SidebarAccount
+    SidebarAccount,
+    SidebarPeople,
+    SidebarLayout,
+    SidebarActivities,
+    SidebarMore,
+    SidebarChat,
+    SidebarPlanner
   },
   computed: {
     ...mapState(['user'])
@@ -63,14 +75,18 @@ export default {
 .avatar {
   margin: .5rem auto;
 }
+.hero-end {
+  padding-bottom: .5rem;
+}
 .is-sidebar {
   width: 64px;
 }
-.is-sidebar .is-uppercase {
+.hero-head .is-uppercase {
   opacity: 0;
   transition-duration: 0.5s;
+  margin-bottom: 0;
 }
-.is-sidebar:hover .is-uppercase {
+.hero-head:hover .is-uppercase {
   opacity: 1;
   transition-duration: 0.5s;
 }

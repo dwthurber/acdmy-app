@@ -26,15 +26,14 @@
         </span>
       </div>
     </b-field>
-    <form>
+    <form @submit.prevent="signUp">
       <hr />
       <b-field>
         <b-input
           type="email"
           icon="email"
           v-model="email"
-          placeholder="jsmith@example.org"
-          @keyup.enter.prevent="signUp">
+          placeholder="jsmith@example.org">
         </b-input>
       </b-field>
       <b-field
@@ -51,8 +50,7 @@
         <b-input
           icon="person"
           placeholder="Full Name"
-          v-model="displayName"
-          @keyup.enter="signUp">
+          v-model="displayName">
         </b-input>
       </b-field>
       <b-field>
@@ -61,8 +59,7 @@
           icon="lock"
           v-model="password"
           placeholder="Password"
-          password-reveal
-          @keyup.enter="signUp">
+          password-reveal>
         </b-input>
       </b-field>
       <b-field>
@@ -71,15 +68,13 @@
           icon="lock"
           v-model="passwordVerification"
           placeholder="Confirm Password"
-          password-reveal
-          @keyup.enter="signUp">
+          password-reveal>
         </b-input>
       </b-field>
       <hr>
       <p class="control">
         <button
           class="button is-primary"
-          @click.self.prevent="signUp"
           :class="{'is-loading': authenticating}">
           Sign Up
         </button>

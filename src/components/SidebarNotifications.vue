@@ -2,7 +2,7 @@
   <b-dropdown
     class="is-marginless is-right-top">
     <a
-      class="navbar-item"
+      class="navbar-item is-close"
       slot="trigger"
       title="notifications">
       <b-icon icon="notifications" size="is-small" type="is-grey" />

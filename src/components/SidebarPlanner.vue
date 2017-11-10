@@ -1,36 +1,39 @@
 <template>
   <b-dropdown
-    class="is-marginless has-text-left is-right-top">
+    class="is-marginless has-text-left is-right-bottom">
     <a
       class="navbar-item is-close"
       slot="trigger"
-      title="help">
-      <b-icon icon="help" size="is-small" type="is-grey" />
+      title="activities">
+      <b-icon icon="library_books" />
+      <!-- <p class="is-size-8 is-uppercase">
+        People
+      </p> -->
     </a>
 
-    <b-dropdown-item>
+    <a class="dropdown-item">
       <b-icon icon="book" />
       Search Guides
-    </b-dropdown-item>
-    <!-- <hr class="dropdown-divider"> -->
-    <b-dropdown-item>
+    </a>
+    <hr class="dropdown-divider">
+    <a class="dropdown-item">
       <b-icon icon="question_answer" />
       Chat with Support
-    </b-dropdown-item>
-    <!-- <hr class="dropdown-divider"> -->
-    <b-dropdown-item
+    </a>
+    <hr class="dropdown-divider">
+    <a
       href="https://app.craft.io/share/ECB3A0152305843009665528183"
       target="_blank"
       class="dropdown-item">
       <b-icon icon="feedback" />
       Send feedback
-    </b-dropdown-item>
+    </a>
   </b-dropdown>
 </template>
 
 <script>
 export default {
-  name: 'SidebarHelp'
+  name: 'SidebarPlanner'
 }
 </script>
 

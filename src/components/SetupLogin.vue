@@ -13,21 +13,19 @@
         </router-link>
       </small>
     </p>
-    <form>
+    <form @submit.prevent="login">
       <b-field>
         <b-input
           type="email"
           icon="email"
           v-model="email"
-          placeholder="jsmith@example.org"
-          @keyup.enter="login">
+          placeholder="jsmith@example.org">
         </b-input>
       </b-field>
       <b-field>
         <b-input
           type="password"
           icon="lock"
-          @keyup.enter="login"
           placeholder="Password"
           v-model="password"
           password-reveal>
@@ -37,8 +35,7 @@
       <p class="control">
         <button
           class="button is-primary"
-          :class="{'is-loading': authenticating}"
-          @click.self.prevent="login">
+          :class="{'is-loading': authenticating}">
           Login
         </button>
       </p>

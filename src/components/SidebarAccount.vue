@@ -61,9 +61,14 @@
         </figure>
       </article>
     </b-dropdown-item>
-    <hr class="dropdown-divider">
-    <b-dropdown-item class="dropdown-item">
+    <b-dropdown-item separator />
+    <b-dropdown-item>
       <b-icon icon="videocam" /> Test Video Setup
+    </b-dropdown-item>
+    <b-dropdown-item separator />
+    <b-dropdown-item>
+      <p class="title is-6">Current Plan: <span class="tag is-primary is-rounded">Pro</span></p>
+      <p class="subtitle is-7">Unlimited minutes remaining this month</p>
     </b-dropdown-item>
     <b-modal
       :active.sync="isAccountModalActive"
@@ -149,5 +154,8 @@ export default {
 }
 .image.is-32x32 {
   max-height: initial;
+}
+a.navbar-item {
+  padding: 8px 12px;
 }
 </style>

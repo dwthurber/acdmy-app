@@ -119,8 +119,7 @@ body, html {
   height: 100%;
 }
 .is-close {
-  padding-left: 8px!important;
-  padding-right: 8px!important;
+  padding: 6px 16px!important;
 }
 .b-tabs, .tabs {
   margin-bottom: 16px!important;

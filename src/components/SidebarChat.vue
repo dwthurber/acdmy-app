@@ -4,33 +4,33 @@
     <a
       class="navbar-item is-close"
       slot="trigger"
-      title="help">
-      <b-icon icon="help" size="is-small" type="is-grey" />
+      title="chat">
+      <b-icon icon="chat" />
     </a>
 
-    <b-dropdown-item>
+    <a class="dropdown-item">
       <b-icon icon="book" />
       Search Guides
-    </b-dropdown-item>
-    <!-- <hr class="dropdown-divider"> -->
-    <b-dropdown-item>
+    </a>
+    <hr class="dropdown-divider">
+    <a class="dropdown-item">
       <b-icon icon="question_answer" />
       Chat with Support
-    </b-dropdown-item>
-    <!-- <hr class="dropdown-divider"> -->
-    <b-dropdown-item
+    </a>
+    <hr class="dropdown-divider">
+    <a
       href="https://app.craft.io/share/ECB3A0152305843009665528183"
       target="_blank"
       class="dropdown-item">
       <b-icon icon="feedback" />
       Send feedback
-    </b-dropdown-item>
+    </a>
   </b-dropdown>
 </template>
 
 <script>
 export default {
-  name: 'SidebarHelp'
+  name: 'SidebarChat'
 }
 </script>
 
