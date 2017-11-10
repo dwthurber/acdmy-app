@@ -5,7 +5,9 @@
       class="navbar-item is-close"
       slot="trigger"
       title="chat">
-      <b-icon icon="chat" />
+      <b-icon
+        icon="chat"
+        :class="{'is-small': fullscreen}" />
     </a>
 
     <a class="dropdown-item">
@@ -30,7 +32,10 @@
 
 <script>
 export default {
-  name: 'SidebarChat'
+  name: 'SidebarChat',
+  props: {
+    fullscreen: Boolean
+  }
 }
 </script>
 

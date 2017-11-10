@@ -4,7 +4,7 @@
       v-for="(user, index) in room.people"
       :user="user"
       :key="user['.key']"
-      v-if="user.online" />
+       />
   </div>
 </template>
 

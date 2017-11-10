@@ -3,7 +3,7 @@
     <AppVideobar />
     <section class="content columns is-mobile is-gapless">
       <div class="column">
-        <AppBlock :full="session.blockOne" />
+        <AppBlock />
       </div>
     </section>
   </div>
@@ -15,7 +15,7 @@ import AppBlock from '@/components/AppBlock'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'SessionLayoutVideobar',
+  name: 'LayoutVideobar',
   components: {
     AppVideobar,
     AppBlock
@@ -41,9 +41,9 @@ export default {
   flex-direction: column;
 }
 .videobar {
-  height: 12%;
+  height: 16%;
   border-bottom: 1px solid #cfcfcf;
-  min-height: 80px;
+  min-height: 88px;
 }
 .content {
   flex: 1;

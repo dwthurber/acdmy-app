@@ -4,8 +4,11 @@
     <a
       class="navbar-item is-close"
       slot="trigger"
-      title="people">
-      <b-icon icon="people" />
+      title="people"
+      >
+      <b-icon
+        icon="people"
+        :class="{'is-small': fullscreen}" />
       <!-- <p class="is-size-8 is-uppercase">
         People
       </p> -->
@@ -22,6 +25,9 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'SidebarPeople',
+  props: {
+    fullscreen: Boolean
+  },
   computed: {
     ...mapState(['room'])
   }

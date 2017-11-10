@@ -8,9 +8,10 @@ import MainDashboardAssets from '@/components/MainDashboardAssets'
 import MainDashboardPeople from '@/components/MainDashboardPeople'
 import MainDashboardSessions from '@/components/MainDashboardSessions'
 import MainDashboardSettings from '@/components/MainDashboardSettings'
-import MainRooms from '@/components/MainRooms'
+// import MainRooms from '@/components/MainRooms'
 import Session from '@/components/Session'
-import SessionLayoutVideobar from '@/components/SessionLayoutVideobar'
+import LayoutVideobar from '@/components/LayoutVideobar'
+import LayoutFreeform from '@/components/LayoutFreeform'
 import Setup from '@/components/Setup'
 import SetupLogin from '@/components/SetupLogin'
 import SetupSignup from '@/components/SetupSignup'
@@ -25,8 +26,13 @@ export default new Router({
       children: [
         {
           path: '/',
-          component: MainRooms,
+          component: LayoutFreeform,
           name: 'Main'
+        },
+        {
+          path: '/videobar',
+          component: LayoutVideobar,
+          name: 'SessionLayoutVideobar'
         },
         {
           path: '/r/:roomid/class',
@@ -72,8 +78,8 @@ export default new Router({
       name: 'Session',
       children: [
         {
-          path: '/r/:roomid/s/:sessionid/videobar',
-          component: SessionLayoutVideobar,
+          path: '/videobar',
+          component: LayoutVideobar,
           name: 'SessionLayoutVideobar'
         }
       ]

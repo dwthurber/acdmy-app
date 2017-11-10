@@ -5,7 +5,9 @@
       class="navbar-item is-close"
       slot="trigger"
       title="more">
-      <b-icon icon="more" />
+      <b-icon
+        icon="more"
+        :class="{'is-small': fullscreen}" />
       <!-- <p class="is-size-8 is-uppercase">
         People
       </p> -->
@@ -26,7 +28,10 @@
 
 <script>
 export default {
-  name: 'SidebarMore'
+  name: 'SidebarMore',
+  props: {
+    fullscreen: Boolean
+  }
 }
 </script>
 

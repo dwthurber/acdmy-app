@@ -1,11 +1,11 @@
 <template>
   <div class="columns is-mobile is-gapless">
-    <Sidebar />
+    <Sidebar :fullscreen.sync="fullscreen" />
     <div class="column" v-if="room.data">
 
-      <div class="box is-paddingless">
+      <div class="is-paddingless">
         <div class="hero is-fullheight">
-          <div class="hero-head">
+          <div class="hero-head" v-if="!fullscreen">
             <div class="level is-mobile">
               <div class="level-item">
                 <b-dropdown position="is-bottom-left">
@@ -29,14 +29,20 @@
                 </b-dropdown>
               </div>
               <div class="level-right">
+                <a class="navbar-item is-close" title="Enter Fullscreen" @click.prevent="fullscreen = true">
+                  <b-icon icon="fullscreen" />
+                </a>
                 <!-- <img class="level-item" src="../assets/acdmy.png" alt="Acdmy: Synchronous Online Learning Platform"> -->
               </div>
             </div>
           </div>
-          <div class="hero-body is-paddingless">
-            <!-- <router-view /> -->
+          <div class="hero-end is-paddingless">
+            <router-view />
           </div>
         </div>
+        <a v-if="fullscreen" class="navbar-item is-close fullscreen-exit" title="Exit Fullscreen" @click.prevent="fullscreen = false">
+          <b-icon icon="fullscreen_exit" />
+        </a>
       </div>
     </div>
     <b-loading v-else :active.sync="isLoading" :canCancel="false"></b-loading>
@@ -60,7 +66,8 @@ export default {
   data () {
     return {
       isCardModalActive: true,
-      isLoading: true
+      isLoading: true,
+      fullscreen: false
     }
   },
   beforeCreate () {
@@ -80,13 +87,7 @@ export default {
     })
   },
   mounted () {
-    // this.$store.dispatch('setSessionsRef', sessionsRef.child(this.userDetails.activeRoom))
-    // this.$store.dispatch('setPeopleRef', peopleRef.child(this.userDetails.activeRoom))
-    // this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.userDetails.activeRoom))
-    // this.$store.dispatch('setCurrentUserRef', peopleRef.child(this.userDetails.activeRoom).child(this.user.uid))
-    // if (this.userDetails.activeRoom) {
-    //   this.bindRefs()
-    // }
+
   },
   methods: {
     bindUserDetails () {
@@ -111,7 +112,8 @@ export default {
   margin-bottom: 1rem;
 }
 .hero-head {
-  padding: 0 .5rem;
+  /*padding: 0 .5rem;*/
+  margin-bottom: 1px;
 }
 .main {
   flex: 1;
@@ -124,7 +126,21 @@ img.level-item {
   max-height: 1.75rem;
 }
 .button .is-uppercase {
-  letter-spacing: 0.25rem;
+  letter-spacing: 0.2rem;
   font-weight: 300;
+}
+.hero-end {
+  flex-grow: 1;
+  display: flex;
+}
+.fullscreen-exit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #fff;
+  opacity: 0;
+}
+.fullscreen-exit:hover {
+  opacity: 0.8;
 }
 </style>

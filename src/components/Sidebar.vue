@@ -1,14 +1,14 @@
 <template>
   <div class="column is-narrow">
-    <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless">
+    <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless" :class="{'small-sidebar':fullscreen}">
       <div class="hero-head">
-        <SidebarAccount class="avatar" />
-        <SidebarPeople />
-        <p class="is-size-8 is-uppercase">
+        <SidebarAccount :fullscreen="fullscreen" class="avatar" />
+        <SidebarPeople :fullscreen="fullscreen" />
+        <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           People
         </p>
-        <SidebarLayout />
-        <p class="is-size-8 is-uppercase">
+        <SidebarLayout :fullscreen="fullscreen" />
+        <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           Layout
         </p>
         <!-- <SidebarActivities />
@@ -23,15 +23,15 @@
         <p class="is-size-8 is-uppercase">
           Menu
         </p> -->
-        <SidebarMore />
-        <p class="is-size-8 is-uppercase">
+        <SidebarMore :fullscreen="fullscreen" />
+        <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           More
         </p>
       </div>
       <div class="hero-end">
         <SidebarNotifications />
         <SidebarHelp />
-        <SidebarChat />
+        <SidebarChat :fullscreen="fullscreen" />
         <!-- <p class="is-size-8 is-uppercase">
           Chat
         </p> -->
@@ -54,6 +54,9 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'sidebar',
+  props: {
+    fullscreen: Boolean
+  },
   components: {
     SidebarHelp,
     SidebarNotifications,
@@ -73,13 +76,16 @@ export default {
 
 <style scoped>
 .avatar {
-  margin: .5rem auto;
+  margin-bottom: .5rem;
+}
+.hero-head {
+  padding-top: .5rem;
 }
 .hero-end {
   padding-bottom: .5rem;
 }
 .is-sidebar {
-  width: 64px;
+  width: 60px;
 }
 .hero-head .is-uppercase {
   opacity: 0;
@@ -92,5 +98,8 @@ export default {
 }
 .chat {
   margin-top: 8px;
+}
+.small-sidebar {
+  width: 52px;
 }
 </style>
