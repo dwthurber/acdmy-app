@@ -3,6 +3,36 @@
     <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless" :class="{'small-sidebar':fullscreen}">
       <div class="hero-head">
         <SidebarAccount :fullscreen="fullscreen" class="avatar" />
+        <div v-if="route.path != '/'">
+          <a
+            class="navbar-item is-close"
+            title="audio"
+            >
+            <b-icon
+              icon="mic_off"
+              :class="{'is-small': fullscreen}"
+              class="is-danger" />
+          </a>
+
+          <p v-if="!fullscreen" class="is-size-8 is-uppercase">
+            Audio
+          </p>
+        </div>
+        <div v-if="route.path != '/'">
+          <a
+            class="navbar-item is-close"
+            title="audio"
+            >
+            <b-icon
+              icon="videocam_off"
+              :class="{'is-small': fullscreen}"
+              class="is-danger" />
+          </a>
+
+          <p v-if="!fullscreen" class="is-size-8 is-uppercase">
+            Webcam
+          </p>
+        </div>
         <SidebarPeople :fullscreen="fullscreen" />
         <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           People
@@ -69,7 +99,7 @@ export default {
     SidebarPlanner
   },
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user', 'route'])
   }
 }
 </script>
