@@ -6,7 +6,7 @@
       class="navbar-item"
       slot="trigger"
       title="user profile">
-      <img v-if="user.photoURL" class="is-circle-image image" :class="{'is-24x24':fullscreen, 'is-32x32':!fullscreen}" :src="user.photoURL" alt="Profile Image">
+      <img v-if="user.photoURL" class="is-circle-image image" :class="{'is-16x16':fullscreen, 'is-32x32':!fullscreen}" :src="user.photoURL" alt="Profile Image">
       <img v-else class="is-circle-image image is-32x32" src="../assets/user-placeholder.png" alt="Profile Image">
     </a>
 

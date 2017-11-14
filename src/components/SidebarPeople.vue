@@ -1,6 +1,6 @@
 <template>
   <b-dropdown
-    class="is-marginless has-text-left is-right-bottom">
+    class="is-marginless has-text-left is-right-bottom" :class="{'is-right-center':room.people.length > 4}">
     <a
       class="navbar-item is-close"
       slot="trigger"
@@ -23,17 +23,16 @@
         </figure>
         <div class="media-content">
           <div class="content">
-            <p>
-              <strong>{{person.name}}</strong> <small>{{person.role}}</small>
-            </p>
+            <p class="title is-5">{{person.name}}</p>
+            <p class="subtitle is-7">{{person.role}}</p>
           </div>
+
+        </div>
+        <div class="media-right">
           <nav class="level is-mobile">
             <div class="level-left">
               <a class="level-item">
                 <b-icon icon="chat" size="is-small" />
-              </a>
-              <a class="level-item">
-                <b-icon icon="insert_chart" size="is-small" />
               </a>
               <a class="level-item">
                 <b-icon icon="more_vert" size="is-small" />
@@ -64,7 +63,7 @@ export default {
 .is-wide-dropdown {
   min-width: 300px;
   height: 100%;
-  max-height: 700px;
+  max-height: 92vh;
   overflow: scroll;
 }
 </style>

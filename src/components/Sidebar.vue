@@ -3,7 +3,7 @@
     <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless" :class="{'small-sidebar':fullscreen}">
       <div class="hero-head">
         <SidebarAccount :fullscreen="fullscreen" class="avatar" />
-        <div v-if="route.path != '/'">
+        <div>
           <a
             class="navbar-item is-close"
             title="audio"
@@ -18,10 +18,10 @@
             Audio
           </p>
         </div>
-        <div v-if="route.path != '/'">
+        <div>
           <a
             class="navbar-item is-close"
-            title="audio"
+            title="webcam"
             >
             <b-icon
               icon="videocam_off"
@@ -33,6 +33,20 @@
             Webcam
           </p>
         </div>
+        <div>
+          <a
+            class="navbar-item is-close"
+            title="hand"
+            >
+            <b-icon
+              icon="pan_tool"
+              :class="{'is-small': fullscreen}" />
+          </a>
+
+          <p v-if="!fullscreen" class="is-size-8 is-uppercase">
+            Hand
+          </p>
+        </div>
         <SidebarPeople :fullscreen="fullscreen" />
         <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           People
@@ -41,10 +55,10 @@
         <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           Layout
         </p>
-        <!-- <SidebarActivities />
-        <p class="is-size-8 is-uppercase">
+        <SidebarActivities :fullscreen="fullscreen" />
+        <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           Activities
-        </p> -->
+        </p>
         <!-- <SidebarPlanner />
         <p class="is-size-8 is-uppercase">
           Planner
@@ -130,6 +144,6 @@ export default {
   margin-top: 8px;
 }
 .small-sidebar {
-  width: 52px;
+  width: 50px;
 }
 </style>

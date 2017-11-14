@@ -98,6 +98,12 @@ body, html {
   top: 0;
   bottom: auto;
 }
+.dropdown.is-right-center .dropdown-menu {
+  right: auto;
+  left: 100%;
+  top: -550%;
+  bottom: auto;
+}
 .menu-label {
   padding-left: 8px;
 }

@@ -5,7 +5,9 @@
       class="navbar-item is-close"
       slot="trigger"
       title="activities">
-      <b-icon icon="apps" />
+      <b-icon
+        icon="apps"
+        :class="{'is-small': fullscreen}" />
       <!-- <p class="is-size-8 is-uppercase">
         People
       </p> -->
@@ -33,7 +35,10 @@
 
 <script>
 export default {
-  name: 'SidebarActivities'
+  name: 'SidebarActivities',
+  props: {
+    fullscreen: Boolean
+  }
 }
 </script>
 

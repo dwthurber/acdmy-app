@@ -41,30 +41,41 @@
         People
       </p> -->
     </a>
-
+    <!-- <b-dropdown-item custom>
+      <p class="subtitle is-7 is-uppercase">Freeform</p>
+    </b-dropdown-item> -->
     <b-dropdown-item value="/" href="#/">
-      <b-icon icon="group_work" />
+      <b-icon icon="group_work" size="is-small" />
       Freeform
     </b-dropdown-item>
+    <b-dropdown-item separator></b-dropdown-item>
+    <b-dropdown-item custom>
+      <p class="subtitle is-7 is-uppercase">Session Layouts</p>
+    </b-dropdown-item>
     <b-dropdown-item value="/videobar" href="#/videobar">
-      <b-icon icon="view_compact" />
+      <b-icon icon="view_compact" size="is-small" />
       Videobar
     </b-dropdown-item>
-    <b-dropdown-item value="/splitscreen" href="#/splitscreen">
-      <b-icon icon="view_quilt" />
-      Splitscreen
-    </b-dropdown-item>
-    <b-dropdown-item value="/presentation" href="#/presentation">
-      <b-icon icon="picture_in_picture_alt" />
-      Presentation
-    </b-dropdown-item>
     <b-dropdown-item value="/fullscreen" href="#/fullscreen">
-      <b-icon icon="view_comfy" />
+      <b-icon icon="view_comfy" size="is-small" />
       Fullscreen
     </b-dropdown-item>
-    <b-dropdown-item value="/groups" href="#/groups">
-      <b-icon icon="view_module" />
+    <b-dropdown-item value="/splitscreen" href="#/splitscreen" disabled>
+      <b-icon icon="view_quilt" size="is-small" />
+      Splitscreen
+    </b-dropdown-item>
+    <b-dropdown-item value="/presentation" href="#/presentation" disabled>
+      <b-icon icon="picture_in_picture_alt" size="is-small" />
+      Presentation
+    </b-dropdown-item>
+    <b-dropdown-item value="/groups" href="#/groups" disabled>
+      <b-icon icon="view_module" size="is-small" />
       Breakout Groups
+    </b-dropdown-item>
+    <b-dropdown-item separator></b-dropdown-item>
+    <b-dropdown-item disabled>
+      <b-icon icon="add_circle_outline" size="is-small" />
+      Add Custom
     </b-dropdown-item>
   </b-dropdown>
 </template>
