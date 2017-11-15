@@ -42,6 +42,15 @@
         </div>
       </article>
     </b-dropdown-item>
+    <b-dropdown-item separator></b-dropdown-item>
+    <b-dropdown-item>
+      <b-icon icon="people" size="is-small" />
+      View/Manage Groups
+    </b-dropdown-item>
+    <b-dropdown-item>
+      <b-icon icon="person_add" size="is-small" />
+      Add People
+    </b-dropdown-item>
   </b-dropdown>
 </template>
 

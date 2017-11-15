@@ -24,6 +24,10 @@
       <b-icon icon="video_library" size="is-small"></b-icon>
       Recordings
     </b-dropdown-item>
+    <b-dropdown-item disabled>
+      <b-icon icon="folder" size="is-small"></b-icon>
+      Assets
+    </b-dropdown-item>
     <b-dropdown-item separator></b-dropdown-item>
     <b-dropdown-item custom>
       <p class="subtitle is-7 is-uppercase">Options</p>
