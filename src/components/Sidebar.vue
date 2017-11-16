@@ -130,11 +130,12 @@ export default {
 }
 .is-sidebar {
   width: 60px;
+  transition-duration: 0.5s;
 }
 .hero-head .is-uppercase {
   opacity: 0;
   transition-duration: 0.5s;
-  margin-bottom: 0;
+  margin-bottom: 0.2rem;
 }
 .hero-head:hover .is-uppercase {
   opacity: 1;
@@ -145,5 +146,6 @@ export default {
 }
 .small-sidebar {
   width: 50px;
+  transition-duration: 0.5s;
 }
 </style>

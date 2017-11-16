@@ -6,7 +6,7 @@
       slot="trigger"
       title="activities">
       <b-icon
-        icon="apps"
+        icon="extension"
         :class="{'is-small': fullscreen}" />
       <!-- <p class="is-size-8 is-uppercase">
         People

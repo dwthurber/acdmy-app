@@ -1,32 +1,32 @@
 <template>
   <b-dropdown
     class="is-marginless has-text-left is-right-center"
-    v-model="route.path">
+    v-model="room.data.layout">
     <a
       class="navbar-item is-close"
       slot="trigger"
       title="layout">
-      <template v-if="route.path == '/videobar'">
+      <template v-if="room.data.layout == 'videobar'">
         <b-icon
           icon="view_compact"
           :class="{'is-small': fullscreen}" />
       </template>
-      <template v-else-if="route.path == '/splitscreen'">
+      <template v-else-if="room.data.layout == 'splitscreen'">
         <b-icon
           icon="view_quilt"
           :class="{'is-small': fullscreen}" />
       </template>
-      <template v-else-if="route.path == '/presentation'">
+      <template v-else-if="room.data.layout == 'presentation'">
         <b-icon
           icon="picture_in_picture_alt"
           :class="{'is-small': fullscreen}" />
       </template>
-      <template v-else-if="route.path == '/fullscreen'">
+      <template v-else-if="room.data.layout == 'fullscreen'">
         <b-icon
           icon="view_comfy"
           :class="{'is-small': fullscreen}" />
       </template>
-      <template v-else-if="route.path == '/groups'">
+      <template v-else-if="room.data.layout == 'groups'">
         <b-icon
           icon="group_work"
           :class="{'is-small': fullscreen}" />
@@ -44,7 +44,7 @@
     <!-- <b-dropdown-item custom>
       <p class="subtitle is-7 is-uppercase">Freeform</p>
     </b-dropdown-item> -->
-    <b-dropdown-item value="/" href="#/">
+    <b-dropdown-item @click="updateLayout('freeform')" value="freeform">
       <b-icon icon="group_work" size="is-small" />
       Freeform
     </b-dropdown-item>
@@ -52,23 +52,23 @@
     <b-dropdown-item custom>
       <p class="subtitle is-7 is-uppercase">Session Layouts</p>
     </b-dropdown-item>
-    <b-dropdown-item value="/videobar" href="#/videobar">
+    <b-dropdown-item @click="updateLayout('videobar')" value="videobar">
       <b-icon icon="view_compact" size="is-small" />
       Videobar
     </b-dropdown-item>
-    <b-dropdown-item value="/fullscreen" href="#/fullscreen">
+    <b-dropdown-item @click="updateLayout('fullscreen')" value="fullscreen">
       <b-icon icon="view_comfy" size="is-small" />
       Fullscreen
     </b-dropdown-item>
-    <b-dropdown-item value="/splitscreen" href="#/splitscreen" disabled>
+    <b-dropdown-item value="/splitscreen" disabled>
       <b-icon icon="view_quilt" size="is-small" />
       Splitscreen
     </b-dropdown-item>
-    <b-dropdown-item value="/presentation" href="#/presentation" disabled>
+    <b-dropdown-item value="/presentation" disabled>
       <b-icon icon="picture_in_picture_alt" size="is-small" />
       Presentation
     </b-dropdown-item>
-    <b-dropdown-item value="/groups" href="#/groups" disabled>
+    <b-dropdown-item value="/groups" disabled>
       <b-icon icon="view_module" size="is-small" />
       Breakout Groups
     </b-dropdown-item>
@@ -82,6 +82,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { db } from '@/firebase'
 
 export default {
   name: 'SidebarLayout',
@@ -89,7 +90,14 @@ export default {
     fullscreen: Boolean
   },
   computed: {
-    ...mapState(['route'])
+    ...mapState(['room'])
+  },
+  methods: {
+    updateLayout (val) {
+      let updates = {}
+      updates['/rooms/' + this.room.data['.key'] + '/layout'] = val
+      db.ref().update(updates)
+    }
   }
 }
 </script>
