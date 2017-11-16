@@ -2,7 +2,7 @@
   <div class="hero-head">
     <div class="level is-mobile">
       <div class="level-item">
-        <b-dropdown position="is-bottom-left">
+        <b-dropdown position="is-bottom-left" v-model="room.data['.key']">
           <a class="has-text-grey" slot="trigger">
             <span class="is-uppercase is-size-7">{{ room.data.name }}</span>
             <b-icon icon="keyboard_arrow_down" size="is-small"></b-icon>
@@ -16,8 +16,17 @@
           <b-dropdown-item custom>
             <p class="subtitle is-7 is-uppercase">Switch Rooms</p>
           </b-dropdown-item>
-          <b-dropdown-item>My Fantasic Classroom</b-dropdown-item>
-          <b-dropdown-item>A Room with a view</b-dropdown-item>
+          <b-dropdown-item
+            v-for="roomid in userRooms"
+            :key="roomid['.key']">
+            <div
+              v-for="(room, index) in allRooms"
+              v-if="room['.key'] == roomid['.key']"
+              :key="room['.key']"
+              :value="room['.key']">
+              {{room.name}}
+            </div>
+          </b-dropdown-item>
           <b-dropdown-item separator></b-dropdown-item>
           <b-dropdown-item><b-icon icon="add_circle_outline" size="is-small" /> Add a Room</b-dropdown-item>
         </b-dropdown>
@@ -40,7 +49,7 @@ export default {
   components: {
   },
   computed: {
-    ...mapState(['room', 'userRooms'])
+    ...mapState(['room', 'userRooms', 'allRooms'])
   },
   data () {
     return {

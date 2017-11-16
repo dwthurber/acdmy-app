@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-mobile is-gapless">
-    <Sidebar :fullscreen.sync="fullscreen" />
+    <Sidebar :fullscreen.sync="fullscreen" v-if="room.data" />
     <div class="column" v-if="room.data">
 
       <div class="is-paddingless">
@@ -28,7 +28,7 @@ import LayoutVideobar from '@/components/LayoutVideobar'
 import LayoutFullscreen from '@/components/LayoutFullscreen'
 import LayoutFreeform from '@/components/LayoutFreeform'
 import { mapState } from 'vuex'
-import { usersRef, roomsRef, peopleRef, sessionsRef } from '@/firebase'
+import { usersRef, roomsRef, peopleRef } from '@/firebase'
 import Firebase from 'firebase'
 
 export default {
@@ -67,28 +67,12 @@ export default {
     })
   },
   mounted () {
-    this.updateLayout()
+    this.setUserRooms()
   },
   methods: {
-    updateLayout () {
-      let layout = this.room.data.layout
-      this.$nextTick(function () {
-        if (layout === 'videobar') {
-          this.$router.replace({ name: 'SessionLayoutVideobar' })
-        } else {
-          this.$router.replace({ name: 'Main' })
-        }
-      })
-    },
-    bindUserDetails () {
-      let user = Firebase.auth().currentUser
-      this.$store.dispatch('setUserDetailsRef', usersRef.child(user.uid))
-    },
-    bindRefs () {
-      this.$store.dispatch('setSessionsRef', sessionsRef.child(this.userDetails.activeRoom))
-      this.$store.dispatch('setPeopleRef', peopleRef.child(this.userDetails.activeRoom))
-      this.$store.dispatch('setCurrentRoomRef', roomsRef.child(this.userDetails.activeRoom))
-      this.$store.dispatch('setCurrentUserRef', peopleRef.child(this.userDetails.activeRoom).child(this.user.uid))
+    setUserRooms () {
+      this.$store.dispatch('setAllRoomsRef', roomsRef)
+      this.$store.dispatch('setUserRoomsRef', usersRef.child(this.user.uid).child('rooms'))
     }
   }
 }
