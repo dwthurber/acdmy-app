@@ -1,7 +1,7 @@
 <template>
   <div class="columns is-mobile is-gapless">
-    <Sidebar :fullscreen.sync="fullscreen" v-if="room.data" />
-    <div class="column" v-if="room.data">
+    <Sidebar :fullscreen.sync="fullscreen" v-if="room.data && user" />
+    <div class="column" v-if="room.data && user">
 
       <div class="is-paddingless">
         <div class="hero is-fullheight">
@@ -15,6 +15,28 @@
         <a v-if="fullscreen" class="navbar-item is-close fullscreen-exit" title="Exit Fullscreen" @click.prevent="fullscreen = false">
           <b-icon icon="fullscreen_exit" />
         </a>
+      </div>
+    </div>
+    <div class="column hero is-fullheight is-primary" v-else-if="!user">
+      <div class="hero-head">
+        <div class="container">
+          <img class="brand" src="../assets/acdmy-white.png" />
+        </div>
+      </div>
+      <div class="hero-body">
+        <div class="container">
+          <h2 class="title">
+            Welcome.
+          </h2>
+          <h3 class="subtitle">
+            You are not currently logged in. Please <router-link class="button is-light is-outlined" :to="{ name: 'SetupLogin', params: {} }">Login</router-link> or <router-link class="button is-light is-outlined" :to="{ name: 'SetupSignup', params: {} }">Signup</router-link>
+          </h3>
+        </div>
+      </div>
+      <div class="hero-foot">
+        <div class="container">
+          <small>&copy; Acdmy.io</small>
+        </div>
       </div>
     </div>
     <b-loading v-else :active.sync="isLoading" :canCancel="false"></b-loading>
@@ -96,5 +118,15 @@ export default {
 }
 .fullscreen-exit:hover {
   opacity: 0.8;
+}
+.brand {
+  height: 60px;
+  margin: 48px 0;
+}
+.hero-foot {
+  margin: 48px 0;
+}
+.subtitle {
+  line-height: 2.1rem;
 }
 </style>
