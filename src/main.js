@@ -11,7 +11,7 @@ sync(store, router)
 
 Vue.use(Buefy)
 
-Vue.config.productionTip = true
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
