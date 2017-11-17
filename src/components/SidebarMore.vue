@@ -12,7 +12,7 @@
         People
       </p> -->
     </a>
-    <b-dropdown-item disabled>
+    <b-dropdown-item disabled v-if="room.user.role != 'Student'">
       <b-icon icon="library_books" size="is-small"></b-icon>
       Session planner
     </b-dropdown-item>
@@ -24,19 +24,19 @@
       <b-icon icon="video_library" size="is-small"></b-icon>
       Recordings
     </b-dropdown-item>
-    <b-dropdown-item disabled>
+    <b-dropdown-item disabled v-if="room.user.role != 'Student'">
       <b-icon icon="folder" size="is-small"></b-icon>
       Assets
     </b-dropdown-item>
-    <b-dropdown-item separator></b-dropdown-item>
-    <b-dropdown-item custom>
+    <b-dropdown-item separator v-if="room.data.owner == user.uid || room.user.role != 'Student'"></b-dropdown-item>
+    <b-dropdown-item custom v-if="room.data.owner == user.uid || room.user.role != 'Student'">
       <p class="subtitle is-7 is-uppercase">Options</p>
     </b-dropdown-item>
-    <b-dropdown-item disabled>
+    <b-dropdown-item disabled v-if="room.user.role != 'Student'">
       <b-icon icon="done_all" size="is-small"></b-icon>
       Show Engagement
     </b-dropdown-item>
-    <b-dropdown-item >
+    <b-dropdown-item v-if="room.data.owner == user.uid">
       <b-icon icon="settings" size="is-small"></b-icon>
       Room Settings
     </b-dropdown-item>
@@ -53,8 +53,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'SidebarMore',
+  computed: {
+    ...mapState([
+      'user',
+      'room'
+    ])
+  },
   props: {
     fullscreen: Boolean
   }

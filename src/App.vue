@@ -101,7 +101,7 @@ body, html {
 .dropdown.is-right-center .dropdown-menu {
   right: auto;
   left: 100%;
-  top: -550%;
+  top: -600%;
   bottom: auto;
 }
 .menu-label {

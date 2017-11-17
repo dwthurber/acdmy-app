@@ -43,13 +43,17 @@
       </article>
     </b-dropdown-item>
     <b-dropdown-item separator></b-dropdown-item>
-    <b-dropdown-item>
-      <b-icon icon="people" size="is-small" />
-      View/Manage Groups
-    </b-dropdown-item>
-    <b-dropdown-item>
-      <b-icon icon="person_add" size="is-small" />
-      Add People
+    <b-dropdown-item custom>
+      <div class="level">
+        <button class="button is-primary level-item">
+          <b-icon icon="people" size="is-small" />
+          &nbsp; Groups
+        </button>
+        <a class="level-item">
+          <b-icon icon="person_add" size="is-small" />
+          &nbsp; Add People
+        </a>
+      </div>
     </b-dropdown-item>
   </b-dropdown>
 </template>

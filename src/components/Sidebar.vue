@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-narrow">
+  <div class="column is-narrow" v-if="room.user">
     <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless" :class="{'small-sidebar':fullscreen}">
       <div class="hero-head">
         <SidebarAccount :fullscreen="fullscreen" class="avatar" />
@@ -51,12 +51,12 @@
         <p v-if="!fullscreen" class="is-size-8 is-uppercase">
           People
         </p>
-        <SidebarLayout :fullscreen="fullscreen" />
-        <p v-if="!fullscreen" class="is-size-8 is-uppercase">
+        <SidebarLayout :fullscreen="fullscreen" v-if="room.user.role != 'Student'" />
+        <p v-if="!fullscreen && room.user.role != 'Student'" class="is-size-8 is-uppercase">
           Layout
         </p>
-        <SidebarActivities :fullscreen="fullscreen" />
-        <p v-if="!fullscreen" class="is-size-8 is-uppercase">
+        <SidebarActivities :fullscreen="fullscreen" v-if="room.user.role != 'Student'" />
+        <p v-if="!fullscreen && room.user.role != 'Student'" class="is-size-8 is-uppercase">
           Activities
         </p>
         <!-- <SidebarPlanner />
@@ -113,7 +113,7 @@ export default {
     SidebarPlanner
   },
   computed: {
-    ...mapState(['user', 'route'])
+    ...mapState(['user', 'route', 'room'])
   }
 }
 </script>

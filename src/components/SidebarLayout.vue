@@ -1,6 +1,6 @@
 <template>
   <b-dropdown
-    class="is-marginless has-text-left is-right-center"
+    class="is-marginless has-text-left is-right-top"
     v-model="room.data.layout">
     <a
       class="navbar-item is-close"
@@ -72,11 +72,11 @@
       <b-icon icon="view_module" size="is-small" />
       Breakout Groups
     </b-dropdown-item>
-    <b-dropdown-item separator></b-dropdown-item>
+    <!-- <b-dropdown-item separator></b-dropdown-item>
     <b-dropdown-item disabled>
       <b-icon icon="add_circle_outline" size="is-small" />
       Add Custom
-    </b-dropdown-item>
+    </b-dropdown-item> -->
   </b-dropdown>
 </template>
 
@@ -95,7 +95,7 @@ export default {
   methods: {
     updateLayout (val) {
       let updates = {}
-      updates['/rooms/' + this.room.data['.key'] + '/layout'] = val
+      updates['/rooms/' + this.room.data.id + '/layout'] = val
       db.ref().update(updates)
     }
   }

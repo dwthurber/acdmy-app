@@ -18,17 +18,20 @@
           </b-dropdown-item>
           <b-dropdown-item
             v-for="roomid in userRooms"
-            :key="roomid['.key']">
+            :key="roomid['.key']"
+            :class="{'is-active':roomid['.key'] == room.data.id}"
+            :custom="roomid['.key'] == room.data.id">
             <div
               v-for="(room, index) in allRooms"
               v-if="room['.key'] == roomid['.key']"
               :key="room['.key']"
-              :value="room['.key']">
+              :value="room['.key']"
+              @click="switchRooms(room['.key'])">
               {{room.name}}
             </div>
           </b-dropdown-item>
           <b-dropdown-item separator></b-dropdown-item>
-          <b-dropdown-item><b-icon icon="add_circle_outline" size="is-small" /> Add a Room</b-dropdown-item>
+          <b-dropdown-item @click="createRoom()"><b-icon icon="add_circle_outline" size="is-small" /> Add a Room</b-dropdown-item>
         </b-dropdown>
       </div>
       <div class="level-right">
@@ -43,13 +46,14 @@
 
 <script>
 import { mapState } from 'vuex'
+import { db, roomsRef, peopleRef } from '@/firebase'
 
 export default {
   name: 'MainHeader',
   components: {
   },
   computed: {
-    ...mapState(['room', 'userRooms', 'allRooms'])
+    ...mapState(['room', 'userRooms', 'allRooms', 'user'])
   },
   data () {
     return {
@@ -58,6 +62,57 @@ export default {
   mounted () {
   },
   methods: {
+    createRoom () {
+      let toast = this.$toast
+      this.$dialog.prompt({
+        message: `What do you want to call your room?`,
+        inputMaxlength: 50,
+        inputPlaceholder: 'e.g. My Awesome Classroom',
+        onConfirm: (value) => {
+          let newRoomKey = roomsRef.push().key
+          const user = {
+            name: this.user.displayName,
+            profile_picture: this.user.photoURL,
+            role: 'Instructor'
+          }
+          const newRoom = {
+            name: value,
+            id: newRoomKey,
+            layout: 'freeform',
+            owner: this.user.uid
+          }
+
+          let updates = {}
+          updates['/rooms/' + newRoomKey] = newRoom
+          updates['/people/' + newRoomKey + '/' + this.user.uid] = user
+          db.ref().update(updates)
+
+          let indexes = {}
+          indexes['/users/' + this.user.uid + '/rooms/' + newRoomKey] = true
+          indexes['/rooms/' + newRoomKey + '/users/' + this.user.uid] = true
+          db.ref().update(indexes)
+
+          let activeRoom = {}
+          activeRoom['/users/' + this.user.uid + '/activeRoom'] = newRoomKey
+          db.ref().update(activeRoom)
+
+          this.$store.dispatch('setCurrentRoomRef', roomsRef.child(newRoomKey))
+          this.$store.dispatch('setPeopleRef', peopleRef.child(newRoomKey))
+          this.$store.dispatch('setCurrentUserRef', peopleRef.child(newRoomKey).child(this.user.uid))
+
+          toast.open(value + ' created!')
+        }
+      })
+    },
+    switchRooms (val) {
+      let activeRoom = {}
+      activeRoom['/users/' + this.user.uid + '/activeRoom'] = val
+      db.ref().update(activeRoom)
+
+      this.$store.dispatch('setCurrentRoomRef', roomsRef.child(val))
+      this.$store.dispatch('setPeopleRef', peopleRef.child(val))
+      this.$store.dispatch('setCurrentUserRef', peopleRef.child(val).child(this.user.uid))
+    }
   }
 }
 </script>
@@ -73,5 +128,9 @@ export default {
 .level-item .has-text-grey {
   letter-spacing: 0.15rem;
   font-weight: 300;
+}
+.dropdown-item.is-active {
+  background-color: hsl(205, 36%, 43%);
+  color: #fff;
 }
 </style>

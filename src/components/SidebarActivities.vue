@@ -1,6 +1,6 @@
 <template>
   <b-dropdown
-    class="is-marginless has-text-left is-right-bottom">
+    class="is-marginless has-text-left is-right-top">
     <a
       class="navbar-item is-close"
       slot="trigger"
