@@ -45,7 +45,7 @@
       <p class="subtitle is-7 is-uppercase">Freeform</p>
     </b-dropdown-item> -->
     <b-dropdown-item @click="updateLayout('freeform')" value="freeform">
-      <b-icon icon="group_work" size="is-small" />
+      <b-icon icon="group_work" />
       Freeform
     </b-dropdown-item>
     <b-dropdown-item separator></b-dropdown-item>
@@ -53,23 +53,23 @@
       <p class="subtitle is-7 is-uppercase">Session Layouts</p>
     </b-dropdown-item>
     <b-dropdown-item @click="updateLayout('videobar')" value="videobar">
-      <b-icon icon="view_compact" size="is-small" />
+      <b-icon icon="view_compact" />
       Videobar
     </b-dropdown-item>
     <b-dropdown-item @click="updateLayout('fullscreen')" value="fullscreen">
-      <b-icon icon="view_comfy" size="is-small" />
+      <b-icon icon="view_comfy" />
       Fullscreen
     </b-dropdown-item>
     <b-dropdown-item value="/splitscreen" disabled>
-      <b-icon icon="view_quilt" size="is-small" />
+      <b-icon icon="view_quilt" />
       Splitscreen
     </b-dropdown-item>
     <b-dropdown-item value="/presentation" disabled>
-      <b-icon icon="picture_in_picture_alt" size="is-small" />
+      <b-icon icon="picture_in_picture_alt" />
       Presentation
     </b-dropdown-item>
     <b-dropdown-item value="/groups" disabled>
-      <b-icon icon="view_module" size="is-small" />
+      <b-icon icon="view_module" />
       Breakout Groups
     </b-dropdown-item>
     <!-- <b-dropdown-item separator></b-dropdown-item>

@@ -11,19 +11,13 @@
           <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="edit" size="is-medium" />
-              <p class="is-size-7 is-uppercase">Collaboration</p>
+              <p class="is-size-7 is-uppercase">Document</p>
             </a>
           </div>
           <div class="column is-4">
             <a class="has-text-grey">
               <b-icon icon="folder" size="is-medium" />
               <p class="is-size-7 is-uppercase">Asset</p>
-            </a>
-          </div>
-          <div class="column is-4">
-            <a class="has-text-grey">
-              <b-icon icon="question_answer" size="is-medium" />
-              <p class="is-size-7 is-uppercase">Chat</p>
             </a>
           </div>
           <div class="column is-4">

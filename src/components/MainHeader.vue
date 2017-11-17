@@ -11,7 +11,7 @@
           <b-dropdown-item custom>
             <p class="subtitle is-7 is-uppercase">Options</p>
           </b-dropdown-item>
-          <b-dropdown-item>Rename</b-dropdown-item>
+          <b-dropdown-item @click="renameRoom()">Rename</b-dropdown-item>
           <b-dropdown-item separator></b-dropdown-item>
           <b-dropdown-item custom>
             <p class="subtitle is-7 is-uppercase">Switch Rooms</p>
@@ -19,8 +19,7 @@
           <b-dropdown-item
             v-for="roomid in userRooms"
             :key="roomid['.key']"
-            :class="{'is-active':roomid['.key'] == room.data.id}"
-            :custom="roomid['.key'] == room.data.id">
+            :class="{'is-active':roomid['.key'] == room.data.id}">
             <div
               v-for="(room, index) in allRooms"
               v-if="room['.key'] == roomid['.key']"
@@ -68,6 +67,7 @@ export default {
         message: `What do you want to call your room?`,
         inputMaxlength: 50,
         inputPlaceholder: 'e.g. My Awesome Classroom',
+        confirmText: 'Create',
         onConfirm: (value) => {
           let newRoomKey = roomsRef.push().key
           const user = {
@@ -104,6 +104,22 @@ export default {
         }
       })
     },
+    renameRoom () {
+      let toast = this.$toast
+      this.$dialog.prompt({
+        message: `Enter a new name`,
+        inputMaxlength: 50,
+        inputPlaceholder: this.room.data.name,
+        confirmText: 'Save',
+        onConfirm: (value) => {
+          let updates = {}
+          updates['/rooms/' + this.room.data.id + '/name'] = value
+          db.ref().update(updates)
+
+          toast.open('Name updated to: ' + value)
+        }
+      })
+    },
     switchRooms (val) {
       let activeRoom = {}
       activeRoom['/users/' + this.user.uid + '/activeRoom'] = val
@@ -128,9 +144,5 @@ export default {
 .level-item .has-text-grey {
   letter-spacing: 0.15rem;
   font-weight: 300;
-}
-.dropdown-item.is-active {
-  background-color: hsl(205, 36%, 43%);
-  color: #fff;
 }
 </style>

@@ -49,6 +49,12 @@
                     Logout
                   </a>
                 </small>
+                <span v-if="userDetails.isAdmin">|</span>
+                <small v-if="userDetails.isAdmin">
+                  <a>
+                    Admin
+                  </a>
+                </small>
               </p>
             </p>
           </div>
@@ -98,7 +104,8 @@ export default {
   computed: {
     ...mapState([
       'user',
-      'route'
+      'route',
+      'userDetails'
     ])
   },
   data () {

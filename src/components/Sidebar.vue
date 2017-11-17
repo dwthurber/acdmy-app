@@ -137,7 +137,7 @@ export default {
   transition-duration: 0.5s;
   margin-bottom: 0.2rem;
 }
-.hero-head:hover .is-uppercase {
+.is-sidebar:hover .is-uppercase {
   opacity: 1;
   transition-duration: 0.5s;
 }

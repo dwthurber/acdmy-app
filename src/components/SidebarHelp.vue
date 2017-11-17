@@ -9,20 +9,20 @@
     </a>
 
     <b-dropdown-item>
-      <b-icon icon="book" size="is-small" />
+      <b-icon icon="book" />
       Search Guides
     </b-dropdown-item>
-    <!-- <hr class="dropdown-divider"> -->
+    <b-dropdown-item separator />
     <b-dropdown-item>
-      <b-icon icon="question_answer" size="is-small" />
+      <b-icon icon="question_answer" />
       Chat with Support
     </b-dropdown-item>
-    <!-- <hr class="dropdown-divider"> -->
+    <b-dropdown-item separator />
     <b-dropdown-item
       href="https://app.craft.io/share/ECB3A0152305843009665528183"
       target="_blank"
       class="dropdown-item">
-      <b-icon icon="feedback" size="is-small" />
+      <b-icon icon="feedback" />
       Send feedback
     </b-dropdown-item>
   </b-dropdown>
