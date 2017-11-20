@@ -71,11 +71,10 @@
           :class="{'is-loading': authenticating}">
           Sign Up
         </button>
-        <router-link
-          :to="{ name: 'SetupLogin', params: {} }"
+        <a
           class="button is-default">
           Cancel
-        </router-link>
+        </a>
       </p>
     </form>
   </div>

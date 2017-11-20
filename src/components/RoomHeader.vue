@@ -1,7 +1,7 @@
 <template>
   <div class="hero-head">
     <div class="level is-mobile">
-      <div class="level-item">
+      <div class="level-item" v-if="room.data">
         <b-dropdown position="is-bottom-left" v-model="room.data['.key']">
           <a class="has-text-grey" slot="trigger">
             <span class="is-uppercase is-size-7">{{ room.data.name }}</span>
@@ -48,7 +48,7 @@ import { mapState } from 'vuex'
 import { db, roomsRef, peopleRef } from '@/firebase'
 
 export default {
-  name: 'MainHeader',
+  name: 'RoomHeader',
   components: {
   },
   computed: {

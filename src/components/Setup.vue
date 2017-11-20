@@ -1,6 +1,6 @@
 <template>
   <div class="column hero is-fullheight">
-    <div class="hero-body">
+    <div class="hero-body" v-if="user == false || null">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-half">
@@ -35,6 +35,7 @@
         </div>
       </div>
     </div>
+    <b-loading v-else :active.sync="isLoading" :canCancel="false"></b-loading>
   </div>
 </template>
 
@@ -57,7 +58,8 @@ export default {
   },
   data () {
     return {
-      login: true
+      login: true,
+      isLoading: true
     }
   },
   methods: {
