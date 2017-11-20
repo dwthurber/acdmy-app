@@ -1,20 +1,12 @@
 <template>
-  <div class="columns is-mobile is-gapless">
+  <div class="columns is-mobile is-multiline is-gapless">
     <Sidebar :fullscreen.sync="fullscreen" v-if="room.data && user" />
-    <div class="column" v-if="room.data && user">
-
-      <div class="is-paddingless">
-        <div class="hero is-fullheight">
-          <MainHeader />
-          <div class="hero-end is-paddingless">
-            <LayoutVideobar v-if="room.data.layout == 'videobar'" />
-            <LayoutFullscreen v-else-if="room.data.layout == 'fullscreen'" />
-            <LayoutFreeform v-else />
-          </div>
-        </div>
-        <a v-if="fullscreen" class="navbar-item is-close fullscreen-exit" title="Exit Fullscreen" @click.prevent="fullscreen = false">
-          <b-icon icon="fullscreen_exit" />
-        </a>
+    <div class="column hero is-fullheight" v-if="room.data && user">
+      <MainHeader />
+      <div class="hero-end">
+        <LayoutVideobar v-if="room.data.layout == 'videobar'" />
+        <LayoutFullscreen v-else-if="room.data.layout == 'fullscreen'" />
+        <LayoutFreeform v-else />
       </div>
     </div>
     <div class="column hero is-fullheight is-primary" v-else-if="!user">
