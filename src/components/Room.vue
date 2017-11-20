@@ -1,43 +1,17 @@
 <template>
-  <div class="columns is-mobile is-multiline is-gapless">
-    <Sidebar :fullscreen.sync="fullscreen" v-if="room.data && user" />
-    <div class="column hero is-fullheight" v-if="room.data && user">
-      <MainHeader />
-      <div class="hero-end">
-        <LayoutVideobar v-if="room.data.layout == 'videobar'" />
-        <LayoutFullscreen v-else-if="room.data.layout == 'fullscreen'" />
-        <LayoutFreeform v-else />
-      </div>
-    </div>
-    <div class="column hero is-fullheight is-primary" v-else-if="!room.data || !user">
-      <div class="hero-head">
-        <div class="container">
-          <img class="brand" src="../assets/acdmy-white.png" />
-        </div>
-      </div>
-      <div class="hero-body">
-        <div class="container">
-          <h2 class="title">
-            Welcome.
-          </h2>
-          <h3 class="subtitle">
-            You are not currently logged in. Please <router-link class="button is-light is-outlined" :to="{ name: 'SetupLogin', params: {} }">Login</router-link> or <router-link class="button is-light is-outlined" :to="{ name: 'SetupSignup', params: {} }">Signup</router-link>
-          </h3>
-        </div>
-      </div>
-      <div class="hero-foot">
-        <div class="container">
-          <small>&copy; Acdmy.io</small>
-        </div>
-      </div>
+  <div class="column hero is-fullheight">
+    <RoomHeader />
+    <div class="hero-end" v-if="room.data && user">
+      <LayoutVideobar v-if="room.data.layout == 'videobar'" />
+      <LayoutFullscreen v-else-if="room.data.layout == 'fullscreen'" />
+      <LayoutFreeform v-else />
     </div>
     <b-loading v-else :active.sync="isLoading" :canCancel="false"></b-loading>
   </div>
 </template>
 
 <script>
-import Sidebar from '@/components/Sidebar'
-import MainHeader from '@/components/MainHeader'
+import RoomHeader from '@/components/RoomHeader'
 import LayoutVideobar from '@/components/LayoutVideobar'
 import LayoutFullscreen from '@/components/LayoutFullscreen'
 import LayoutFreeform from '@/components/LayoutFreeform'
@@ -46,10 +20,9 @@ import { usersRef, statusRef, roomsRef, peopleRef } from '@/firebase'
 import Firebase from 'firebase'
 
 export default {
-  name: 'main',
+  name: 'Room',
   components: {
-    Sidebar,
-    MainHeader,
+    RoomHeader,
     LayoutVideobar,
     LayoutFullscreen,
     LayoutFreeform

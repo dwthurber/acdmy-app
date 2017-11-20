@@ -4,14 +4,7 @@
       <strong>Hello!</strong>
     </h2>
     <p class="subtitle">
-      <small>
-        Glad you are here! Please setup a profile or
-        <router-link
-          class="has-text-primary"
-          :to="{ name: 'SetupLogin', params: {} }">
-          login
-        </router-link>
-      </small>
+      Please setup a profile.
     </p>
     <b-field>
       <button

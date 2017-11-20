@@ -1,28 +1,33 @@
 <template>
   <div id="app">
-    <router-view v-if="user != null"></router-view>
+    <div class="columns is-mobile is-multiline is-gapless" v-if="user" >
+      <Sidebar />
+      <Room />
+    </div>
+    <Setup v-else />
   </div>
 </template>
 
 <script>
 import Firebase from 'firebase'
+import Room from '@/components/Room'
+import Sidebar from '@/components/Sidebar'
+import Setup from '@/components/Setup'
 import { mapState } from 'vuex'
 
 export default {
   name: 'app',
+  components: {
+    Room,
+    Sidebar,
+    Setup
+  },
   computed: {
     ...mapState(['user', 'route'])
   },
   beforeCreate () {
     Firebase.auth().onAuthStateChanged((user) => {
       this.$store.commit('SET_USER', user || false)
-      if (!user && this.route.name !== 'SetupSignup') {
-        this.$router.replace({ name: 'SetupLogin' })
-      } else if (user && this.route.name === 'SetupLogin') {
-        this.$router.replace({ name: 'Main' })
-      } else if (user && this.route.name === 'SetupSignup') {
-        this.$router.replace({ name: 'Main' })
-      }
     })
   }
 }

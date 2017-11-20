@@ -1,17 +1,10 @@
 <template>
   <div key="login" class="box">
     <h2 class="title">
-      <strong>Welcome.</strong>
+      <strong>Welcome!</strong>
     </h2>
     <p class="subtitle">
-      Please login
-      <small> or
-        <router-link
-          class="has-text-primary"
-          :to="{ name: 'SetupSignup', params: {} }">
-          sign up
-        </router-link>
-      </small>
+      Please login.
     </p>
     <form @submit.prevent="login">
       <b-field>

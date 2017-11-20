@@ -3,13 +3,20 @@
 import Vue from 'vue'
 import App from './App'
 import Buefy from 'buefy'
-import { sync } from 'vuex-router-sync'
-import router from './router'
+import VueRouter from 'vue-router'
 import store from './store/index'
 
-sync(store, router)
-
 Vue.use(Buefy)
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: [
+    {
+      path: '*',
+      redirect: { path: '/' }
+    }
+  ]
+})
 
 Vue.config.productionTip = false
 

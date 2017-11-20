@@ -1,29 +1,30 @@
 <template>
-  <div class="hero is-fullheight">
+  <div class="column hero is-fullheight">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-half">
             <img class="brand" src="../assets/acdmy.png" />
             <!-- <p class="subtitle">Classroom of the Future</p> -->
-            <router-view></router-view>
+            <SetupLogin v-if="login" />
+            <SetupSignup v-else />
             <p class="has-text-centered has-text-grey">
-              <router-link
-                v-if="$route.path == '/signup'"
-                :to="{ name: 'SetupLogin', params: {} }">
-                Login
-              </router-link>
-              <router-link
-                v-else
-                :to="{ name: 'SetupSignup', params: {} }">
+              <a
+                v-if="login"
+                @click.prevent="login = false">
                 Sign Up
-              </router-link>
-              |
-              <a v-if="$route.path == '/signup'" href="#">
-                Need Help?
               </a>
-              <a v-else @click="resetPassword()">
+              <a
+                v-else
+                @click.prevent="login = true">
+                Login
+              </a>
+              |
+              <a v-if="login" @click="resetPassword()">
                 Forgot Password
+              </a>
+              <a v-else href="#">
+                Need Help?
               </a>
               |
               <a>
@@ -40,9 +41,15 @@
 <script>
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
+import SetupLogin from '@/components/SetupLogin'
+import SetupSignup from '@/components/SetupSignup'
 
 export default {
   name: 'Setup',
+  components: {
+    SetupLogin,
+    SetupSignup
+  },
   computed: {
     ...mapState([
       'user'
@@ -50,6 +57,7 @@ export default {
   },
   data () {
     return {
+      login: true
     }
   },
   methods: {

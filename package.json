@@ -39,7 +39,6 @@
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.5.5",
     "vuex": "^2.5.0",
-    "vuex-router-sync": "^4.3.2",
     "vuexfire": "^2.3.0",
     "webpack-bundle-analyzer": "^2.9.1",
     "webpack-hot-middleware": "^2.20.0",
