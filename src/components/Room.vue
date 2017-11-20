@@ -11,13 +11,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { usersRef, statusRef, roomsRef, peopleRef } from '@/firebase'
+import Firebase from 'firebase'
 import RoomHeader from '@/components/RoomHeader'
 import LayoutVideobar from '@/components/LayoutVideobar'
 import LayoutFullscreen from '@/components/LayoutFullscreen'
 import LayoutFreeform from '@/components/LayoutFreeform'
-import { mapState } from 'vuex'
-import { usersRef, statusRef, roomsRef, peopleRef } from '@/firebase'
-import Firebase from 'firebase'
 
 export default {
   name: 'Room',
@@ -28,7 +28,12 @@ export default {
     LayoutFreeform
   },
   computed: {
-    ...mapState(['user', 'route', 'userDetails', 'room'])
+    ...mapState([
+      'user',
+      'route',
+      'userDetails',
+      'room'
+    ])
   },
   data () {
     return {

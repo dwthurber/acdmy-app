@@ -16,7 +16,7 @@ import Setup from '@/components/Setup'
 import { mapState } from 'vuex'
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     Room,
     Sidebar,
