@@ -90,7 +90,6 @@ import AccountSettingsModal from '@/components/TheAccountSettingsModal'
 import AppUserAvatar from '@/components/AppUserAvatar'
 import Firebase from 'firebase'
 import { mapState } from 'vuex'
-import { peopleRef } from '@/firebase'
 
 export default {
   name: 'SidebarAccount',
@@ -117,13 +116,23 @@ export default {
   },
   methods: {
     logout () {
-      if (this.route.params.roomid) {
-        peopleRef.child(this.route.params.roomid).child(this.user.uid).update({
-          online: false
-        })
+      // set presence
+      const uid = this.user.uid
+      const userStatusDatabaseRef = Firebase.database().ref(`/status/${uid}`)
+      const isOfflineForDatabase = {
+        state: 'offline',
+        last_changed: Firebase.database.ServerValue.TIMESTAMP
       }
+      userStatusDatabaseRef.update(isOfflineForDatabase)
+
+      // clear vuexstore
       this.$store.commit('SET_USER_ROOMS', [])
       this.$store.commit('SET_ALL_ROOMS', [])
+      this.$store.commit('SET_CURRENT_ROOM', null)
+      this.$store.commit('SET_PEOPLE', [])
+      this.$store.commit('SET_CURRENT_USER', {})
+
+      // logout firebase auth
       Firebase.auth().signOut().then((response) => {
       }).catch((error) => {
         console.error('Sign Out Error', error)

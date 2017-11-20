@@ -17,7 +17,6 @@ export default {
   },
   data () {
     return {
-      user: null,
       topOffset: null,
       leftOffset: null
     }

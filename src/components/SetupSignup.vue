@@ -1,11 +1,11 @@
 <template>
   <div key="signup" class="box">
     <h2 class="title">
-      <strong>Welcome.</strong>
+      <strong>Hello!</strong>
     </h2>
     <p class="subtitle">
       <small>
-        Please setup your profile or
+        Glad you are here! Please setup a profile or
         <router-link
           class="has-text-primary"
           :to="{ name: 'SetupLogin', params: {} }">

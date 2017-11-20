@@ -9,7 +9,7 @@
         <LayoutFreeform v-else />
       </div>
     </div>
-    <div class="column hero is-fullheight is-primary" v-else-if="!user">
+    <div class="column hero is-fullheight is-primary" v-else-if="!room.data || !user">
       <div class="hero-head">
         <div class="container">
           <img class="brand" src="../assets/acdmy-white.png" />
@@ -42,7 +42,7 @@ import LayoutVideobar from '@/components/LayoutVideobar'
 import LayoutFullscreen from '@/components/LayoutFullscreen'
 import LayoutFreeform from '@/components/LayoutFreeform'
 import { mapState } from 'vuex'
-import { usersRef, roomsRef, peopleRef } from '@/firebase'
+import { usersRef, statusRef, roomsRef, peopleRef } from '@/firebase'
 import Firebase from 'firebase'
 
 export default {
@@ -67,9 +67,9 @@ export default {
   beforeCreate () {
     let self = this
     let user = Firebase.auth().currentUser
-    this.$store.dispatch('setUserDetailsRef', usersRef.child(user.uid))
+    this.$store.dispatch('setUserDetailsRef', statusRef.child(user.uid))
 
-    const activeRoomRef = usersRef.child(user.uid)
+    const activeRoomRef = statusRef.child(user.uid)
     activeRoomRef.once('value', function (snap) {
       let roomId = snap.val().activeRoom
       if (roomId) {
@@ -77,16 +77,34 @@ export default {
         self.$store.dispatch('setPeopleRef', peopleRef.child(roomId))
         self.$store.dispatch('setCurrentUserRef', peopleRef.child(roomId).child(user.uid))
       }
-      // console.log(roomId)
     })
   },
   mounted () {
     this.setUserRooms()
+    this.setPresence()
   },
   methods: {
     setUserRooms () {
       this.$store.dispatch('setAllRoomsRef', roomsRef)
       this.$store.dispatch('setUserRoomsRef', usersRef.child(this.user.uid).child('rooms'))
+    },
+    setPresence () {
+      const uid = this.user.uid
+      const userStatusDatabaseRef = Firebase.database().ref(`/status/${uid}`)
+      const isOfflineForDatabase = {
+        state: 'offline',
+        last_changed: Firebase.database.ServerValue.TIMESTAMP
+      }
+      const isOnlineForDatabase = {
+        state: 'online',
+        last_changed: Firebase.database.ServerValue.TIMESTAMP
+      }
+      Firebase.database().ref('.info/connected').on('value', function (snapshot) {
+        if (snapshot.val()) {
+          userStatusDatabaseRef.onDisconnect().update(isOfflineForDatabase)
+          userStatusDatabaseRef.update(isOnlineForDatabase)
+        }
+      })
     }
   }
 }
