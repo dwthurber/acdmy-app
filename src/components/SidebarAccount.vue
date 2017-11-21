@@ -74,7 +74,7 @@
       :active.sync="isAccountModalActive"
       has-modal-card
       canCancel>
-      <AccountSettingsModal />
+      <AccountSettingsModal :width="640" />
     </b-modal>
   </b-dropdown>
 </template>

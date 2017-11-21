@@ -6,7 +6,8 @@
       <LayoutFullscreen v-else-if="room.data.layout == 'fullscreen'" />
       <LayoutFreeform v-else />
     </div>
-    <b-loading v-else :active.sync="isLoading" :canCancel="false"></b-loading>
+    <RoomModal v-else-if="roomModal" />
+    <b-loading v-else :active="true" :canCancel="false"></b-loading>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import { mapState } from 'vuex'
 import { usersRef, statusRef, roomsRef, peopleRef } from '@/firebase'
 import Firebase from 'firebase'
+import RoomModal from '@/components/RoomModal'
 import RoomHeader from '@/components/RoomHeader'
 import LayoutVideobar from '@/components/LayoutVideobar'
 import LayoutFullscreen from '@/components/LayoutFullscreen'
@@ -23,6 +25,7 @@ export default {
   name: 'Room',
   components: {
     RoomHeader,
+    RoomModal,
     LayoutVideobar,
     LayoutFullscreen,
     LayoutFreeform
@@ -36,9 +39,10 @@ export default {
   },
   data () {
     return {
-      isCardModalActive: true,
-      isLoading: true,
-      fullscreen: false
+      fullscreen: false,
+      name: '',
+      roomId: '',
+      roomModal: false
     }
   },
   beforeCreate () {
@@ -53,6 +57,8 @@ export default {
         self.$store.dispatch('setCurrentRoomRef', roomsRef.child(roomId))
         self.$store.dispatch('setPeopleRef', peopleRef.child(roomId))
         self.$store.dispatch('setCurrentUserRef', peopleRef.child(roomId).child(user.uid))
+      } else {
+        self.roomModal = true
       }
     })
   },
@@ -115,5 +121,13 @@ export default {
 }
 .subtitle {
   line-height: 2.1rem;
+}
+.tile.is-ancestor {
+  margin: .1rem;
+}
+a.has-text-warning {
+  position: relative;
+  bottom: 5px;
+  right: 3px;
 }
 </style>

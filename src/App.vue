@@ -132,11 +132,8 @@ body, html {
 .is-close {
   padding: 6px 16px!important;
 }
-.b-tabs, .tabs {
-  margin-bottom: 16px!important;
-}
-.b-tabs {
-  max-height: 100%;
+.modal-content {
+  width: 960px;
 }
 a.has-text-grey:hover {
   color: hsl(0, 0%, 20%)!important;

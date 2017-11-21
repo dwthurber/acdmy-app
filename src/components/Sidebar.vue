@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-narrow" v-if="room.user">
+  <div class="column is-narrow" v-if="room.user && room.data">
     <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless" :class="{'small-sidebar':fullscreen}">
       <div class="hero-head">
         <SidebarAccount :fullscreen="fullscreen" class="avatar" />
