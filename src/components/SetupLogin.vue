@@ -4,7 +4,7 @@
       <strong>Welcome.</strong>
     </h2>
     <p class="subtitle">
-      Please login.
+      Please login or <a @click="loggingIn(false)">Signup</a>
     </p>
     <form @submit.prevent="login">
       <b-field>
@@ -55,7 +55,10 @@ export default {
     }
   },
   methods: {
-    resetPassword: function () {
+    loggingIn (val) {
+      this.$emit('update:login', val)
+    },
+    resetPassword () {
       let toast = this.$toast
       this.$dialog.prompt({
         message: `What's your email address?`,
@@ -85,10 +88,9 @@ export default {
         }
       })
     },
-    login: function () {
+    login () {
       this.authenticating = true
       let snackbar = this.$snackbar
-      let router = this.$router
       // let resetPassword = this.resetPassword()
 
       Firebase.auth().signInWithEmailAndPassword(this.email, this.password)
@@ -103,7 +105,7 @@ export default {
               position: 'is-bottom-left',
               actionText: 'signup',
               onAction: () => {
-                router.replace({ name: 'Signup' })
+                this.loggingIn(false)
               }
             })
           } else if (error.code === 'auth/invalid-email') {
@@ -117,7 +119,7 @@ export default {
           } else {
             snackbar.open({
               duration: 5000,
-              message: 'Hmm... Looks like that password was wrong',
+              message: 'Sorry, that password did not work',
               type: 'is-danger',
               position: 'is-bottom-left',
               actionText: 'reset password',

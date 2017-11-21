@@ -30,8 +30,7 @@ export default {
   computed: {
     ...mapState([
       'user',
-      'room',
-      'session'
+      'room'
     ])
   },
   data () {

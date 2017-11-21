@@ -52,7 +52,12 @@ export default {
   components: {
   },
   computed: {
-    ...mapState(['room', 'userRooms', 'allRooms', 'user'])
+    ...mapState([
+      'room',
+      'userRooms',
+      'allRooms',
+      'user'
+    ])
   },
   data () {
     return {

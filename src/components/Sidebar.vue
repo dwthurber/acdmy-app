@@ -3,7 +3,7 @@
     <div class="hero is-fullheight has-text-centered is-sidebar is-paddingless" :class="{'small-sidebar':fullscreen}">
       <div class="hero-head">
         <SidebarAccount :fullscreen="fullscreen" class="avatar" />
-        <div>
+        <div v-if="room.data.layout != 'freeform'">
           <a
             class="navbar-item is-close"
             title="audio"
@@ -18,7 +18,7 @@
             Audio
           </p>
         </div>
-        <div>
+        <div v-if="room.data.layout != 'freeform'">
           <a
             class="navbar-item is-close"
             title="webcam"
@@ -33,7 +33,7 @@
             Webcam
           </p>
         </div>
-        <div>
+        <div v-if="room.data.layout != 'freeform'">
           <a
             class="navbar-item is-close"
             title="hand"

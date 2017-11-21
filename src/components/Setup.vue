@@ -6,8 +6,8 @@
           <div class="column is-half">
             <img class="brand" src="../assets/acdmy.png" />
             <!-- <p class="subtitle">Classroom of the Future</p> -->
-            <SetupLogin v-if="login" />
-            <SetupSignup v-else />
+            <SetupLogin :login.sync="login" v-if="login" />
+            <SetupSignup :login.sync="login" v-else />
             <p class="has-text-centered has-text-grey">
               <a
                 v-if="login"
@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <b-loading v-else :active.sync="isLoading" :canCancel="false"></b-loading>
+    <b-loading v-else :canCancel="false"></b-loading>
   </div>
 </template>
 
@@ -58,8 +58,7 @@ export default {
   },
   data () {
     return {
-      login: true,
-      isLoading: true
+      login: true
     }
   },
   methods: {

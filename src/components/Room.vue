@@ -30,7 +30,6 @@ export default {
   computed: {
     ...mapState([
       'user',
-      'route',
       'userDetails',
       'room'
     ])

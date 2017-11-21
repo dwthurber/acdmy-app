@@ -19,7 +19,7 @@
         </span>
       </div>
     </b-field>
-    <form @submit.prevent="signUp">
+    <form @submit.prevent="signUp()">
       <hr />
       <b-field>
         <b-input
@@ -27,16 +27,6 @@
           icon="email"
           v-model="email"
           placeholder="jsmith@example.org">
-        </b-input>
-      </b-field>
-      <b-field
-        type="is-success"
-        v-if="route.query.room">
-        <b-input
-          icon="widgets"
-          :placeholder="route.query.room"
-          v-model="roomId"
-          disabled>
         </b-input>
       </b-field>
       <b-field>
@@ -72,6 +62,7 @@
           Sign Up
         </button>
         <a
+          @click="loggingIn(true)"
           class="button is-default">
           Cancel
         </a>
@@ -83,15 +74,17 @@
 <script>
 import Firebase from 'firebase'
 import { client } from '@/filestack'
-import { db, usersRef } from '@/firebase'
+import { usersRef } from '@/firebase'
 import { mapState } from 'vuex'
 
 export default {
   name: 'SetupSignup',
+  props: {
+    login: Boolean
+  },
   computed: {
     ...mapState([
-      'user',
-      'route'
+      'user'
     ])
   },
   data () {
@@ -102,7 +95,6 @@ export default {
       displayName: '',
       authenticating: false,
       profile: false,
-      roomId: '',
       file: null
     }
   },
@@ -129,16 +121,13 @@ export default {
         self.file = result.filesUploaded[0]
       })
     },
-    signUp: function () {
+    loggingIn (val) {
+      this.$emit('update:login', val)
+    },
+    signUp () {
       this.authenticating = true
       let snackbar = this.$snackbar
-      let router = this.$router
       let store = this.$store
-      let roomKey = this.route.query.room
-      // let roomId = this.roomId
-      // if (this.route.query.room) {
-      //   roomId = this.route.query.room
-      // }
 
       if (this.displayName && this.password && this.email) {
         if (this.password === this.passwordVerification) {
@@ -160,29 +149,6 @@ export default {
               displayName: this.displayName
             }
             usersRef.child(user.uid).set(profile)
-
-            // add user to room if defined by url
-            if (roomKey) {
-              console.log('Add to room ' + roomKey)
-              const userDetails = {
-                name: this.displayName,
-                role: 'Student'
-              }
-
-              let updates = {}
-              updates['/people/' + roomKey + '/' + user.uid] = userDetails
-              if (this.room.students.length) {
-                updates['/rooms/' + roomKey + '/students'] = this.room.students.length + 1
-              } else {
-                updates['/rooms/' + roomKey + '/students'] = 1
-              }
-              db.ref().update(updates)
-
-              let indexes = {}
-              indexes['/users/' + user.uid + '/rooms/' + roomKey] = true
-              indexes['/rooms/' + roomKey + '/users/' + user.uid] = true
-              db.ref().update(indexes)
-            }
 
             user.sendEmailVerification()
               .then((response) => {
@@ -218,7 +184,7 @@ export default {
                   position: 'is-bottom-left',
                   actionText: 'login',
                   onAction: () => {
-                    router.replace({ name: 'Login' })
+                    this.loggingIn(true)
                   }
                 })
               }
